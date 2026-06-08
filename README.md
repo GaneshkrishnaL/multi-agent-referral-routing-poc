@@ -1,10 +1,10 @@
-# 🏥 smart-care-triage
+# smart-care-triage
 
 Multi-agent Clinical Triage and Referral Routing Engine. Built on the Google Agent Development Kit (ADK 2.0) and backed by Google Gemini models, this application deterministically routes patient referrals, recommends in-network specialists, retrieves clinical guidelines, and synthesizes medical documentation.
 
 ---
 
-## 📐 System Architecture & Design
+##  System Architecture & Design
 
 ### System Overview Diagram
 This diagram shows the relationship between the Frontend Dashboard, FastAPI application server, the Google ADK workflow engine, local Model Context Protocol (MCP) data servers, and the Gemini API layer.

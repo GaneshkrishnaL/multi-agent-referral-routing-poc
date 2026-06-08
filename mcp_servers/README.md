@@ -7,7 +7,7 @@ the LLM agents reach knowledge/chart context through these tools.
 
 | Server | Tools | Backing | Used by |
 |--------|-------|---------|---------|
-| `clinical_knowledge_mcp.py` | `get_clinical_evidence` | curated guidelines (RAG + MedGemma in prod) | Knowledge agent, **live via McpToolset** |
+| `clinical_knowledge_mcp.py` | `get_clinical_evidence` | curated guidelines (RAG in prod) | Knowledge agent, **live via McpToolset** |
 | `patient_chart_mcp.py` | `get_patient_chart`, `get_recent_labs`, `get_prior_referrals` | BQ `patient_bundles` | chart context |
 | `claims_mcp.py` | `get_claims_history`, `get_specialty_claim_12mo`, `get_order_history` | BQ `patient_bundles.claims_12mo` | prior-engagement signal |
 | `specialist_directory_mcp.py` | `rank_specialists`, `search_specialists` | BQ `specialists` | specialist matching |

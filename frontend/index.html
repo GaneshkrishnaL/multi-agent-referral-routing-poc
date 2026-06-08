@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CenterWell | Next-Gen AI Clinical Referral Workspace</title>
+  
+  <!-- Markdown parser for rich clinical brief formatting -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* athenaOne Premium Eyes-Friendly Palette */
+      --athena-purple: #4f46e5;         /* Rich indigo */
+      --athena-purple-light: #6366f1;   /* Soft pleasant indigo */
+      --athena-purple-dark: #1e1b4b;    /* Premium deep slate-navy */
+      --athena-banner-bg: #111029;      /* Smooth space slate */
+      --athena-grey-bg: #f1f5f9;        /* Soft cool blue-grey, extremely calming */
+      --athena-border: #e2e8f0;         /* Soft slate borders */
+      --athena-text-main: #1e293b;      /* Slate-800 */
+      --athena-text-muted: #64748b;     /* Slate-500 */
+      
+      /* Premium AI Side Panel Palette */
+      --ai-bg-dark: #0b0c10;            /* Rich deep obsidian */
+      --ai-card-bg: rgba(21, 23, 33, 0.85);
+      --ai-border: rgba(255, 255, 255, 0.07);
+      --ai-text-main: #f8fafc;
+      --ai-text-muted: #94a3b8;
+      
+      /* Semantic Colors */
+      --accent-green: #10b981;
+      --accent-green-glow: rgba(16, 185, 129, 0.15);
+      --accent-orange: #e2b74c;         /* Soft noble gold/amber */
+      --accent-orange-glow: rgba(226, 183, 76, 0.15);
+      --accent-red: #ef4444;
+      --accent-red-glow: rgba(239, 68, 68, 0.15);
+      --accent-blue: #3b82f6;
+      
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--athena-grey-bg);
+      color: var(--athena-text-main);
+      font-family: var(--font-body);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* athenaOne Navigation Header */
+    .athena-header {
+      background: linear-gradient(135deg, var(--athena-purple-dark), #14112e);
+      color: #ffffff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      font-family: var(--font-display);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .athena-logo {
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .athena-logo::before {
+      content: '●';
+      color: var(--accent-orange);
+      font-size: 14px;
+    }
+
+    .athena-nav-tabs {
+      display: none; /* Removed as requested */
+    }
+
+    .nav-tab {
+      display: none; /* Removed as requested */
+    }
+
+    .nav-tab:hover, .nav-tab.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* athenaOne Patient Info Banner */
+    .athena-patient-banner {
+      background: linear-gradient(135deg, var(--athena-banner-bg), #1a1936);
+      color: #ffffff;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 65px;
+      border-bottom: 2px solid var(--accent-orange);
+    }
+
+    .patient-profile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .patient-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--athena-purple-light), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .patient-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .patient-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .patient-meta {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.75);
+      display: flex;
+      gap: 12px;
+    }
+
+    .patient-picker-container {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .patient-picker-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #b39ddb;
+    }
+
+    .patient-picker {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .patient-picker option {
+      background-color: var(--athena-banner-bg);
+      color: #ffffff;
+    }
+
+    .provider-info {
+      text-align: right;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.4;
+    }
+
+    /* main application workspace split screen */
+    .app-workspace {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      height: calc(100vh - 115px);
+      overflow: hidden;
+    }
+
+    /* Extreme Left Vertical Icon Dock */
+    .vertical-dock {
+      background-color: #1e1e24;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 16px;
+      gap: 20px;
+    }
+
+    .dock-icon {
+      color: #7f8c8d;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+
+    .dock-icon:hover, .dock-icon.active {
+      color: #ffffff;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* athenaOne Primary EMR Form Panel (Left 75%) */
+    .emr-panel {
+      background-color: var(--athena-grey-bg);
+      padding: 16px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .emr-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 16px;
+    }
+
+    /* Left Column of EMR */
+    .emr-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .emr-card {
+      background: #ffffff;
+      border: 1px solid var(--athena-border);
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .emr-card-header {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--athena-purple-dark);
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--athena-border);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-header-add {
+      color: var(--athena-purple-light);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .problems-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .problem-item {
+      padding: 8px;
+      background-color: #f8f9fa;
+      border-left: 3px solid var(--athena-purple-light);
+      border-radius: 4px;
+    }
+
+    .problem-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333333;
+    }
+
+    .problem-sub {
+      font-size: 10px;
+      color: var(--athena-text-muted);
+      margin-top: 2px;
+    }
+
+    .labs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .labs-table th {
+      text-align: left;
+      color: var(--athena-text-muted);
+      text-transform: uppercase;
+      font-size: 9px;
+      font-weight: 700;
+      padding-bottom: 6px;
+    }
+
+    .labs-table td {
+      padding: 6px 0;
+      border-bottom: 1px solid #f0f1f4;
+    }
+
+    .lab-value {
+      font-weight: 600;
+      text-align: right;
+    }
+    
+    .lab-value.abnormal {
+      color: var(--accent-orange);
+    }
+
+    /* Center Form Panel */
+    .emr-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-section-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--athena-border);
+      padding-bottom: 6px;
+    }
+
+    /* PDMP Drug Monitoring Display */
+    .pdmp-banner {
+      background: #fdfbf7;
+      border: 1px solid #faebcc;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .pdmp-title {
+      font-weight: 700;
+      color: #8a6d3b;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .pdmp-grid {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pdmp-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .pdmp-label {
+      font-weight: 500;
+      color: #555555;
+    }
+
+    .pdmp-val {
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: #f5f5f5;
+    }
+    
+    .pdmp-val.alert {
+      background: var(--accent-orange-glow);
+      color: var(--accent-orange);
+    }
+    
+    .pdmp-val.secure {
+      background: var(--accent-green-glow);
+      color: var(--accent-green);
+    }
+
+    .pdmp-footer {
+      font-size: 10px;
+      color: #999;
+    }
+
+    /* Diagnosis Header Groups */
+    .diagnosis-group-header {
+      background-color: var(--athena-purple-dark);
+      color: #ffffff;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 4px;
+      margin-top: 6px;
+    }
+
+    /* Main Order card block representing the cardiology referral form fields */
+    .order-details-card {
+      background-color: #ffffff;
+      border: 1px solid var(--athena-border);
+      border-radius: 6px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    .form-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--athena-text-muted);
+    }
+
+    .form-input {
+      background: #fdfdfd;
+      border: 1px solid var(--athena-border);
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--athena-text-main);
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--athena-purple-light);
+    }
+
+    /* specialty send to RECEIVER element (LOCKED vs UNLOCKED) */
+    .receiver-wrapper {
+      position: relative;
+    }
+
+    .receiver-box {
+      border: 2px solid var(--accent-red);
+      background: rgba(239, 68, 68, 0.02);
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      color: var(--accent-red);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .receiver-box.unlocked {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.02);
+      color: var(--accent-green);
+    }
+
+    .receiver-btn-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .receiver-lock-icon {
+      font-size: 14px;
+    }
+
+    .form-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-checkbox {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--athena-purple);
+      cursor: pointer;
+    }
+
+    .checkbox-label {
+      font-size: 12px;
+      color: var(--athena-text-main);
+      cursor: pointer;
+    }
+
+    /* Referral note textarea and clinical questions generator integration */
+    .form-textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    /* Action bottom buttons bar */
+    .order-actions-bar {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-triage {
+      background: linear-gradient(135deg, var(--athena-purple), var(--athena-purple-light));
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(124, 77, 255, 0.25);
+    }
+
+    .btn-triage:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(124, 77, 255, 0.4);
+    }
+
+    .btn-sign {
+      background: #e0e0e0;
+      color: #888888;
+      border: 1px solid var(--athena-border);
+      cursor: not-allowed;
+    }
+
+    .btn-sign.enabled {
+      background: linear-gradient(135deg, var(--accent-green), #059669);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-sign.enabled:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Guardrail Alert Notice Box */
+    .guardrail-notice {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      border-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 12px;
+      color: #c53030;
+    }
+
+    .guardrail-notice.resolved {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      color: #065f46;
+    }
+
+    /* Premium Dark/Frosted Referrals Side Sidebar (Right 25%) */
+    .ai-referrals-drawer {
+      background-color: var(--ai-bg-dark);
+      border-left: 1px solid var(--ai-border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      color: var(--ai-text-main);
+      box-shadow: -4px 0 30px rgba(0,0,0,0.4);
+    }
+
+    .drawer-header {
+      background-color: rgba(22, 22, 32, 0.5);
+      border-bottom: 1px solid var(--ai-border);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-title-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .drawer-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .drawer-subtitle {
+      font-size: 11px;
+      color: var(--ai-text-muted);
+    }
+
+    .drawer-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .drawer-action-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--ai-border);
+      color: var(--ai-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .drawer-action-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+    }
+
+    .drawer-content {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .recommendations-header {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #b39ddb;
+      margin-bottom: -4px;
+    }
+
+    /* Matched Specialist recommendation card block */
+    .specialist-card {
+      background-color: var(--ai-card-bg);
+      border: 1px solid var(--ai-border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .specialist-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--athena-purple-light);
+      box-shadow: 0 8px 24px rgba(124, 77, 255, 0.15);
+    }
+
+    .specialist-card.preferred {
+      border-color: rgba(16, 185, 129, 0.25);
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.03), rgba(22, 22, 32, 0.95));
+    }
+
+    .specialist-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .specialist-badge.preferred {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .specialist-badge.alternative {
+      background: rgba(255,255,255,0.05);
+      color: var(--ai-text-muted);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .specialist-name {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      padding-right: 70px;
+    }
+
+    .specialist-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--ai-text-muted);
+    }
+
+    .spec-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .spec-meta-label {
+      color: #5d6174;
+    }
+
+    .spec-meta-val {
+      font-weight: 500;
+      color: #d1d5db;
+    }
+
+    .btn-apply-rec {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      background: rgba(124, 77, 255, 0.1);
+      color: var(--athena-purple-light);
+      border: 1px solid rgba(124, 77, 255, 0.25);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .btn-apply-rec:hover {
+      background: var(--athena-purple-light);
+      color: #ffffff;
+    }
+
+    /* Human-in-the-loop Override form block */
+    .override-box {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px dashed var(--ai-border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .override-title {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #e2e8f0;
+    }
+
+    .override-textarea {
+      width: 100%;
+      min-height: 54px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--ai-border);
+      border-radius: 4px;
+      padding: 8px;
+      color: #ffffff;
+      font-size: 11px;
+      font-family: var(--font-body);
+      outline: none;
+      resize: none;
+      transition: all 0.2s;
+    }
+
+    .override-textarea:focus {
+      border-color: var(--accent-orange);
+    }
+
+    .btn-override-submit {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: none;
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-orange);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-override-submit:hover:not(:disabled) {
+      background: var(--accent-orange);
+      color: #000000;
+    }
+
+    .btn-override-submit:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Live Loading execution overlay */
+    .overlay-loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 50;
+      border-radius: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .overlay-loading.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(124, 77, 255, 0.1);
+      border-top-color: var(--athena-purple-light);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .spinner-text {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--athena-purple-dark);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Live Graph Flow execution visualization */
+    .graph-monitor-card {
+      background: #ffffff;
+      border: 1px solid var(--athena-border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .graph-nodes-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    .graph-node-bubble {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .bubble-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #f1f2f6;
+      border: 2px solid #ced6e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 10px;
+      color: #a4b0be;
+      transition: all 0.3s;
+    }
+
+    .graph-node-bubble.active .bubble-circle {
+      border-color: var(--athena-purple-light);
+      background: var(--athena-purple-dark);
+      color: #ffffff;
+      box-shadow: 0 0 8px var(--athena-purple-light);
+    }
+
+    .graph-node-bubble.completed .bubble-circle {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--accent-green);
+    }
+
+    .bubble-label {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--athena-text-muted);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .graph-node-bubble.active .bubble-label {
+      color: var(--athena-purple-light);
+    }
+
+    .graph-node-bubble.completed .bubble-label {
+      color: var(--accent-green);
+    }
+
+    .graph-flow-line {
+      flex: 1;
+      height: 2px;
+      background: #ced6e0;
+      margin: 0 -6px;
+      position: relative;
+      top: -8px;
+      z-index: 1;
+      min-width: 25px;
+    }
+
+    .graph-flow-line.active {
+      background: linear-gradient(to right, var(--accent-green), var(--athena-purple-light));
+    }
+
+    .graph-flow-line.completed {
+      background: var(--accent-green);
+    }
+
+    /* Supporting Clinical AI Documents Grid at Bottom */
+    .clinical-docs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .doc-block {
+      background: #ffffff;
+      border: 1px solid var(--athena-border);
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .doc-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--athena-border);
+      padding-bottom: 6px;
+    }
+
+    .doc-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--athena-purple-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .doc-copy-btn {
+      background: #f1f2f6;
+      border: 1px solid var(--athena-border);
+      color: var(--athena-text-main);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 10px;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .doc-copy-btn:hover {
+      background: var(--athena-purple-light);
+      color: #ffffff;
+      border-color: var(--athena-purple-light);
+    }
+
+    .questions-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .question-check-label {
+      display: flex;
+      gap: 10px;
+      padding: 8px 10px;
+      background: #f8f9fa;
+      border: 1px solid var(--athena-border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .question-check-label:hover {
+      background: rgba(124, 77, 255, 0.03);
+      border-color: rgba(124, 77, 255, 0.2);
+    }
+
+    .question-text {
+      font-size: 12px;
+      color: #333333;
+    }
+
+    .brief-text-area {
+      background: #f8f9fa;
+      border: 1px solid var(--athena-border);
+      border-radius: 6px;
+      padding: 16px;
+      font-size: 12px;
+      color: #333333;
+      white-space: normal;
+      max-height: 220px;
+      overflow-y: auto;
+      font-family: var(--font-body);
+      flex: 1;
+    }
+    .brief-text-area h3 {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: #a7f3d0;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .brief-text-area h3::before {
+      content: '✦';
+      color: var(--accent-orange, #e2b74c);
+    }
+    .brief-text-area p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin-bottom: 12px;
+    }
+    .brief-text-area ul, .brief-text-area ol {
+      margin-left: 18px;
+      margin-bottom: 12px;
+      color: #e2e8f0;
+    }
+    .brief-text-area li {
+      font-size: 12px;
+      line-height: 1.6;
+      margin-bottom: 4px;
+    }
+    .brief-text-area strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Premium AI Drawer Navigation Tabs */
+    .ai-tabs {
+      display: flex;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 8px;
+      padding: 4px;
+      margin-bottom: 12px;
+      border: 1px solid var(--ai-border);
+    }
+
+    .ai-tab {
+      flex: 1;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ai-text-muted);
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .ai-tab:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .ai-tab.active {
+      color: #ffffff;
+      background: var(--athena-purple-light);
+      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+    }
+
+    .tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .tab-content.active {
+      display: flex;
+    }
+
+    /* Vertical Pipeline Workflow Graph Styles */
+    .vertical-pipeline-card {
+      background: var(--ai-card-bg);
+      border: 1px solid var(--ai-border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .pipeline-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .pipeline-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ai-text-muted);
+      transition: all 0.3s ease;
+    }
+
+    .pipeline-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pipeline-label {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ai-text-muted);
+    }
+
+    .pipeline-desc {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .pipeline-connector {
+      width: 2px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      margin-left: 11px;
+      transition: all 0.3s ease;
+    }
+
+    /* Active Step Styling */
+    .pipeline-step.active .pipeline-icon {
+      border-color: var(--athena-purple-light);
+      background: var(--athena-purple-dark);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--athena-purple-light);
+    }
+
+    .pipeline-step.active .pipeline-label {
+      color: var(--athena-purple-light);
+    }
+
+    .pipeline-connector.active {
+      background: linear-gradient(to bottom, var(--accent-green), var(--athena-purple-light));
+    }
+
+    /* Completed Step Styling */
+    .pipeline-step.completed .pipeline-icon {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--accent-green);
+    }
+
+    .pipeline-step.completed .pipeline-label {
+      color: var(--accent-green);
+    }
+
+    .pipeline-connector.completed {
+      background: var(--accent-green);
+    }
+
+    /* Failed Step Styling */
+    .pipeline-step.failed .pipeline-icon {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+    }
+
+    .pipeline-step.failed .pipeline-label {
+      color: #ef4444;
+    }
+
+    /* Toast Notification Alert */
+    .toast-popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffffff;
+      border: 1px solid var(--athena-purple-light);
+      border-radius: 6px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      transform: translateY(150%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+
+    .toast-popup.show {
+      transform: translateY(0);
+    }
+
+    .toast-indicator {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+    .toast-indicator.success { color: var(--accent-green); }
+    .toast-indicator.info { color: var(--accent-blue); }
+    .toast-indicator.warning { color: var(--accent-orange); }
+
+    .toast-msg-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .toast-msg-desc {
+      font-size: 11px;
+      color: var(--athena-text-muted);
+    }
+
+    /* Dark theme styling for question checklist inside the side panel drawer */
+    .ai-referrals-drawer .question-check-label {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: var(--ai-border);
+      color: #ffffff;
+    }
+    .ai-referrals-drawer .question-check-label:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--athena-purple-light);
+    }
+    .ai-referrals-drawer .question-text {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CenterWell Top Bar Navigation Header -->
+  <header class="athena-header">
+    <div class="header-left">
+      <div class="athena-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6)); margin-right: 2px;">
+          <path d="M12 3C8 3 5 6.5 5 10C5 15.5 12 21 12 21C12 21 19 15.5 19 10C19 6.5 16 3 12 3Z" fill="url(#cw-grad)" />
+          <path d="M12 7V13M9 10H15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="cw-grad" x1="5" y1="3" x2="19" y2="21" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#10b981" />
+              <stop offset="100%" stop-color="#059669" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span style="background: linear-gradient(to right, #ffffff, #a7f3d0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CenterWell</span>
+      </div>
+      <div class="athena-nav-tabs">
+        <span class="nav-tab active">Calendar</span>
+        <span class="nav-tab">Patients</span>
+        <span class="nav-tab">Claims</span>
+        <span class="nav-tab">Financials</span>
+        <span class="nav-tab">Reports</span>
+        <span class="nav-tab">Quality</span>
+        <span class="nav-tab">Apps</span>
+        <span class="nav-tab">Support</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="patient-picker-container">
+        <span class="patient-picker-label">Active Chart</span>
+        <select class="patient-picker" id="patientDropdown" onchange="onPatientChange()">
+          <!-- Match database IDs exactly -->
+          <option value="MINT-0006">Bryan TEST (Cardiology)</option>
+          <option value="00fa1d1d-d444-7652-9b80-04c230e3df21">Jestine Heaney (Endocrinology)</option>
+          <option value="01dde0cb-618d-b1d2-89c4-d46a1fc23c97">Thanh Bradtke (Hematology)</option>
+          <option value="026776dc-b155-5439-ed5f-45e72e062fb2">Buddy Rath (Endocrinology)</option>
+          <option value="0659dab1-c5cc-5440-96cc-8bf415e01dc1">Ervin Walsh (Cardiology)</option>
+        </select>
+      </div>
+      <span>|</span>
+      <span>user</span>
+      <span>|</span>
+      <span style="cursor: pointer; text-decoration: underline;">Log out</span>
+    </div>
+  </header>
+
+  <!-- CenterWell Indigo Patient Info Banner -->
+  <div class="athena-patient-banner">
+    <div class="patient-profile">
+      <div class="patient-avatar" id="patientAvatar">BT</div>
+      <div class="patient-details">
+        <div class="patient-name" id="patientName">Bryan TEST</div>
+        <div class="patient-meta" id="patientDemo">35yo M | DOB 05-25-1990 | #2744160 | E#2744160</div>
+      </div>
+    </div>
+    <div class="provider-info">
+      <div><strong>Today</strong> | George Adesina, MD</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.7)">Insurance: <span id="patientInsurance">Medicare Gold Advantage</span></div>
+    </div>
+  </div>
+
+  <!-- Primary Workspace -->
+  <main class="app-workspace">
+    
+
+    <!-- athenaOne Central EMR Panel -->
+    <section class="emr-panel">
+      <div class="emr-grid">
+        
+        <!-- Left Sidebar: Patient Chart Sections -->
+        <aside class="emr-sidebar">
+          
+          <!-- Active Problems card block -->
+          <div class="emr-card">
+            <div class="emr-card-header">
+              <span>Active Problems</span>
+              <span class="card-header-add">+</span>
+            </div>
+            <div style="background-color: var(--accent-blue); color: #ffffff; padding: 3px 8px; border-radius: 4px; font-size: 9px; font-weight: 700; width: fit-content; margin-bottom: 8px; text-transform: uppercase;">
+              0 Diagnosis Gaps
+            </div>
+            <ul class="problems-list" id="problemsList">
+              <li class="problem-item">
+                <div class="problem-title">Essential hypertension</div>
+                <div class="problem-sub">ICD-10: I10</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Laboratories Card block -->
+          <div class="emr-card">
+            <div class="emr-card-header">
+              <span>Recent Laboratories</span>
+              <span class="card-header-add">+</span>
+            </div>
+            <table class="labs-table" id="labsTable">
+              <thead>
+                <tr>
+                  <th style="width: 60%;">Test</th>
+                  <th style="width: 40%; text-align: right;">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Systolic Blood Pressure</td>
+                  <td class="lab-value abnormal">145 mmHg</td>
+                </tr>
+                <tr>
+                  <td>Diastolic Blood Pressure</td>
+                  <td class="lab-value abnormal">95 mmHg</td>
+                </tr>
+                <tr>
+                  <td>LDL Cholesterol</td>
+                  <td class="lab-value">110 mg/dL</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </aside>
+
+        <!-- Center Column: Referral Forms and Orders -->
+        <div class="emr-form">
+          <div class="form-section-title">
+            <span>Orders & Referral Details</span>
+            <span style="font-size: 11px; color: var(--athena-purple-light); font-weight: 700; text-transform: uppercase;">+ Diagnoses & Orders</span>
+          </div>
+
+          <!-- Prescription drug monitoring report section (PDMP) -->
+          <div class="pdmp-banner">
+            <div class="pdmp-title">Prescription drug monitoring report</div>
+            <div class="pdmp-grid">
+              <div class="pdmp-badge">
+                <span class="pdmp-label">Misuse:</span>
+                <span class="pdmp-val alert">800</span>
+              </div>
+              <div class="pdmp-badge">
+                <span class="pdmp-label">Narcotics:</span>
+                <span class="pdmp-val alert">652</span>
+              </div>
+              <div class="pdmp-badge">
+                <span class="pdmp-label">Overdose:</span>
+                <span class="pdmp-val alert">650</span>
+              </div>
+              <div class="pdmp-badge">
+                <span class="pdmp-label">Sedatives:</span>
+                <span class="pdmp-val alert">430</span>
+              </div>
+              <div class="pdmp-badge">
+                <span class="pdmp-label">Stimulants:</span>
+                <span class="pdmp-val secure">000</span>
+              </div>
+            </div>
+            <div class="pdmp-footer">Viewed by user on 03/18/2026.</div>
+          </div>
+
+          <!-- Referral Form block nested inside EMR details -->
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="diagnosis-group-header" id="diagnosisGroupHeader">Chronic hypertension</div>
+            
+            <div class="order-details-card" style="position: relative;">
+              <!-- Loading cover element -->
+              <div class="overlay-loading" id="emrLoadingOverlay">
+                <div class="spinner"></div>
+                <div class="spinner-text" id="emrLoadingText">Running Clinical AI Triage...</div>
+              </div>
+
+              <div style="font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--athena-purple-dark); text-transform: capitalize; border-bottom: 1px solid var(--athena-border); padding-bottom: 6px; margin-bottom: 6px;" id="referralFormTitle">
+                cardiologist referral
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <span class="form-label">Ordering Provider</span>
+                  <input type="text" class="form-input" value="George Oladipo Adesina, MD" readonly>
+                </div>
+                <div class="form-group">
+                  <span class="form-label">Order Type</span>
+                  <input type="text" class="form-input" id="formOrderType" value="Referral to Cardiology" readonly>
+                </div>
+              </div>
+
+              <div class="form-row" style="align-items: center; margin-top: 4px;">
+                <div class="form-checkbox-row">
+                  <input type="checkbox" id="statUrgent" class="form-checkbox" onchange="onUrgencyToggle()">
+                  <label for="statUrgent" class="checkbox-label"><strong>STAT</strong> Schedule within provider's discretion</label>
+                </div>
+                <div class="form-group">
+                  <span class="form-label">Alarm dropdown</span>
+                  <select class="form-input" style="padding: 6px 10px; font-size: 12px;">
+                    <option>4 weeks</option>
+                    <option>2 weeks</option>
+                    <option>8 weeks</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- HIGHLIGHTED ENFORCED RECEIVER FIELD FROM SCREENSHOT -->
+              <div class="form-group">
+                <span class="form-label">Send to (Receiver Specialist)</span>
+                <div class="receiver-wrapper">
+                  <div class="receiver-box" id="receiverBox" onclick="showNudgeAlert()">
+                    <span class="receiver-btn-label">
+                      <span class="receiver-lock-icon" id="receiverLockIcon">🔒</span>
+                      <span id="receiverValueText">+ RECEIVER</span>
+                    </span>
+                    <span style="font-size: 11px; font-weight: bold; text-transform: uppercase;" id="receiverStatusLabel">LOCKED</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row" style="margin-top: 4px;">
+                <div class="form-checkbox-row">
+                  <input type="checkbox" checked id="docOnly" class="form-checkbox">
+                  <label for="docOnly" class="checkbox-label">Documentation only</label>
+                </div>
+                <div class="form-checkbox-row">
+                  <input type="checkbox" checked id="incSummary" class="form-checkbox">
+                  <label for="incSummary" class="checkbox-label">Include summary of care record</label>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <span class="form-label">CC results</span>
+                  <div class="form-input" style="color: var(--athena-text-muted); cursor: pointer; font-size: 12px; font-weight: 500;">+ RECIPIENT</div>
+                </div>
+                <div class="form-group">
+                  <span class="form-label">Attachments</span>
+                  <div class="form-input" style="color: var(--athena-text-muted); cursor: pointer; font-size: 12px; font-weight: 500;">+ ATTACHMENTS</div>
+                </div>
+              </div>
+
+              <div class="form-checkbox-row" style="margin-top: 4px;">
+                <input type="checkbox" id="publishReceipt" class="form-checkbox">
+                <label for="publishReceipt" class="checkbox-label">Do not immediately publish results upon receipt</label>
+              </div>
+
+              <div class="form-group full-width">
+                <span class="form-label">Note to provider (Clinical Context Box)</span>
+                <textarea class="form-input form-textarea" id="noteToProvider" placeholder="Include clinical rationale or select generated specialist questions below..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Actions and Guardrail Alert Banners -->
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="guardrail-notice" id="guardrailBanner">
+              <span style="font-size: 14px;">⚠️</span>
+              <div>
+                <strong>Enforced Clinical Recommendations Guardrail:</strong> The receiver specialty "+ RECEIVER" and EMR "Sign Orders" button are securely locked. Run the clinical <strong>AI Triage Engine</strong> to compute guidelines and unlock approved routing targets.
+              </div>
+            </div>
+
+            <div class="order-actions-bar">
+              <button class="btn btn-sign" id="signBtn" onclick="signReferralOrder()" disabled>
+                <span>✍️</span> Sign Orders
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- right sidebar Referrals Slider Drawer (representing R icon drawer) -->
+    <section class="ai-referrals-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title-row">
+          <div class="drawer-title" id="drawerTitle">Referrals</div>
+          <div class="drawer-subtitle">PCP Decision Support & Routing</div>
+        </div>
+        <div class="drawer-actions">
+          <button class="drawer-action-btn" title="Expand">⤢</button>
+          <button class="drawer-action-btn" title="Dock" style="background: var(--athena-purple-light); color: #fff;">R</button>
+        </div>
+      </div>
+
+      <div class="drawer-content">
+        <!-- Tab navigation buttons -->
+        <div class="ai-tabs">
+          <div class="ai-tab active" id="tab-btn-routing" onclick="switchTab('routing')">Routing</div>
+          <div class="ai-tab" id="tab-btn-brief" onclick="switchTab('brief')">Brief</div>
+          <div class="ai-tab" id="tab-btn-questions" onclick="switchTab('questions')">Questions</div>
+        </div>
+
+        <!-- 1. Triage & Routing Tab Content -->
+        <div class="tab-content active" id="tab-routing">
+          <!-- Prominent Triage Referral Button -->
+          <button class="btn btn-triage" id="triageBtn" onclick="runTriageWorkflow()" style="width: 100%; margin-bottom: 8px;">
+            <span>🧠</span> Triage Referral with AI Triage Engine
+          </button>
+
+          <!-- ADK 2.0 Vertical Workflow Monitor -->
+          <div class="vertical-pipeline-card">
+            <div class="pipeline-step" id="node-extraction">
+              <div class="pipeline-icon">1</div>
+              <div class="pipeline-text">
+                <span class="pipeline-label">Extraction</span>
+                <span class="pipeline-desc">Parse patient clinical history</span>
+              </div>
+            </div>
+            <div class="pipeline-connector" id="line-extraction"></div>
+            
+            <div class="pipeline-step" id="node-claims">
+              <div class="pipeline-icon">2</div>
+              <div class="pipeline-text">
+                <span class="pipeline-label">Claims Check</span>
+                <span class="pipeline-desc">Validate coverage & prior-auth</span>
+              </div>
+            </div>
+            <div class="pipeline-connector" id="line-claims"></div>
+            
+            <div class="pipeline-step" id="node-routing">
+              <div class="pipeline-icon">3</div>
+              <div class="pipeline-text">
+                <span class="pipeline-label">Routing Logic</span>
+                <span class="pipeline-desc">Match guideline criteria & pathways</span>
+              </div>
+            </div>
+            <div class="pipeline-connector" id="line-routing"></div>
+            
+            <div class="pipeline-step" id="node-matcher">
+              <div class="pipeline-icon">4</div>
+              <div class="pipeline-text">
+                <span class="pipeline-label">Directory Match</span>
+                <span class="pipeline-desc">Filter preferred in-network specialists</span>
+              </div>
+            </div>
+            <div class="pipeline-connector" id="line-matcher"></div>
+            
+            <div class="pipeline-step" id="node-clinical">
+              <div class="pipeline-icon">5</div>
+              <div class="pipeline-text">
+                <span class="pipeline-label">Clinical AI</span>
+                <span class="pipeline-desc">Formulate medical questions & rationale</span>
+              </div>
+            </div>
+            <div class="pipeline-connector" id="line-clinical"></div>
+            
+            <div class="pipeline-step" id="node-summarizer">
+              <div class="pipeline-icon">6</div>
+              <div class="pipeline-text">
+                <span class="pipeline-label">Summarizer</span>
+                <span class="pipeline-desc">Generate premium clinical brief</span>
+              </div>
+            </div>
+            <div class="pipeline-connector" id="line-summarizer"></div>
+            
+            <div class="pipeline-step" id="node-synthesis">
+              <div class="pipeline-icon">7</div>
+              <div class="pipeline-text">
+                <span class="pipeline-label">Orchestrator</span>
+                <span class="pipeline-desc">Synthesize final recommendations</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Matched Specialist recommended list cards -->
+          <div class="recommendations-header">Receiving Provider Recs</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;" id="recommendationsList">
+            <div style="text-align: center; color: var(--ai-text-muted); padding: 40px 10px; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+              <span style="font-size: 24px; opacity: 0.6;">💡</span>
+              <div>
+                <p style="font-weight: 600; color: #ffffff; margin-bottom: 4px;">Triage Recommendations Pending</p>
+                <p style="font-size: 11px; line-height: 1.4;">Click "Triage Referral with AI" to invoke directory matcher rules and guidelines context in real-time.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Human-in-the-Loop Override Section -->
+          <div class="override-box">
+            <div class="override-title">Override System Recs</div>
+            <p style="font-size: 10px; color: var(--ai-text-muted); line-height: 1.4;">
+              If clinical requirements dictate referring outside guidelines, log a justification below to override and unlock EMR signing blocks.
+            </p>
+            <textarea class="override-textarea" id="overrideReason" placeholder="Type override justification rationale (e.g., patient requests immediate in-person localized visit)..." oninput="onOverrideTextChange()"></textarea>
+            <div class="form-checkbox-row" style="margin: 4px 0;">
+              <input type="checkbox" id="statOverride" class="form-checkbox">
+              <label for="statOverride" class="checkbox-label" style="color: var(--ai-text-muted); font-size: 11px;">Stat override clinical reviewer review</label>
+            </div>
+            <button class="btn-override-submit" id="overrideSubmitBtn" onclick="submitReferralOverride()" style="width: 100%;" disabled>
+              Submit Override & Unlock Form
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Specialist Brief Tab Content -->
+        <div class="tab-content" id="tab-brief">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--ai-border); padding-bottom: 8px;">
+            <div class="recommendations-header" style="margin-bottom: 0;">AI Specialist Brief</div>
+            <button class="doc-copy-btn" onclick="copyBriefText()">Copy Summary</button>
+          </div>
+          <div class="brief-text-area" id="briefContent" style="background: rgba(0, 0, 0, 0.3); border-color: var(--ai-border); color: #ffffff; min-height: 300px; max-height: unset; height: auto;">Structured, grounded clinical summaries will populate here once the AI Triage process completes.</div>
+        </div>
+
+        <!-- 3. Suggested Questions Tab Content -->
+        <div class="tab-content" id="tab-questions">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--ai-border); padding-bottom: 8px;">
+            <div class="recommendations-header" style="margin-bottom: 0;">Clinical Questions Generator</div>
+            <span style="font-size: 10px; color: var(--ai-text-muted); font-weight: 600;">Check to append to Notes</span>
+          </div>
+          <div class="questions-checklist" id="questionsChecklist" style="max-height: unset; height: auto;">
+            <div style="text-align: center; color: var(--ai-text-muted); padding: 30px; font-size: 11px;">
+              Suggested specialist questions will populate here once the AI Triage process completes.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Alarm Dialog element -->
+  <div class="toast-popup" id="toast">
+    <span class="toast-indicator success" id="toastIcon">✓</span>
+    <div style="display: flex; flex-direction: column; gap: 2px;">
+      <div class="toast-msg-title" id="toastTitle">Success</div>
+      <div class="toast-msg-desc" id="toastDesc">Referral updated.</div>
+    </div>
+  </div>
+
+  <!-- Javascript Logic -->
+  <script>
+    let patientBundles = {};
+    let sessionState = {};
+    let selectedSpecialistName = null;
+    let selectedSpecialistId = null;
+
+    // Toast alert popups
+    function showToast(title, desc, type = 'success') {
+      const toast = document.getElementById('toast');
+      const icon = document.getElementById('toastIcon');
+      const tTitle = document.getElementById('toastTitle');
+      const tDesc = document.getElementById('toastDesc');
+
+      tTitle.innerText = title;
+      tDesc.innerText = desc;
+
+      if (type === 'success') {
+        icon.className = 'toast-indicator success';
+        icon.innerText = '✓';
+      } else if (type === 'info') {
+        icon.className = 'toast-indicator info';
+        icon.innerText = 'ℹ';
+      } else if (type === 'warning') {
+        icon.className = 'toast-indicator warning';
+        icon.innerText = '⚠';
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    // Tab switcher logic
+    function switchTab(tabName) {
+      const tabs = ['routing', 'brief', 'questions'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const content = document.getElementById(`tab-${t}`);
+        if (btn) btn.classList.remove('active');
+        if (content) content.classList.remove('active');
+      });
+      
+      const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+      const activeContent = document.getElementById(`tab-${tabName}`);
+      if (activeBtn) activeBtn.classList.add('active');
+      if (activeContent) activeContent.classList.add('active');
+    }
+
+    // Load patients dynamically from the new endpoint
+    async function loadPatients() {
+      try {
+        const res = await fetch('/patients');
+        if (!res.ok) throw new Error("Failed to fetch patients list");
+        const data = await res.json();
+        
+        const dropdown = document.getElementById('patientDropdown');
+        dropdown.innerHTML = '';
+        
+        patientBundles = {};
+        
+        data.forEach(p => {
+          patientBundles[p.id] = p;
+          
+          const opt = document.createElement('option');
+          opt.value = p.id;
+          opt.innerText = `${p.name} (${p.specialty})`;
+          dropdown.appendChild(opt);
+        });
+        
+        if (data.length > 0) {
+          onPatientChange();
+        }
+        
+      } catch (err) {
+        console.error("Error loading dynamic patients:", err);
+        showToast("Error", "Could not fetch dynamic patient directory from server.", "warning");
+      }
+    }
+
+    // Patient switching triggers
+    function onPatientChange() {
+      const patientId = document.getElementById('patientDropdown').value;
+      const patient = patientBundles[patientId];
+      if (!patient) return;
+
+      // Reset state variables
+      sessionState = {};
+      selectedSpecialistName = null;
+      selectedSpecialistId = null;
+      document.getElementById('overrideReason').value = '';
+      document.getElementById('overrideSubmitBtn').disabled = true;
+
+      // Reset active tab to Routing
+      switchTab('routing');
+
+      // Populate basic demographics
+      document.getElementById('patientAvatar').innerText = patient.initials;
+      document.getElementById('patientName').innerText = patient.name;
+      document.getElementById('patientDemo').innerText = `${patient.age}yo ${patient.gender} | DOB ${patient.dob} | #${patientId.substring(0,8)} | E#${patientId.substring(0,8)}`;
+      document.getElementById('patientInsurance').innerText = patient.insurance;
+      
+      // Update form text labels
+      document.getElementById('diagnosisGroupHeader').innerText = patient.diagnosis;
+      document.getElementById('referralFormTitle').innerText = `${patient.specialty.toLowerCase()} referral`;
+      document.getElementById('formOrderType').value = `Referral to ${patient.specialty}`;
+      document.getElementById('noteToProvider').value = '';
+
+      // Set Send to Receiver Locked again
+      const receiverBox = document.getElementById('receiverBox');
+      receiverBox.className = 'receiver-box';
+      document.getElementById('receiverLockIcon').innerText = '🔒';
+      document.getElementById('receiverValueText').innerText = '+ RECEIVER';
+      document.getElementById('receiverStatusLabel').innerText = 'LOCKED';
+
+      // Set Sign orders locked again
+      const signBtn = document.getElementById('signBtn');
+      signBtn.className = 'btn btn-sign';
+      signBtn.disabled = true;
+
+      const guardrailBanner = document.getElementById('guardrailBanner');
+      guardrailBanner.className = 'guardrail-notice';
+      guardrailBanner.innerHTML = `<span style="font-size: 14px;">⚠️</span><div><strong>Enforced Clinical Recommendations Guardrail:</strong> The receiver specialty "+ RECEIVER" and EMR "Sign Orders" button are securely locked. Run the clinical <strong>AI Triage Engine</strong> to compute guidelines and unlock approved routing targets.</div>`;
+
+      // Update Problems
+      const problemsList = document.getElementById('problemsList');
+      problemsList.innerHTML = '';
+      patient.problems.forEach(p => {
+        problemsList.innerHTML += `
+          <li class="problem-item">
+            <div class="problem-title">${p.name}</div>
+            <div class="problem-sub">ICD-10: ${p.icd}</div>
+          </li>
+        `;
+      });
+
+      // Update Labs
+      const labsTableBody = document.querySelector('#labsTable tbody');
+      labsTableBody.innerHTML = '';
+      patient.labs.forEach(l => {
+        const valClass = l.abnormal ? 'lab-value abnormal' : 'lab-value';
+        labsTableBody.innerHTML += `
+          <tr>
+            <td>${l.name}</td>
+            <td class="${valClass}">${l.value}</td>
+          </tr>
+        `;
+      });
+
+      // Reset AI checklist and briefs
+      document.getElementById('questionsChecklist').innerHTML = `
+        <div style="text-align: center; color: var(--ai-text-muted); padding: 30px; font-size: 11px;">
+          Suggested specialist questions will populate here once the AI Triage process completes.
+        </div>
+      `;
+      document.getElementById('briefContent').innerText = 'Structured, grounded clinical summaries will populate here once the AI Triage process completes.';
+
+      // Reset Node Visualizer
+      resetExecutionNodes();
+
+      // Reset side recommendations list
+      document.getElementById('recommendationsList').innerHTML = `
+        <div style="text-align: center; color: var(--ai-text-muted); padding: 40px 10px; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <span style="font-size: 24px; opacity: 0.6;">💡</span>
+          <div>
+            <p style="font-weight: 600; color: #ffffff; margin-bottom: 4px;">Triage Recommendations Pending</p>
+            <p style="font-size: 11px; line-height: 1.4;">Click "Triage Referral with AI" to invoke directory matcher rules and guidelines context in real-time.</p>
+          </div>
+        </div>
+      `;
+
+      showToast("Chart Switched", `Loaded profile chart for ${patient.name}.`, "info");
+    }
+
+    // Reset workflow bubble line highlights
+    function resetExecutionNodes() {
+      const nodes = ['extraction', 'claims', 'routing', 'matcher', 'clinical', 'summarizer', 'synthesis'];
+      nodes.forEach(node => {
+        const el = document.getElementById(`node-${node}`);
+        if (el) el.className = 'pipeline-step';
+        const line = document.getElementById(`line-${node}`);
+        if (line) line.className = 'pipeline-connector';
+      });
+    }
+
+    // Set bubble highlight state in graph
+    function setNodeStatus(nodeId, status) {
+      const node = document.getElementById(`node-${nodeId}`);
+      const line = document.getElementById(`line-${nodeId}`);
+      if (node) {
+        node.className = status ? `pipeline-step ${status}` : 'pipeline-step';
+      }
+      if (line) {
+        if (status === 'completed') {
+          line.className = 'pipeline-connector completed';
+        } else if (status === 'active') {
+          line.className = 'pipeline-connector active';
+        } else {
+          line.className = 'pipeline-connector';
+        }
+      }
+    }
+
+    // Nudge helper if user clicks locked receiver field directly
+    function showNudgeAlert() {
+      const receiverBox = document.getElementById('receiverBox');
+      if (receiverBox.classList.contains('unlocked')) return;
+      
+      showToast("Receiver field locked", "Guideline rules require running AI Triage or logging an override first.", "warning");
+    }
+
+    // Override input textbox changes
+    function onOverrideTextChange() {
+      const val = document.getElementById('overrideReason').value.trim();
+      document.getElementById('overrideSubmitBtn').disabled = val.length < 5;
+    }
+
+    // Urgency checkbox warning toast
+    function onUrgencyToggle() {
+      const checked = document.getElementById('statUrgent').checked;
+      if (checked) {
+        showToast("Urgent Routing Active", "STAT Urgency classifies routing confidence to Clinical Review (HITL REVIEW) level.", "warning");
+      }
+    }
+
+    // Apply Recommended Card specialist selection path
+    function applyRecommendation(specName, specId, type) {
+      selectedSpecialistName = specName;
+      selectedSpecialistId = specId;
+
+      // Unlock receiver box controls
+      const receiverBox = document.getElementById('receiverBox');
+      receiverBox.className = 'receiver-box unlocked';
+      document.getElementById('receiverLockIcon').innerText = '✓';
+      document.getElementById('receiverValueText').innerText = `${specName} (${specId})`;
+      document.getElementById('receiverStatusLabel').innerText = 'APPROVED';
+
+      // Unlock Sign Orders
+      const signBtn = document.getElementById('signBtn');
+      signBtn.className = 'btn btn-sign enabled';
+      signBtn.disabled = false;
+
+      // Update EMR banner
+      const guardrailBanner = document.getElementById('guardrailBanner');
+      guardrailBanner.className = 'guardrail-notice resolved';
+      guardrailBanner.innerHTML = `<span style="font-size: 14px;">✓</span><div><strong>Clinical Guardrail Completed:</strong> Recommended in-network specialist chosen: <strong>${specName} (${specId})</strong>. Referral form signing unlocked.</div>`;
+
+      showToast("Specialist Applied", `Set ${specName} as referral receiver. Sign Orders enabled.`, "success");
+    }
+
+    // Submit Override Path to unlock EMR controls
+    async function submitReferralOverride() {
+      const reason = document.getElementById('overrideReason').value.trim();
+      if (reason.length < 5) return;
+
+      const patientId = document.getElementById('patientDropdown').value;
+      const patient = patientBundles[patientId];
+
+      selectedSpecialistName = "Override: External Provider";
+      selectedSpecialistId = "OVERRIDE";
+
+      // POST PCP action to backend decisions log
+      try {
+        await fetch('/pcp_action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            patient_id: patientId,
+            specialty: patient.specialty,
+            action: 'override',
+            specialist_id: 'OVERRIDE',
+            override_reason: reason,
+            referral_note: document.getElementById('noteToProvider').value
+          })
+        });
+      } catch (err) {
+        console.warn("Backend override log failed", err);
+      }
+
+      // Unlock receiver box controls
+      const receiverBox = document.getElementById('receiverBox');
+      receiverBox.className = 'receiver-box unlocked';
+      document.getElementById('receiverLockIcon').innerText = '✓';
+      document.getElementById('receiverValueText').innerText = 'Override Provider (unlisted)';
+      document.getElementById('receiverStatusLabel').innerText = 'OVERRIDDEN';
+
+      // Unlock Sign Orders
+      const signBtn = document.getElementById('signBtn');
+      signBtn.className = 'btn btn-sign enabled';
+      signBtn.disabled = false;
+
+      // Update EMR banner
+      const guardrailBanner = document.getElementById('guardrailBanner');
+      guardrailBanner.className = 'guardrail-notice resolved';
+      guardrailBanner.innerHTML = `<span style="font-size: 14px;">✓</span><div><strong>Bypass Authorized:</strong> Guidelines overridden. Reason logged: "<em>${reason}</em>". Referral form signing unlocked.</div>`;
+
+      showToast("Override Logged", "Form unlocked with audit justification log.", "success");
+    }
+
+    // Sign Order and log to backend loop
+    async function signReferralOrder() {
+      const patientId = document.getElementById('patientDropdown').value;
+      const patient = patientBundles[patientId];
+      const isOverride = selectedSpecialistId === 'OVERRIDE';
+
+      // Gather active questions
+      const qChecklist = document.getElementById('questionsChecklist');
+      const checkedBoxes = qChecklist.querySelectorAll('input[type="checkbox"]:checked');
+      const questionsList = Array.from(checkedBoxes).map(cb => {
+        const index = cb.id.split('-').pop();
+        return document.getElementById(`q-text-${index}`).innerText;
+      });
+
+      try {
+        await fetch('/pcp_action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            patient_id: patientId,
+            specialty: patient.specialty,
+            action: isOverride ? 'override_signed' : 'accept',
+            specialist_id: selectedSpecialistId,
+            override_reason: isOverride ? document.getElementById('overrideReason').value.trim() : null,
+            selected_questions: questionsList,
+            referral_note: document.getElementById('noteToProvider').value
+          })
+        });
+      } catch (err) {
+        console.warn("Backend sign log failed", err);
+      }
+
+      showToast("Referral Processed", `Signed referral order for ${patient.name} to ${selectedSpecialistName}!`, "success");
+    }
+
+    // Execute triage workflow through SSE stream
+    async function runTriageWorkflow() {
+      const patientId = document.getElementById('patientDropdown').value;
+      const patient = patientBundles[patientId];
+      const isUrgent = document.getElementById('statUrgent').checked;
+
+      // Loading visual triggers
+      document.getElementById('emrLoadingOverlay').classList.add('show');
+      document.getElementById('emrLoadingText').innerText = "Initiating Clinical Graph workflow...";
+      resetExecutionNodes();
+
+      try {
+        setNodeStatus('extraction', 'active');
+        document.getElementById('emrLoadingText').innerText = "Loading Patient clinical history...";
+
+        // 1. Create session
+        const user_id = `user_${Math.random().toString(36).substring(7)}`;
+        const sessionRes = await fetch(`/apps/app/users/${user_id}/sessions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ state: {} })
+        });
+
+        if (!sessionRes.ok) throw new Error("Session create failed");
+        const sessionData = await sessionRes.json();
+        const sessionId = sessionData.id;
+
+        // 2. Start SSE Stream
+        document.getElementById('emrLoadingText').innerText = "Triage classification running...";
+        
+        const messageText = isUrgent 
+          ? `Triage the urgent referral for patient ${patientId} to ${patient.specialty}`
+          : `Triage the referral for patient ${patientId} to ${patient.specialty}`;
+
+        const sseRes = await fetch('/run_sse', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            app_name: 'app',
+            user_id: user_id,
+            session_id: sessionId,
+            new_message: {
+              role: 'user',
+              parts: [{ text: messageText }]
+            },
+            streaming: true
+          })
+        });
+
+        if (!sseRes.ok) throw new Error("SSE Stream trigger failed");
+
+        const reader = sseRes.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let hasError = false;
+        let errorMessage = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop(); // save leftovers
+
+          for (const line of lines) {
+            const cleanLine = line.trim();
+            if (cleanLine.startsWith('data: ')) {
+              try {
+                const event = JSON.parse(cleanLine.slice(6));
+                handleSseEvent(event);
+                
+                // Track errors
+                const actions = event.actions || event.Actions;
+                if (actions && (actions.state_delta || actions.stateDelta)) {
+                  const delta = actions.state_delta || actions.stateDelta;
+                  if (delta.extraction_error) {
+                    hasError = true;
+                    errorMessage = delta.extraction_error;
+                  } else if (delta.routing && delta.routing.error) {
+                    hasError = true;
+                    errorMessage = delta.routing.error;
+                  }
+                }
+              } catch (e) {
+                console.warn("SSE json parse failed", e);
+              }
+            }
+          }
+        }
+
+        document.getElementById('emrLoadingOverlay').classList.remove('show');
+        if (hasError) {
+          showToast("Triage Stopped", errorMessage || "Pipeline halted.", "warning");
+        } else {
+          showToast("Triage complete", `Guideline care path calculated for ${patient.name}.`, "success");
+        }
+
+      } catch (err) {
+        console.error("Workflow triage failed", err);
+        document.getElementById('emrLoadingOverlay').classList.remove('show');
+        showToast("Triage pipeline failed", "Local server returned an error. Verify ADK daemon.", "warning");
+      }
+    }
+
+    // Distribute SSE updates to EMR DOM components
+    function handleSseEvent(event) {
+      const author = event.author;
+      
+      // Highlight graph nodes on message sources
+      if (author) {
+        if (author === 'extraction') {
+          setNodeStatus('extraction', 'completed');
+          setNodeStatus('claims', 'active');
+          document.getElementById('emrLoadingText').innerText = "Reviewing claims flags...";
+        } else if (author === 'claims_engine') {
+          setNodeStatus('claims', 'completed');
+          setNodeStatus('routing', 'active');
+          document.getElementById('emrLoadingText').innerText = "Matching clinical guidelines...";
+        } else if (author === 'routing_engine') {
+          setNodeStatus('routing', 'completed');
+          setNodeStatus('matcher', 'active');
+          document.getElementById('emrLoadingText').innerText = "Matching providers in-network...";
+        } else if (author === 'specialist_matcher') {
+          setNodeStatus('matcher', 'completed');
+          setNodeStatus('clinical', 'active');
+          document.getElementById('emrLoadingText').innerText = "Generating clinical guidelines reasoning...";
+        } else if (author === 'clinical_summarizer') {
+          setNodeStatus('clinical', 'completed');
+          setNodeStatus('summarizer', 'active');
+          document.getElementById('emrLoadingText').innerText = "Writing Specialist Brief document...";
+        } else if (author === 'triage_orchestrator') {
+          setNodeStatus('summarizer', 'completed');
+          setNodeStatus('synthesis', 'completed');
+        }
+      }
+
+      // Read state delta packets
+      const actions = event.actions || event.Actions;
+      if (actions && (actions.state_delta || actions.stateDelta)) {
+        const delta = actions.state_delta || actions.stateDelta;
+        
+        // Normalize camelCase keys to snake_case in delta to prevent schema pollution
+        if (delta.specialistBrief && !delta.specialist_brief) delta.specialist_brief = delta.specialistBrief;
+        if (delta.clinicalQuestions && !delta.clinical_questions) delta.clinical_questions = delta.clinicalQuestions;
+        if (delta.specialistMatches && !delta.specialist_matches) delta.specialist_matches = delta.specialistMatches;
+        if (delta.triageDecision && !delta.triage_decision) delta.triage_decision = delta.triageDecision;
+        
+        if (delta.routing) {
+          const r = delta.routing;
+          if (r.carePath && !r.care_path) r.care_path = r.carePath;
+          if (r.routingRationale && !r.routing_rationale) r.routing_rationale = r.routingRationale;
+          if (r.patientTag && !r.patient_tag) r.patient_tag = r.patientTag;
+        }
+
+        Object.assign(sessionState, delta);
+
+        if (delta.extraction_error) {
+          setNodeStatus('extraction', 'failed');
+          setNodeStatus('claims', '');
+        }
+        if (delta.routing && delta.routing.error) {
+          setNodeStatus('routing', 'failed');
+          setNodeStatus('matcher', '');
+        }
+
+        const brief = delta.specialist_brief;
+        if (brief) {
+          document.getElementById('briefContent').innerHTML = marked.parse(brief);
+        }
+        const questions = delta.clinical_questions;
+        if (questions) {
+          renderQuestions(questions);
+        }
+        const matches = delta.specialist_matches;
+        if (matches) {
+          renderSpecialists(matches, sessionState.routing);
+        }
+
+        // Unpack final structured triage decision
+        const td = delta.triage_decision;
+        if (td) {
+          // Normalize camelCase keys in triage_decision
+          if (td.specialistBrief && !td.specialist_brief) td.specialist_brief = td.specialistBrief;
+          if (td.clinicalQuestions && !td.clinical_questions) td.clinical_questions = td.clinicalQuestions;
+          if (td.topAlternatives && !td.top_alternatives) td.top_alternatives = td.topAlternatives;
+          if (td.carePath && !td.care_path) td.care_path = td.carePath;
+          if (td.routingRationale && !td.routing_rationale) td.routing_rationale = td.routingRationale;
+          if (td.patientTag && !td.patient_tag) td.patient_tag = td.patientTag;
+
+          const tdBrief = td.specialist_brief;
+          if (tdBrief) {
+            document.getElementById('briefContent').innerHTML = marked.parse(tdBrief);
+          }
+          const tdQuestions = td.clinical_questions;
+          if (tdQuestions) {
+            renderQuestions(tdQuestions);
+          }
+          
+          const tdSpec = td.specialist;
+          const tdAlts = td.top_alternatives;
+
+          if (tdSpec || (tdAlts && tdAlts.length > 0)) {
+            const matchesList = [];
+            if (tdSpec) {
+              // Normalize specialist keys
+              const specId = tdSpec.specialist_id || tdSpec.specialistId || tdSpec.SpecialistId;
+              const specName = tdSpec.name || tdSpec.Name;
+              const specTier = tdSpec.tier || tdSpec.Tier;
+              const specDist = tdSpec.distance_mi || tdSpec.distanceMi || tdSpec.DistanceMi;
+              const specClinic = tdSpec.clinic_name || tdSpec.clinicName || tdSpec.ClinicName;
+
+              matchesList.push({
+                SpecialistId: specId,
+                Name: specName,
+                Tier: specTier,
+                DistanceMi: specDist,
+                ClinicName: specClinic || "Preferred Clinic"
+              });
+            }
+            if (tdAlts) {
+              tdAlts.forEach(alt => {
+                if (typeof alt === 'string') {
+                  const idMatch = alt.match(/SPEC-\d+/i);
+                  const tierMatch = alt.match(/T\d+/i);
+                  const distMatch = alt.match(/[\d\.]+mi/i);
+                  const specId = idMatch ? idMatch[0] : "SPEC-ALT";
+                  const tier = tierMatch ? parseInt(tierMatch[0].replace('T','')) : 2;
+                  const distance = distMatch ? parseFloat(distMatch[0].replace('mi','')) : 10.0;
+                  
+                  matchesList.push({
+                    SpecialistId: specId,
+                    Name: `Alternative Specialist (${specId})`,
+                    Tier: tier,
+                    DistanceMi: distance,
+                    ClinicName: "In-Network Facility"
+                  });
+                } else if (alt && typeof alt === 'object') {
+                  matchesList.push({
+                    SpecialistId: alt.specialist_id || alt.specialistId || alt.SpecialistId || "SPEC-ALT",
+                    Name: alt.name || alt.Name || `Alternative Specialist`,
+                    Tier: alt.tier || alt.Tier || 2,
+                    DistanceMi: alt.distance_mi || alt.distanceMi || alt.DistanceMi || 10.0,
+                    ClinicName: alt.clinic_name || alt.clinicName || alt.ClinicName || "In-Network Facility"
+                  });
+                }
+              });
+            }
+            
+            const routingObj = {
+              care_path: td.care_path || sessionState.routing?.care_path || "Specialist Triage",
+              rationale: td.routing_rationale || td.explanation || sessionState.routing?.rationale || "In-network specialist recommended."
+            };
+            
+            renderSpecialists(matchesList, routingObj);
+          }
+        }
+      }
+    }
+
+    // Render specialist cards in side sidebar recommendations panel
+    function renderSpecialists(matches, routing) {
+      const recList = document.getElementById('recommendationsList');
+      recList.innerHTML = '';
+
+      if (!matches || matches.length === 0) {
+        recList.innerHTML = `
+          <div style="text-align: center; color: var(--ai-text-muted); padding: 40px 10px; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <span style="font-size: 24px; opacity: 0.6;">⚠️</span>
+            <div>
+              <p style="font-weight: 600; color: #ffffff; margin-bottom: 4px;">No Matches Found</p>
+              <p style="font-size: 11px; line-height: 1.4;">No local matched specialists found in-network. Submit override reason to unlock PCP manual selection.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const carePath = routing ? routing.care_path : "Specialist Triage";
+      const rationale = routing ? routing.rationale : "In-network specialist recommended.";
+      let badgeStyle = "background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); border: none;";
+      if (carePath === "eConsult") {
+        badgeStyle = "background: linear-gradient(135deg, #a855f7, #6366f1); color: #ffffff; box-shadow: 0 0 12px rgba(139, 92, 246, 0.5); border: none;";
+      } else if (carePath === "Virtual") {
+        badgeStyle = "background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #ffffff; box-shadow: 0 0 12px rgba(14, 165, 233, 0.5); border: none;";
+      }
+
+      recList.innerHTML += `
+        <div style="background-color: rgba(255,255,255,0.02); border: 1px solid var(--ai-border); border-radius: 8px; padding: 12px; font-size: 12px; margin-bottom: 4px;">
+          <div style="font-family: var(--font-display); font-size: 13px; font-weight: 700; color: #ffffff; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+            <span style="padding: 1px 6px; border-radius: 4px; font-size: 8px; font-weight: 800; text-transform: uppercase; ${badgeStyle}">${carePath} Path</span>
+            Optimal Referral Path
+          </div>
+          <div style="color: var(--ai-text-muted); font-size: 11px; line-height: 1.4;">${rationale}</div>
+        </div>
+      `;
+
+      matches.forEach((spec, index) => {
+        const isPreferred = index === 0;
+        const cardClass = isPreferred ? 'specialist-card preferred' : 'specialist-card';
+        const badgeText = isPreferred ? (carePath === "eConsult" ? "Preferred eConsult" : "Preferred In-Network") : "Alternative In-Network";
+        const badgeClass = isPreferred ? 'specialist-badge preferred' : 'specialist-badge alternative';
+
+        recList.innerHTML += `
+          <div class="${cardClass}">
+            <span class="${badgeClass}">${badgeText}</span>
+            <div class="specialist-name">${spec.Name}</div>
+            
+            <div class="specialist-meta-grid">
+              <div class="spec-meta-item">
+                <span class="spec-meta-label">ID:</span>
+                <span class="spec-meta-val">${spec.SpecialistId}</span>
+              </div>
+              <div class="spec-meta-item">
+                <span class="spec-meta-label">Dist:</span>
+                <span class="spec-meta-val">${spec.DistanceMi} mi</span>
+              </div>
+              <div class="spec-meta-item">
+                <span class="spec-meta-label">Tier:</span>
+                <span class="spec-meta-val">T${spec.Tier}</span>
+              </div>
+              <div class="spec-meta-item" style="grid-column: span 2; margin-top: 2px;">
+                <span class="spec-meta-label">Clinic:</span>
+                <span class="spec-meta-val" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;">${spec.ClinicName}</span>
+              </div>
+            </div>
+
+            <button class="btn-apply-rec" onclick="applyRecommendation('${spec.Name}', '${spec.SpecialistId}', '${carePath}')">
+              Apply to Order & Unlock Form
+            </button>
+          </div>
+        `;
+      });
+    }
+
+    // Render generated clinical eConsult questions
+    function renderQuestions(questions) {
+      const qChecklist = document.getElementById('questionsChecklist');
+      qChecklist.innerHTML = '';
+
+      if (!questions || questions.length === 0) {
+        qChecklist.innerHTML = `
+          <div style="text-align: center; color: var(--athena-text-muted); padding: 20px; font-size: 11px;">
+            No specific clinical questions were generated.
+          </div>
+        `;
+        return;
+      }
+
+      let qArray = questions;
+      if (typeof questions === 'string') {
+        qArray = questions.split('\n')
+                         .map(q => q.replace(/^\d+\.\s*/, '').trim())
+                         .filter(q => q.length > 5);
+      }
+
+      qArray.forEach((q, index) => {
+        qChecklist.innerHTML += `
+          <label class="question-check-label">
+            <input type="checkbox" checked class="form-checkbox" id="q-check-${index}" onchange="updateReferralNote()">
+            <div class="question-text" id="q-text-${index}">${q}</div>
+          </label>
+        `;
+      });
+
+      updateReferralNote();
+    }
+
+    // Append chosen questions to EMR context box
+    function updateReferralNote() {
+      const qChecklist = document.getElementById('questionsChecklist');
+      const checkboxes = qChecklist.querySelectorAll('input[type="checkbox"]');
+      const noteToProvider = document.getElementById('noteToProvider');
+      
+      let questionsText = "\n\n=== AI SUGGESTED CLINICAL QUESTIONS FOR SPECIALIST ===\n";
+      let count = 0;
+
+      checkboxes.forEach((cb, index) => {
+        if (cb.checked) {
+          const qText = document.getElementById(`q-text-${index}`).innerText;
+          count++;
+          questionsText += `${count}. ${qText}\n`;
+        }
+      });
+
+      let currentVal = noteToProvider.value;
+      const indexMarker = currentVal.indexOf("\n\n=== AI SUGGESTED CLINICAL QUESTIONS FOR SPECIALIST ===");
+      if (indexMarker !== -1) {
+        currentVal = currentVal.substring(0, indexMarker);
+      }
+
+      if (count > 0) {
+        noteToProvider.value = currentVal + questionsText;
+      } else {
+        noteToProvider.value = currentVal;
+      }
+    }
+
+    // Copy brief summary to clipboard
+    function copyBriefText() {
+      const text = document.getElementById('briefContent').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Brief Copied", "Specialist Brief copied to clipboard successfully.", "success");
+      }).catch(() => {
+        showToast("Copy Failed", "Failed to access system clipboard.", "warning");
+      });
+    }
+
+    // Boot initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPatients();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,869 @@
+PatientId,Icd10,Snomed,Description,Specialty,OnsetDate,Status
+00fa1d1d-d444-7652-9b80-04c230e3df21,E11.9,44054006,"Type 2 diabetes mellitus, uncontrolled",Endocrinology,2025-09-27,active
+00fa1d1d-d444-7652-9b80-04c230e3df21,R73.03,714628002,Prediabetes (finding),Endocrinology,2008-10-26,active
+00fa1d1d-d444-7652-9b80-04c230e3df21,G89.29,82423001,Chronic pain (finding),,2014-02-04,active
+00fa1d1d-d444-7652-9b80-04c230e3df21,M54.50,278860009,Chronic low back pain (finding),,2014-02-04,active
+00fa1d1d-d444-7652-9b80-04c230e3df21,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2022-01-09,active
+00fa1d1d-d444-7652-9b80-04c230e3df21,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2022-01-20,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,D50.9,87522002,Iron deficiency anemia,Hematology,2025-09-27,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,J44.9,185086009,Chronic obstructive bronchitis (disorder),Pulmonology,1956-09-03,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,E66.9,162864005,Body mass index 30+ - obesity (finding),,1973-10-08,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,R73.03,714628002,Prediabetes (finding),Endocrinology,1983-12-05,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,D64.9,271737000,Anemia (disorder),Hematology,1984-12-10,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2001-03-12,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2001-03-22,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,G89.29,82423001,Chronic pain (finding),,2014-02-05,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,M54.50,278860009,Chronic low back pain (finding),,2014-02-05,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,M54.2,1121000119107,Chronic neck pain (finding),,2014-02-05,active
+01dde0cb-618d-b1d2-89c4-d46a1fc23c97,J32.9,40055000,Chronic sinusitis (disorder),,2023-02-27,active
+026776dc-b155-5439-ed5f-45e72e062fb2,E11.9,44054006,"Type 2 diabetes mellitus, poorly controlled",Endocrinology,2025-09-27,active
+026776dc-b155-5439-ed5f-45e72e062fb2,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,2002-10-03,active
+026776dc-b155-5439-ed5f-45e72e062fb2,I10,59621000,Essential hypertension (disorder),Cardiology,2003-09-23,active
+026776dc-b155-5439-ed5f-45e72e062fb2,R73.03,714628002,Prediabetes (finding),Endocrinology,2004-09-28,active
+026776dc-b155-5439-ed5f-45e72e062fb2,D64.9,271737000,Anemia (disorder),Hematology,2004-09-28,active
+026776dc-b155-5439-ed5f-45e72e062fb2,J32.9,40055000,Chronic sinusitis (disorder),,2006-08-05,active
+026776dc-b155-5439-ed5f-45e72e062fb2,E66.9,162864005,Body mass index 30+ - obesity (finding),,2007-10-16,active
+026776dc-b155-5439-ed5f-45e72e062fb2,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2013-11-19,active
+026776dc-b155-5439-ed5f-45e72e062fb2,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2026-01-27,active
+026776dc-b155-5439-ed5f-45e72e062fb2,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2026-02-23,active
+026776dc-b155-5439-ed5f-45e72e062fb2,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2026-03-03,active
+0365dce5-7a1a-807f-044a-88a3930993ea,E66.9,162864005,Body mass index 30+ - obesity (finding),,1958-04-04,active
+0365dce5-7a1a-807f-044a-88a3930993ea,I10,59621000,Essential hypertension (disorder),Cardiology,1984-03-09,active
+0365dce5-7a1a-807f-044a-88a3930993ea,R73.03,714628002,Prediabetes (finding),Endocrinology,1984-03-09,active
+0365dce5-7a1a-807f-044a-88a3930993ea,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,1994-05-07,active
+0365dce5-7a1a-807f-044a-88a3930993ea,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1994-05-07,active
+0365dce5-7a1a-807f-044a-88a3930993ea,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,1995-03-24,active
+0365dce5-7a1a-807f-044a-88a3930993ea,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2013-08-24,active
+0365dce5-7a1a-807f-044a-88a3930993ea,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2013-09-02,active
+0365dce5-7a1a-807f-044a-88a3930993ea,G89.29,82423001,Chronic pain (finding),,2019-01-03,active
+0365dce5-7a1a-807f-044a-88a3930993ea,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2019-08-10,active
+0365dce5-7a1a-807f-044a-88a3930993ea,N18.4,431857002,Chronic kidney disease stage 4 (disorder),Nephrology,2021-10-16,active
+0365dce5-7a1a-807f-044a-88a3930993ea,Z76.82,698306007,Awaiting transplantation of kidney (situation),Nephrology,2022-01-22,active
+0493cbf0-c703-af20-e0cf-6e6f3818cd16,R73.03,714628002,Prediabetes (finding),Endocrinology,1965-12-28,active
+0493cbf0-c703-af20-e0cf-6e6f3818cd16,D64.9,271737000,Anemia (disorder),Hematology,1965-12-28,active
+0493cbf0-c703-af20-e0cf-6e6f3818cd16,E66.9,162864005,Body mass index 30+ - obesity (finding),,1965-12-28,active
+0493cbf0-c703-af20-e0cf-6e6f3818cd16,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-11-03,active
+0493cbf0-c703-af20-e0cf-6e6f3818cd16,G89.29,82423001,Chronic pain (finding),,1991-07-22,active
+0493cbf0-c703-af20-e0cf-6e6f3818cd16,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2005-03-08,active
+0493cbf0-c703-af20-e0cf-6e6f3818cd16,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2005-03-18,active
+0493cbf0-c703-af20-e0cf-6e6f3818cd16,M54.50,278860009,Chronic low back pain (finding),,2014-02-06,active
+0659dab1-c5cc-5440-96cc-8bf415e01dc1,R73.03,714628002,Prediabetes (finding),Endocrinology,1967-01-21,active
+0659dab1-c5cc-5440-96cc-8bf415e01dc1,D64.9,271737000,Anemia (disorder),Hematology,1967-01-21,active
+0659dab1-c5cc-5440-96cc-8bf415e01dc1,E66.9,162864005,Body mass index 30+ - obesity (finding),,1975-11-15,active
+0659dab1-c5cc-5440-96cc-8bf415e01dc1,J32.9,40055000,Chronic sinusitis (disorder),,1976-10-31,active
+0659dab1-c5cc-5440-96cc-8bf415e01dc1,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1996-01-06,active
+0659dab1-c5cc-5440-96cc-8bf415e01dc1,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1996-01-15,active
+0659dab1-c5cc-5440-96cc-8bf415e01dc1,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1996-01-17,active
+0659dab1-c5cc-5440-96cc-8bf415e01dc1,E78.5,55822004,Hyperlipidemia (disorder),,2006-03-04,active
+06b78889-3906-399b-696a-31f6107d919f,M17.9,239873007,Osteoarthritis of right knee,Rheumatology,2025-09-27,active
+06b78889-3906-399b-696a-31f6107d919f,I10,59621000,Essential hypertension (disorder),Cardiology,1971-12-09,active
+06b78889-3906-399b-696a-31f6107d919f,R73.03,714628002,Prediabetes (finding),Endocrinology,1978-01-19,active
+06b78889-3906-399b-696a-31f6107d919f,D64.9,271737000,Anemia (disorder),Hematology,1978-01-19,active
+06b78889-3906-399b-696a-31f6107d919f,M19.049,201834006,Localized  primary osteoarthritis of the hand (disorder),Rheumatology,1978-08-01,active
+06b78889-3906-399b-696a-31f6107d919f,E66.9,162864005,Body mass index 30+ - obesity (finding),,1982-02-11,active
+06b78889-3906-399b-696a-31f6107d919f,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1993-04-15,active
+06b78889-3906-399b-696a-31f6107d919f,E11.40,368581000119106,Neuropathy due to type 2 diabetes mellitus (disorder),Endocrinology,2000-05-25,active
+06b78889-3906-399b-696a-31f6107d919f,J32.9,40055000,Chronic sinusitis (disorder),,2005-03-28,active
+06b78889-3906-399b-696a-31f6107d919f,E11.319,1551000119108,Nonproliferative diabetic retinopathy due to type II diabetes mellitus,,2005-09-22,active
+06b78889-3906-399b-696a-31f6107d919f,G89.29,82423001,Chronic pain (finding),,2014-02-01,active
+06b78889-3906-399b-696a-31f6107d919f,M54.50,278860009,Chronic low back pain (finding),,2014-02-01,active
+06b78889-3906-399b-696a-31f6107d919f,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2014-11-13,active
+06b78889-3906-399b-696a-31f6107d919f,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2014-11-13,active
+06b78889-3906-399b-696a-31f6107d919f,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2015-12-03,active
+06b78889-3906-399b-696a-31f6107d919f,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2016-11-03,active
+06b78889-3906-399b-696a-31f6107d919f,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2016-11-28,active
+06b78889-3906-399b-696a-31f6107d919f,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2018-11-22,active
+06b78889-3906-399b-696a-31f6107d919f,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2021-03-17,active
+06b78889-3906-399b-696a-31f6107d919f,I50.9,88805009,Chronic congestive heart failure (disorder),Cardiology,2023-04-12,active
+06b78889-3906-399b-696a-31f6107d919f,N18.4,431857002,Chronic kidney disease stage 4 (disorder),Nephrology,2026-04-02,active
+06b78889-3906-399b-696a-31f6107d919f,K05.10,66383009,Gingivitis (disorder),,2026-05-14,active
+07041f3e-21e4-9579-ee77-8e2145b7c461,I10,59621000,Essential hypertension (disorder),Cardiology,1981-04-22,active
+07041f3e-21e4-9579-ee77-8e2145b7c461,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2003-08-27,active
+07041f3e-21e4-9579-ee77-8e2145b7c461,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2003-09-07,active
+07041f3e-21e4-9579-ee77-8e2145b7c461,J32.9,40055000,Chronic sinusitis (disorder),,2022-03-16,active
+07041f3e-21e4-9579-ee77-8e2145b7c461,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2022-04-06,active
+07041f3e-21e4-9579-ee77-8e2145b7c461,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2022-04-06,active
+08daab67-2a1d-19e9-896f-d7cc2709d0af,E66.9,162864005,Body mass index 30+ - obesity (finding),,1977-10-23,active
+08daab67-2a1d-19e9-896f-d7cc2709d0af,R73.03,714628002,Prediabetes (finding),Endocrinology,1980-10-26,active
+08daab67-2a1d-19e9-896f-d7cc2709d0af,E78.5,55822004,Hyperlipidemia (disorder),,2011-11-06,active
+08daab67-2a1d-19e9-896f-d7cc2709d0af,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2019-12-22,active
+08daab67-2a1d-19e9-896f-d7cc2709d0af,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2020-01-04,active
+08daab67-2a1d-19e9-896f-d7cc2709d0af,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2020-01-09,active
+08daab67-2a1d-19e9-896f-d7cc2709d0af,J44.9,185086009,Chronic obstructive bronchitis (disorder),Pulmonology,2022-01-02,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,J32.9,40055000,Chronic sinusitis (disorder),,1960-08-21,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,R73.03,714628002,Prediabetes (finding),Endocrinology,1978-07-19,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,E66.9,162864005,Body mass index 30+ - obesity (finding),,1982-07-28,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,I10,59621000,Essential hypertension (disorder),Cardiology,1986-08-06,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1993-09-15,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1993-09-27,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1993-10-01,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,E78.5,55822004,Hyperlipidemia (disorder),,1998-10-14,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1999-10-20,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,E11.40,368581000119106,Neuropathy due to type 2 diabetes mellitus (disorder),Endocrinology,1999-10-20,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2006-03-18,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,I25.2,399211009,History of myocardial infarction (situation),,2006-03-20,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2014-01-08,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2014-01-08,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,E11.319,1551000119108,Nonproliferative diabetic retinopathy due to type II diabetes mellitus,,2014-01-29,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2018-05-30,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2022-12-07,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,N18.4,431857002,Chronic kidney disease stage 4 (disorder),Nephrology,2023-08-16,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,Z76.82,698306007,Awaiting transplantation of kidney (situation),Nephrology,2023-10-24,active
+09c66092-4e58-9ee0-a0fa-1672d42a1538,K05.10,66383009,Gingivitis (disorder),,2026-04-23,active
+09ddebba-e379-dfac-52ed-1be17e566c97,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,2003-02-23,active
+09ddebba-e379-dfac-52ed-1be17e566c97,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2006-07-28,active
+09ddebba-e379-dfac-52ed-1be17e566c97,D64.9,271737000,Anemia (disorder),Hematology,2008-07-04,active
+09ddebba-e379-dfac-52ed-1be17e566c97,E11.40,368581000119106,Neuropathy due to type 2 diabetes mellitus (disorder),Endocrinology,2011-07-22,active
+09ddebba-e379-dfac-52ed-1be17e566c97,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2016-08-19,active
+09ddebba-e379-dfac-52ed-1be17e566c97,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2021-05-21,active
+09ddebba-e379-dfac-52ed-1be17e566c97,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2021-05-28,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,E66.9,162864005,Body mass index 30+ - obesity (finding),,1978-09-30,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,R73.03,714628002,Prediabetes (finding),Endocrinology,1995-08-05,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,I10,59621000,Essential hypertension (disorder),Cardiology,2002-09-14,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2004-10-16,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,I25.2,399211009,History of myocardial infarction (situation),,2004-10-17,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,G89.29,82423001,Chronic pain (finding),,2014-02-03,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,M54.50,278860009,Chronic low back pain (finding),,2014-02-03,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2017-12-09,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2017-12-21,active
+0b24b2f7-3d97-339b-a403-a75bafee503e,J32.9,40055000,Chronic sinusitis (disorder),,2024-08-23,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,J32.9,40055000,Chronic sinusitis (disorder),,1954-03-06,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,E66.9,162864005,Body mass index 30+ - obesity (finding),,1988-11-23,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,R73.03,714628002,Prediabetes (finding),Endocrinology,1990-11-28,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,D64.9,271737000,Anemia (disorder),Hematology,1990-11-28,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,I10,59621000,Essential hypertension (disorder),Cardiology,1996-11-13,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2001-12-12,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2001-12-12,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2002-12-11,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2005-06-29,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2005-07-07,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,G89.29,82423001,Chronic pain (finding),,2014-01-31,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,M54.2,1121000119107,Chronic neck pain (finding),,2014-01-31,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2016-07-27,active
+0c8200e7-036a-6129-fd0a-c41b48adb569,K05.10,66383009,Gingivitis (disorder),,2026-05-20,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,I10,59621000,Essential hypertension (disorder),Cardiology,1979-10-22,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1979-10-22,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,E66.9,162864005,Body mass index 30+ - obesity (finding),,1995-10-30,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,Z94.0,161665007,History of renal transplant (situation),,2001-09-24,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2004-09-27,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,D64.9,271737000,Anemia (disorder),Hematology,2004-09-27,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,J32.9,40055000,Chronic sinusitis (disorder),,2005-06-09,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2018-05-28,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2018-06-07,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2018-06-10,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2024-01-01,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2026-03-23,active
+0cabd273-9ecf-99c5-eba4-ae372f9f5526,K05.10,66383009,Gingivitis (disorder),,2026-05-18,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,R73.03,714628002,Prediabetes (finding),Endocrinology,1992-11-29,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,D64.9,271737000,Anemia (disorder),Hematology,1992-11-29,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,E66.9,162864005,Body mass index 30+ - obesity (finding),,1992-11-29,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,G40.909,84757009,Epilepsy (disorder),Neurology,2012-05-04,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2013-01-27,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2013-02-10,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,I10,59621000,Essential hypertension (disorder),Cardiology,2020-03-08,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2026-04-12,active
+0d52368b-ab2d-55ea-906e-5924bcaa435b,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2026-04-12,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,E66.9,162864005,Body mass index 30+ - obesity (finding),,1970-01-21,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,R73.03,714628002,Prediabetes (finding),Endocrinology,1973-01-24,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,D64.9,271737000,Anemia (disorder),Hematology,1973-01-24,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,1989-04-26,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,I25.2,399211009,History of myocardial infarction (situation),,1989-04-28,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-02-02,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,G89.29,82423001,Chronic pain (finding),,1990-08-20,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,E78.5,55822004,Hyperlipidemia (disorder),,2004-02-18,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2008-07-02,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2008-07-02,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2012-04-04,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2012-04-04,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2012-04-18,active
+0d52eeba-6f0b-e428-1fb2-36feda1fe00a,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2022-02-23,active
+0dd45068-b36e-1447-e634-2ce967f20de5,I10,59621000,Essential hypertension (disorder),Cardiology,1959-10-10,active
+0dd45068-b36e-1447-e634-2ce967f20de5,R73.03,714628002,Prediabetes (finding),Endocrinology,1966-11-19,active
+0dd45068-b36e-1447-e634-2ce967f20de5,D64.9,271737000,Anemia (disorder),Hematology,1966-11-19,active
+0dd45068-b36e-1447-e634-2ce967f20de5,E66.9,162864005,Body mass index 30+ - obesity (finding),,1970-12-12,active
+0dd45068-b36e-1447-e634-2ce967f20de5,E78.5,55822004,Hyperlipidemia (disorder),,1997-02-01,active
+0ec15d71-4209-2d25-353b-7c37f6387ec9,R73.03,714628002,Prediabetes (finding),Endocrinology,1981-10-25,active
+0ec15d71-4209-2d25-353b-7c37f6387ec9,D64.9,271737000,Anemia (disorder),Hematology,1981-10-25,active
+0ec15d71-4209-2d25-353b-7c37f6387ec9,E66.9,162864005,Body mass index 30+ - obesity (finding),,1984-10-28,active
+0ec15d71-4209-2d25-353b-7c37f6387ec9,I10,59621000,Essential hypertension (disorder),Cardiology,2001-09-09,active
+0ec15d71-4209-2d25-353b-7c37f6387ec9,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2014-11-23,active
+0ec15d71-4209-2d25-353b-7c37f6387ec9,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2014-12-05,active
+0ec15d71-4209-2d25-353b-7c37f6387ec9,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2020-12-27,active
+0ec15d71-4209-2d25-353b-7c37f6387ec9,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2020-12-27,active
+123412c4-bd4f-e356-b82f-bf85f48a1d3e,J32.9,40055000,Chronic sinusitis (disorder),,1953-01-31,active
+123412c4-bd4f-e356-b82f-bf85f48a1d3e,E66.9,162864005,Body mass index 30+ - obesity (finding),,1978-04-26,active
+123412c4-bd4f-e356-b82f-bf85f48a1d3e,R73.03,714628002,Prediabetes (finding),Endocrinology,1983-02-16,active
+123412c4-bd4f-e356-b82f-bf85f48a1d3e,D64.9,271737000,Anemia (disorder),Hematology,1983-02-16,active
+123412c4-bd4f-e356-b82f-bf85f48a1d3e,I21.3,401303003,Acute ST segment elevation myocardial infarction (disorder),Cardiology,1997-03-13,active
+123412c4-bd4f-e356-b82f-bf85f48a1d3e,I25.2,399211009,History of myocardial infarction (situation),,1997-03-13,active
+12622c09-6cbd-c4f4-11b8-779d5baca0fe,R73.03,714628002,Prediabetes (finding),Endocrinology,1971-08-15,active
+12622c09-6cbd-c4f4-11b8-779d5baca0fe,D64.9,271737000,Anemia (disorder),Hematology,1971-08-15,active
+12622c09-6cbd-c4f4-11b8-779d5baca0fe,E66.9,162864005,Body mass index 30+ - obesity (finding),,1980-08-24,active
+12622c09-6cbd-c4f4-11b8-779d5baca0fe,J32.9,40055000,Chronic sinusitis (disorder),,1983-03-13,active
+12622c09-6cbd-c4f4-11b8-779d5baca0fe,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1999-06-27,active
+12622c09-6cbd-c4f4-11b8-779d5baca0fe,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1999-07-17,active
+12622c09-6cbd-c4f4-11b8-779d5baca0fe,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1999-07-23,active
+12622c09-6cbd-c4f4-11b8-779d5baca0fe,G89.29,82423001,Chronic pain (finding),,2014-02-04,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,E66.9,162864005,Body mass index 30+ - obesity (finding),,1968-10-14,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,I10,59621000,Essential hypertension (disorder),Cardiology,1974-10-28,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1974-10-28,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,D64.9,271737000,Anemia (disorder),Hematology,1974-10-28,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,E11.40,368581000119106,Neuropathy due to type 2 diabetes mellitus (disorder),Endocrinology,1980-12-01,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1988-10-31,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2000-05-08,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2000-06-03,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,Z94.0,161665007,History of renal transplant (situation),,2020-06-22,active
+133dac83-bd2d-7d53-f73c-f8dbdfad75a3,E11.319,1551000119108,Nonproliferative diabetic retinopathy due to type II diabetes mellitus,,2022-07-25,active
+13fc6e20-9222-a100-c93e-520650864f3f,E66.9,162864005,Body mass index 30+ - obesity (finding),,1963-12-24,active
+13fc6e20-9222-a100-c93e-520650864f3f,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1987-11-10,active
+13fc6e20-9222-a100-c93e-520650864f3f,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1987-11-18,active
+13fc6e20-9222-a100-c93e-520650864f3f,M16.9,239872002,Osteoarthritis of hip (disorder),Rheumatology,1995-05-02,active
+13fc6e20-9222-a100-c93e-520650864f3f,E78.5,55822004,Hyperlipidemia (disorder),,2002-01-29,active
+13fc6e20-9222-a100-c93e-520650864f3f,G89.29,82423001,Chronic pain (finding),,2023-02-08,active
+14109d6e-1993-9423-7bcd-eebb52f25737,E66.9,162864005,Body mass index 30+ - obesity (finding),,1966-11-18,active
+14109d6e-1993-9423-7bcd-eebb52f25737,R73.03,714628002,Prediabetes (finding),Endocrinology,1981-09-25,active
+14109d6e-1993-9423-7bcd-eebb52f25737,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1995-11-03,active
+14109d6e-1993-9423-7bcd-eebb52f25737,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1995-11-12,active
+14109d6e-1993-9423-7bcd-eebb52f25737,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1996-01-27,active
+14109d6e-1993-9423-7bcd-eebb52f25737,I10,59621000,Essential hypertension (disorder),Cardiology,2005-12-30,active
+14109d6e-1993-9423-7bcd-eebb52f25737,E78.5,55822004,Hyperlipidemia (disorder),,2010-01-22,active
+14109d6e-1993-9423-7bcd-eebb52f25737,G89.29,82423001,Chronic pain (finding),,2014-02-02,active
+14109d6e-1993-9423-7bcd-eebb52f25737,M54.50,278860009,Chronic low back pain (finding),,2014-02-02,active
+14109d6e-1993-9423-7bcd-eebb52f25737,M54.2,1121000119107,Chronic neck pain (finding),,2014-02-02,active
+155ae778-0cf1-13c0-f93f-34407d54af13,E66.9,162864005,Body mass index 30+ - obesity (finding),,1993-01-21,active
+155ae778-0cf1-13c0-f93f-34407d54af13,I10,59621000,Essential hypertension (disorder),Cardiology,2006-02-09,active
+155ae778-0cf1-13c0-f93f-34407d54af13,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2013-03-21,active
+155ae778-0cf1-13c0-f93f-34407d54af13,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2013-03-28,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,R73.03,714628002,Prediabetes (finding),Endocrinology,1970-03-28,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,D64.9,271737000,Anemia (disorder),Hematology,1970-03-28,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,J32.9,40055000,Chronic sinusitis (disorder),,1974-02-03,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,1985-10-25,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,E66.9,162864005,Body mass index 30+ - obesity (finding),,1988-04-16,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,G89.29,82423001,Chronic pain (finding),,1990-08-07,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1991-03-08,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,M54.50,278860009,Chronic low back pain (finding),,2014-02-03,active
+157e501a-d9d4-3356-072a-6f2416a5a5eb,I10,59621000,Essential hypertension (disorder),Cardiology,2014-04-12,active
+158793d3-e928-9e86-5cdb-049bfdc1b424,R73.03,714628002,Prediabetes (finding),Endocrinology,1969-05-17,active
+158793d3-e928-9e86-5cdb-049bfdc1b424,D64.9,271737000,Anemia (disorder),Hematology,1972-05-20,active
+158793d3-e928-9e86-5cdb-049bfdc1b424,E66.9,162864005,Body mass index 30+ - obesity (finding),,1996-04-05,active
+158793d3-e928-9e86-5cdb-049bfdc1b424,E78.5,55822004,Hyperlipidemia (disorder),,2001-03-23,active
+158793d3-e928-9e86-5cdb-049bfdc1b424,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2009-05-09,active
+158793d3-e928-9e86-5cdb-049bfdc1b424,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2009-05-29,active
+158793d3-e928-9e86-5cdb-049bfdc1b424,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2009-05-30,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,R73.03,714628002,Prediabetes (finding),Endocrinology,1966-12-04,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,D64.9,271737000,Anemia (disorder),Hematology,1966-12-04,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-02-06,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,I10,59621000,Essential hypertension (disorder),Cardiology,1990-10-21,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1990-10-21,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1990-10-21,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,G89.29,82423001,Chronic pain (finding),,1991-02-02,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,I25.2,399211009,History of myocardial infarction (situation),,1995-05-07,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2000-05-14,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2000-05-22,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2000-06-24,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,Z94.0,161665007,History of renal transplant (situation),,2016-03-20,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2018-09-02,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2020-04-19,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2021-05-09,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,N18.4,431857002,Chronic kidney disease stage 4 (disorder),Nephrology,2022-05-08,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,Z76.82,698306007,Awaiting transplantation of kidney (situation),Nephrology,2022-09-04,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,N18.6,46177005,End-stage renal disease (disorder),Nephrology,2024-05-26,active
+15efaafd-f1b7-ea10-d93b-7eae4c9ca7cd,K05.10,66383009,Gingivitis (disorder),,2026-05-10,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,E66.9,162864005,Body mass index 30+ - obesity (finding),,1949-09-04,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,R73.03,714628002,Prediabetes (finding),Endocrinology,1961-09-17,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,D64.9,271737000,Anemia (disorder),Hematology,1964-09-20,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,M16.9,239872002,Osteoarthritis of hip (disorder),Rheumatology,1971-11-14,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,E78.5,55822004,Hyperlipidemia (disorder),,1973-07-22,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,I10,59621000,Essential hypertension (disorder),Cardiology,1975-07-27,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1976-08-01,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1989-07-23,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1989-08-05,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,Z94.0,161665007,History of renal transplant (situation),,2002-11-24,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,G89.29,82423001,Chronic pain (finding),,2014-02-04,active
+1615b3f7-78ba-76b8-be3e-0fccced1fcb9,M54.50,278860009,Chronic low back pain (finding),,2014-02-04,active
+16447a89-1a35-536f-4ef6-3aa9d8222310,R73.03,714628002,Prediabetes (finding),Endocrinology,1976-03-20,active
+16447a89-1a35-536f-4ef6-3aa9d8222310,D64.9,271737000,Anemia (disorder),Hematology,1976-03-20,active
+16447a89-1a35-536f-4ef6-3aa9d8222310,E66.9,162864005,Body mass index 30+ - obesity (finding),,1996-01-27,active
+16447a89-1a35-536f-4ef6-3aa9d8222310,G89.29,82423001,Chronic pain (finding),,2014-02-03,active
+16447a89-1a35-536f-4ef6-3aa9d8222310,M54.2,1121000119107,Chronic neck pain (finding),,2014-02-03,active
+1711c55b-e463-4e56-09a8-4a29ae9b2cf9,R73.03,714628002,Prediabetes (finding),Endocrinology,2004-06-28,active
+1711c55b-e463-4e56-09a8-4a29ae9b2cf9,D64.9,271737000,Anemia (disorder),Hematology,2004-06-28,active
+1711c55b-e463-4e56-09a8-4a29ae9b2cf9,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,2011-11-08,active
+1711c55b-e463-4e56-09a8-4a29ae9b2cf9,E66.9,162864005,Body mass index 30+ - obesity (finding),,2018-07-30,active
+1711c55b-e463-4e56-09a8-4a29ae9b2cf9,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2021-08-16,active
+1711c55b-e463-4e56-09a8-4a29ae9b2cf9,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2021-08-24,active
+1711c55b-e463-4e56-09a8-4a29ae9b2cf9,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2021-08-26,active
+176a9e08-dd37-788d-05b6-0abf3bbb7902,R73.03,714628002,Prediabetes (finding),Endocrinology,1983-09-21,active
+176a9e08-dd37-788d-05b6-0abf3bbb7902,D64.9,271737000,Anemia (disorder),Hematology,1986-07-09,active
+176a9e08-dd37-788d-05b6-0abf3bbb7902,E66.9,162864005,Body mass index 30+ - obesity (finding),,1986-07-09,active
+176a9e08-dd37-788d-05b6-0abf3bbb7902,I10,59621000,Essential hypertension (disorder),Cardiology,2022-11-30,active
+176a9e08-dd37-788d-05b6-0abf3bbb7902,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2023-12-06,active
+176a9e08-dd37-788d-05b6-0abf3bbb7902,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2023-12-17,active
+18337490-dd48-a6ba-5971-702a746be809,E66.9,162864005,Body mass index 30+ - obesity (finding),,1990-06-12,active
+18337490-dd48-a6ba-5971-702a746be809,R73.03,714628002,Prediabetes (finding),Endocrinology,2002-04-16,active
+18337490-dd48-a6ba-5971-702a746be809,D64.9,271737000,Anemia (disorder),Hematology,2006-03-28,active
+18337490-dd48-a6ba-5971-702a746be809,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2015-05-19,active
+18337490-dd48-a6ba-5971-702a746be809,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2015-05-30,active
+18337490-dd48-a6ba-5971-702a746be809,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2015-06-03,active
+18337490-dd48-a6ba-5971-702a746be809,E78.5,55822004,Hyperlipidemia (disorder),,2021-06-22,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,E66.9,162864005,Body mass index 30+ - obesity (finding),,1995-03-17,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,R73.03,714628002,Prediabetes (finding),Endocrinology,2007-01-19,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2009-01-23,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,I10,59621000,Essential hypertension (disorder),Cardiology,2010-12-31,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2014-01-17,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2014-01-17,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,G89.29,82423001,Chronic pain (finding),,2014-02-02,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,M54.50,278860009,Chronic low back pain (finding),,2014-02-02,active
+1aa3a34e-49ca-5923-4c73-9ed63cf1dccc,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2018-08-24,active
+1b018e36-5c58-c340-acf5-a2daf2d3e66a,M16.9,239872002,Osteoarthritis of hip (disorder),Rheumatology,1973-08-26,active
+1b018e36-5c58-c340-acf5-a2daf2d3e66a,E66.9,162864005,Body mass index 30+ - obesity (finding),,1977-05-03,active
+1b018e36-5c58-c340-acf5-a2daf2d3e66a,I10,59621000,Essential hypertension (disorder),Cardiology,1982-03-23,active
+1b018e36-5c58-c340-acf5-a2daf2d3e66a,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2000-07-04,active
+1b018e36-5c58-c340-acf5-a2daf2d3e66a,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2000-07-24,active
+1b018e36-5c58-c340-acf5-a2daf2d3e66a,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2000-09-29,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,R73.03,714628002,Prediabetes (finding),Endocrinology,1973-10-21,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,D64.9,271737000,Anemia (disorder),Hematology,1973-10-21,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,E66.9,162864005,Body mass index 30+ - obesity (finding),,1994-09-04,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1996-09-08,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1996-09-21,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,E78.5,55822004,Hyperlipidemia (disorder),,2009-10-18,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2017-12-03,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,I10,59621000,Essential hypertension (disorder),Cardiology,2018-12-09,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2024-11-04,active
+1e1b63b2-d888-9253-9b07-e4c3e3385f1f,I25.2,399211009,History of myocardial infarction (situation),,2024-11-04,active
+1e61b262-eb47-cc06-2959-d37e51189184,R73.03,714628002,Prediabetes (finding),Endocrinology,1961-12-24,active
+1e61b262-eb47-cc06-2959-d37e51189184,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1967-12-31,active
+1e61b262-eb47-cc06-2959-d37e51189184,D64.9,271737000,Anemia (disorder),Hematology,1971-01-03,active
+1e61b262-eb47-cc06-2959-d37e51189184,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1976-02-29,active
+1e61b262-eb47-cc06-2959-d37e51189184,E66.9,162864005,Body mass index 30+ - obesity (finding),,1981-09-06,active
+1e61b262-eb47-cc06-2959-d37e51189184,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1999-07-18,active
+1e61b262-eb47-cc06-2959-d37e51189184,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1999-08-05,active
+1e61b262-eb47-cc06-2959-d37e51189184,Z94.0,161665007,History of renal transplant (situation),,2003-07-20,active
+1e61b262-eb47-cc06-2959-d37e51189184,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2009-09-13,active
+1f4513ec-7270-3ee0-ea78-14db4d633ab2,I10,59621000,Essential hypertension (disorder),Cardiology,1968-06-04,active
+1f4513ec-7270-3ee0-ea78-14db4d633ab2,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,1984-11-17,active
+1f4513ec-7270-3ee0-ea78-14db4d633ab2,E66.9,162864005,Body mass index 30+ - obesity (finding),,1986-09-23,active
+1f4513ec-7270-3ee0-ea78-14db4d633ab2,E78.5,55822004,Hyperlipidemia (disorder),,2014-03-04,active
+1f502b5c-8987-b496-b850-bf2a658587c1,E66.9,162864005,Body mass index 30+ - obesity (finding),,1967-11-23,active
+1f502b5c-8987-b496-b850-bf2a658587c1,R73.03,714628002,Prediabetes (finding),Endocrinology,1973-11-29,active
+1f502b5c-8987-b496-b850-bf2a658587c1,D64.9,271737000,Anemia (disorder),Hematology,1979-12-06,active
+1f502b5c-8987-b496-b850-bf2a658587c1,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,1991-09-01,active
+1f502b5c-8987-b496-b850-bf2a658587c1,I10,59621000,Essential hypertension (disorder),Cardiology,2002-10-31,active
+1f502b5c-8987-b496-b850-bf2a658587c1,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2011-08-04,active
+1f502b5c-8987-b496-b850-bf2a658587c1,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2011-08-14,active
+1f502b5c-8987-b496-b850-bf2a658587c1,E78.5,55822004,Hyperlipidemia (disorder),,2015-01-08,active
+1f502b5c-8987-b496-b850-bf2a658587c1,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2017-06-15,active
+1f502b5c-8987-b496-b850-bf2a658587c1,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2017-06-15,active
+1f502b5c-8987-b496-b850-bf2a658587c1,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2019-11-28,active
+1f502b5c-8987-b496-b850-bf2a658587c1,I21.3,401303003,Acute ST segment elevation myocardial infarction (disorder),Cardiology,2021-10-11,active
+1f502b5c-8987-b496-b850-bf2a658587c1,I25.2,399211009,History of myocardial infarction (situation),,2021-10-11,active
+1f8d420a-6556-8543-335a-dd9a06d9ab35,E66.9,162864005,Body mass index 30+ - obesity (finding),,1979-08-10,active
+1f8d420a-6556-8543-335a-dd9a06d9ab35,I10,59621000,Essential hypertension (disorder),Cardiology,1991-08-23,active
+1f8d420a-6556-8543-335a-dd9a06d9ab35,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1995-09-15,active
+1f8d420a-6556-8543-335a-dd9a06d9ab35,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2015-12-04,active
+1f8d420a-6556-8543-335a-dd9a06d9ab35,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2015-12-21,active
+1f8d420a-6556-8543-335a-dd9a06d9ab35,Z94.0,161665007,History of renal transplant (situation),,2019-08-23,active
+1f8d420a-6556-8543-335a-dd9a06d9ab35,M06.9,69896004,Rheumatoid arthritis (disorder),Rheumatology,2021-06-24,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,E66.9,162864005,Body mass index 30+ - obesity (finding),,1984-03-14,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,I10,59621000,Essential hypertension (disorder),Cardiology,1996-12-25,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,R73.03,714628002,Prediabetes (finding),Endocrinology,2002-01-23,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,D64.9,271737000,Anemia (disorder),Hematology,2002-01-23,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2009-01-28,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2009-02-02,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,I25.2,399211009,History of myocardial infarction (situation),,2009-02-04,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2010-03-10,active
+1fdffa49-3837-d5ce-4fa0-f7d20eacc774,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2011-03-16,active
+1fe0c5a7-c16f-0dda-5ecd-a096a56259af,E66.9,162864005,Body mass index 30+ - obesity (finding),,1978-05-11,active
+1fe0c5a7-c16f-0dda-5ecd-a096a56259af,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-02-03,active
+1fe0c5a7-c16f-0dda-5ecd-a096a56259af,G89.29,82423001,Chronic pain (finding),,1990-07-18,active
+1fe0c5a7-c16f-0dda-5ecd-a096a56259af,I10,59621000,Essential hypertension (disorder),Cardiology,1994-07-07,active
+1fe0c5a7-c16f-0dda-5ecd-a096a56259af,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1995-07-13,active
+1fe0c5a7-c16f-0dda-5ecd-a096a56259af,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1995-07-22,active
+1fe0c5a7-c16f-0dda-5ecd-a096a56259af,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2026-01-01,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,J45.909,195967001,Asthma (disorder),Pulmonology,1980-07-27,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,J32.9,40055000,Chronic sinusitis (disorder),,1985-04-30,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,R73.03,714628002,Prediabetes (finding),Endocrinology,2003-12-07,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,D64.9,271737000,Anemia (disorder),Hematology,2003-12-07,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,M19.049,201834006,Localized  primary osteoarthritis of the hand (disorder),Rheumatology,2007-06-04,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,E78.5,55822004,Hyperlipidemia (disorder),,2014-02-02,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2022-03-20,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2022-04-01,active
+2057220a-4365-d8c7-d3c1-7a2b4f1f1941,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2022-04-28,active
+2295ce97-fdf9-dc93-e55f-3f2f2d9df871,R73.03,714628002,Prediabetes (finding),Endocrinology,1988-05-26,active
+2295ce97-fdf9-dc93-e55f-3f2f2d9df871,D64.9,271737000,Anemia (disorder),Hematology,1988-05-26,active
+2295ce97-fdf9-dc93-e55f-3f2f2d9df871,M16.9,239872002,Osteoarthritis of hip (disorder),Rheumatology,2007-02-18,active
+2295ce97-fdf9-dc93-e55f-3f2f2d9df871,I10,59621000,Essential hypertension (disorder),Cardiology,2008-03-20,active
+2295ce97-fdf9-dc93-e55f-3f2f2d9df871,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2016-05-05,active
+2295ce97-fdf9-dc93-e55f-3f2f2d9df871,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2016-05-16,active
+23245370-f85a-5ed6-8be2-45e64305b9dc,J32.9,40055000,Chronic sinusitis (disorder),,1961-04-29,active
+23245370-f85a-5ed6-8be2-45e64305b9dc,E66.9,162864005,Body mass index 30+ - obesity (finding),,1994-12-29,active
+23245370-f85a-5ed6-8be2-45e64305b9dc,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1997-01-02,active
+23245370-f85a-5ed6-8be2-45e64305b9dc,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1997-01-13,active
+23245370-f85a-5ed6-8be2-45e64305b9dc,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1997-02-15,active
+23245370-f85a-5ed6-8be2-45e64305b9dc,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,2002-06-15,active
+23245370-f85a-5ed6-8be2-45e64305b9dc,R73.03,714628002,Prediabetes (finding),Endocrinology,2019-03-14,active
+240473c8-b6a4-63cd-f3c0-b75f9e73a756,J32.9,40055000,Chronic sinusitis (disorder),,1960-03-18,active
+240473c8-b6a4-63cd-f3c0-b75f9e73a756,E78.5,55822004,Hyperlipidemia (disorder),,2004-09-19,active
+26983945-d0ae-76de-65db-529e2bf32959,J32.9,40055000,Chronic sinusitis (disorder),,1938-08-02,active
+26983945-d0ae-76de-65db-529e2bf32959,E66.9,162864005,Body mass index 30+ - obesity (finding),,1975-07-26,active
+273d6924-eaf2-9e4d-5dd2-aaf852f48c51,E66.9,162864005,Body mass index 30+ - obesity (finding),,1990-06-08,active
+273d6924-eaf2-9e4d-5dd2-aaf852f48c51,E78.5,55822004,Hyperlipidemia (disorder),,1992-06-12,active
+273d6924-eaf2-9e4d-5dd2-aaf852f48c51,R73.03,714628002,Prediabetes (finding),Endocrinology,1999-01-01,active
+273d6924-eaf2-9e4d-5dd2-aaf852f48c51,D64.9,271737000,Anemia (disorder),Hematology,1999-06-11,active
+273d6924-eaf2-9e4d-5dd2-aaf852f48c51,G89.29,82423001,Chronic pain (finding),,2014-02-02,active
+273d6924-eaf2-9e4d-5dd2-aaf852f48c51,M54.50,278860009,Chronic low back pain (finding),,2014-02-02,active
+273d6924-eaf2-9e4d-5dd2-aaf852f48c51,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2022-10-21,active
+273d6924-eaf2-9e4d-5dd2-aaf852f48c51,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2022-11-01,active
+2843273d-9182-7d21-6444-b367b79b34dc,E78.5,55822004,Hyperlipidemia (disorder),,1974-10-14,active
+2843273d-9182-7d21-6444-b367b79b34dc,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-03-02,active
+2843273d-9182-7d21-6444-b367b79b34dc,I10,59621000,Essential hypertension (disorder),Cardiology,1991-12-09,active
+2843273d-9182-7d21-6444-b367b79b34dc,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2001-01-29,active
+2843273d-9182-7d21-6444-b367b79b34dc,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2001-02-09,active
+2843273d-9182-7d21-6444-b367b79b34dc,G89.29,82423001,Chronic pain (finding),,2014-02-05,active
+2843273d-9182-7d21-6444-b367b79b34dc,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2016-09-12,active
+2843273d-9182-7d21-6444-b367b79b34dc,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2016-09-12,active
+2843273d-9182-7d21-6444-b367b79b34dc,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2019-04-01,active
+2843273d-9182-7d21-6444-b367b79b34dc,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2024-02-05,active
+285ddc16-595e-43a6-b737-266670da5631,R73.03,714628002,Prediabetes (finding),Endocrinology,1968-06-07,active
+285ddc16-595e-43a6-b737-266670da5631,D64.9,271737000,Anemia (disorder),Hematology,1968-06-07,active
+285ddc16-595e-43a6-b737-266670da5631,E66.9,162864005,Body mass index 30+ - obesity (finding),,1977-06-17,active
+285ddc16-595e-43a6-b737-266670da5631,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-08-06,active
+285ddc16-595e-43a6-b737-266670da5631,G89.29,82423001,Chronic pain (finding),,1990-09-12,active
+285ddc16-595e-43a6-b737-266670da5631,I10,59621000,Essential hypertension (disorder),Cardiology,1996-04-05,active
+28901ea6-16e2-4c9b-6a45-34daf137f569,R73.03,714628002,Prediabetes (finding),Endocrinology,1953-04-18,active
+28901ea6-16e2-4c9b-6a45-34daf137f569,D64.9,271737000,Anemia (disorder),Hematology,1953-04-18,active
+28901ea6-16e2-4c9b-6a45-34daf137f569,I10,59621000,Essential hypertension (disorder),Cardiology,1971-05-08,active
+28901ea6-16e2-4c9b-6a45-34daf137f569,E66.9,162864005,Body mass index 30+ - obesity (finding),,1974-05-25,active
+28901ea6-16e2-4c9b-6a45-34daf137f569,E78.5,55822004,Hyperlipidemia (disorder),,1981-07-04,active
+28901ea6-16e2-4c9b-6a45-34daf137f569,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1989-08-19,active
+28901ea6-16e2-4c9b-6a45-34daf137f569,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1989-08-30,active
+28901ea6-16e2-4c9b-6a45-34daf137f569,J02.9,195662009,Acute viral pharyngitis (disorder),,2026-05-18,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,I10,59621000,Essential hypertension (disorder),Cardiology,1975-04-24,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,E66.9,162864005,Body mass index 30+ - obesity (finding),,1982-06-03,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2008-04-15,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,I25.2,399211009,History of myocardial infarction (situation),,2008-04-16,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2012-11-22,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2012-11-30,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2018-06-28,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2018-06-28,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2020-01-02,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2020-09-17,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,D64.9,271737000,Anemia (disorder),Hematology,2024-12-19,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,N18.4,431857002,Chronic kidney disease stage 4 (disorder),Nephrology,2025-01-30,active
+290a94e8-bce7-7653-3757-b2e923c5d0db,Z76.82,698306007,Awaiting transplantation of kidney (situation),Nephrology,2025-03-19,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,E66.9,162864005,Body mass index 30+ - obesity (finding),,1971-03-08,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,R73.03,714628002,Prediabetes (finding),Endocrinology,1980-03-17,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,D64.9,271737000,Anemia (disorder),Hematology,1982-07-26,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,E78.5,55822004,Hyperlipidemia (disorder),,2003-02-10,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2008-03-17,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,I25.2,399211009,History of myocardial infarction (situation),,2008-03-17,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2015-04-20,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2015-05-06,active
+2af30c56-bd8b-c8fd-4130-cbb7b20b15f7,J32.9,40055000,Chronic sinusitis (disorder),,2025-02-24,active
+2df23e85-b9bf-4e4b-db01-bd16339461d4,R73.03,714628002,Prediabetes (finding),Endocrinology,1988-04-13,active
+2df23e85-b9bf-4e4b-db01-bd16339461d4,D64.9,271737000,Anemia (disorder),Hematology,1990-04-18,active
+2df23e85-b9bf-4e4b-db01-bd16339461d4,E66.9,162864005,Body mass index 30+ - obesity (finding),,1990-04-18,active
+2df23e85-b9bf-4e4b-db01-bd16339461d4,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2022-07-27,active
+2df23e85-b9bf-4e4b-db01-bd16339461d4,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2022-08-07,active
+2fd4d467-8d48-d69b-c9e1-8324721f79e8,J32.9,40055000,Chronic sinusitis (disorder),,1948-09-15,active
+2fd4d467-8d48-d69b-c9e1-8324721f79e8,R73.03,714628002,Prediabetes (finding),Endocrinology,1972-08-25,active
+2fd4d467-8d48-d69b-c9e1-8324721f79e8,D64.9,271737000,Anemia (disorder),Hematology,1972-08-25,active
+2fd4d467-8d48-d69b-c9e1-8324721f79e8,E66.9,162864005,Body mass index 30+ - obesity (finding),,1978-06-16,active
+2fd4d467-8d48-d69b-c9e1-8324721f79e8,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-04-15,active
+2fd4d467-8d48-d69b-c9e1-8324721f79e8,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2016-11-18,active
+2fd4d467-8d48-d69b-c9e1-8324721f79e8,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2016-12-02,active
+3130533b-6c6d-27b0-c610-f7cfdb4fe294,I10,59621000,Essential hypertension (disorder),Cardiology,1980-03-26,active
+3130533b-6c6d-27b0-c610-f7cfdb4fe294,E66.9,162864005,Body mass index 30+ - obesity (finding),,1980-03-26,active
+3130533b-6c6d-27b0-c610-f7cfdb4fe294,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,1992-06-03,active
+3130533b-6c6d-27b0-c610-f7cfdb4fe294,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1992-06-03,active
+3130533b-6c6d-27b0-c610-f7cfdb4fe294,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,1999-07-14,active
+3130533b-6c6d-27b0-c610-f7cfdb4fe294,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2015-11-04,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,R73.03,714628002,Prediabetes (finding),Endocrinology,1969-05-14,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,D64.9,271737000,Anemia (disorder),Hematology,1969-05-14,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,I10,59621000,Essential hypertension (disorder),Cardiology,1981-03-11,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1997-06-11,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,E11.319,1551000119108,Nonproliferative diabetic retinopathy due to type II diabetes mellitus,,2004-03-11,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,E78.5,55822004,Hyperlipidemia (disorder),,2011-08-31,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,I21.3,401303003,Acute ST segment elevation myocardial infarction (disorder),Cardiology,2011-09-24,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,I25.2,399211009,History of myocardial infarction (situation),,2011-09-24,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,G89.29,82423001,Chronic pain (finding),,2014-01-31,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,M54.50,278860009,Chronic low back pain (finding),,2014-01-31,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2016-09-28,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2016-10-08,active
+314d78fe-9b49-23c6-fe15-4bc6cc3334a0,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2017-10-04,active
+327ccc0b-8ed7-4eba-419f-b8df00bd5584,I10,59621000,Essential hypertension (disorder),Cardiology,1994-02-11,active
+327ccc0b-8ed7-4eba-419f-b8df00bd5584,E66.9,162864005,Body mass index 30+ - obesity (finding),,1994-02-11,active
+327ccc0b-8ed7-4eba-419f-b8df00bd5584,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,2001-07-01,active
+327ccc0b-8ed7-4eba-419f-b8df00bd5584,G89.29,82423001,Chronic pain (finding),,2014-02-02,active
+327ccc0b-8ed7-4eba-419f-b8df00bd5584,M54.50,278860009,Chronic low back pain (finding),,2014-02-02,active
+327ccc0b-8ed7-4eba-419f-b8df00bd5584,I21.3,401303003,Acute ST segment elevation myocardial infarction (disorder),Cardiology,2023-10-01,active
+327ccc0b-8ed7-4eba-419f-b8df00bd5584,I25.2,399211009,History of myocardial infarction (situation),,2023-10-01,active
+331b3529-b2d8-7b8d-0fe8-cd855cc6893b,E66.9,162864005,Body mass index 30+ - obesity (finding),,1984-07-01,active
+331b3529-b2d8-7b8d-0fe8-cd855cc6893b,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2021-11-27,active
+331b3529-b2d8-7b8d-0fe8-cd855cc6893b,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2021-12-06,active
+33c00a3d-ae8f-4401-41d8-27458c11288c,E66.9,162864005,Body mass index 30+ - obesity (finding),,1974-04-22,active
+33c00a3d-ae8f-4401-41d8-27458c11288c,E78.5,55822004,Hyperlipidemia (disorder),,1991-08-05,active
+33c00a3d-ae8f-4401-41d8-27458c11288c,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,2000-11-27,active
+3541b284-0e27-edbb-450f-8f53acb6e12d,J32.9,40055000,Chronic sinusitis (disorder),,1971-04-23,active
+3541b284-0e27-edbb-450f-8f53acb6e12d,I10,59621000,Essential hypertension (disorder),Cardiology,1989-02-23,active
+3541b284-0e27-edbb-450f-8f53acb6e12d,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,1992-05-24,active
+3541b284-0e27-edbb-450f-8f53acb6e12d,D64.9,271737000,Anemia (disorder),Hematology,2005-02-16,active
+3541b284-0e27-edbb-450f-8f53acb6e12d,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2011-06-30,active
+3541b284-0e27-edbb-450f-8f53acb6e12d,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2011-07-12,active
+3541b284-0e27-edbb-450f-8f53acb6e12d,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2011-08-21,active
+3541b284-0e27-edbb-450f-8f53acb6e12d,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2025-09-18,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,J32.9,40055000,Chronic sinusitis (disorder),,1968-04-09,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,R73.03,714628002,Prediabetes (finding),Endocrinology,1976-01-16,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,D64.9,271737000,Anemia (disorder),Hematology,1977-03-11,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,E66.9,162864005,Body mass index 30+ - obesity (finding),,2004-12-10,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,I21.3,401303003,Acute ST segment elevation myocardial infarction (disorder),Cardiology,2005-09-30,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,I25.2,399211009,History of myocardial infarction (situation),,2005-09-30,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2006-11-17,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,E78.5,55822004,Hyperlipidemia (disorder),,2006-11-17,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2006-11-29,active
+356e3094-352a-e07a-4c37-27ef89f8ecc4,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2006-12-21,active
+35e7bc83-82ef-b834-1062-dc0121e5fea8,E66.9,162864005,Body mass index 30+ - obesity (finding),,1968-08-07,active
+35e7bc83-82ef-b834-1062-dc0121e5fea8,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,1980-04-30,active
+35e7bc83-82ef-b834-1062-dc0121e5fea8,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1990-03-21,active
+35e7bc83-82ef-b834-1062-dc0121e5fea8,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1990-04-03,active
+35e7bc83-82ef-b834-1062-dc0121e5fea8,J32.9,40055000,Chronic sinusitis (disorder),,2008-09-06,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,J32.9,40055000,Chronic sinusitis (disorder),,1939-07-25,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,R73.03,714628002,Prediabetes (finding),Endocrinology,1948-10-17,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,D64.9,271737000,Anemia (disorder),Hematology,1948-10-17,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,E66.9,162864005,Body mass index 30+ - obesity (finding),,1971-08-29,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,E78.5,55822004,Hyperlipidemia (disorder),,1979-08-19,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1987-10-04,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2002-12-29,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2003-01-07,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2003-02-13,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2004-01-04,active
+36767629-87ba-cb1e-67eb-555dcdc1c176,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,2007-02-07,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,E66.9,162864005,Body mass index 30+ - obesity (finding),,1972-12-24,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,J32.9,40055000,Chronic sinusitis (disorder),,1975-07-20,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,R73.03,714628002,Prediabetes (finding),Endocrinology,1982-01-03,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,D64.9,271737000,Anemia (disorder),Hematology,1985-01-06,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1992-11-01,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1992-11-12,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1993-01-13,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,I10,59621000,Essential hypertension (disorder),Cardiology,2010-12-19,active
+38c6c1a2-9072-9cd5-38d1-7ebb7359722d,E78.5,55822004,Hyperlipidemia (disorder),,2015-01-11,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,I10,59621000,Essential hypertension (disorder),Cardiology,1984-07-18,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,E78.5,55822004,Hyperlipidemia (disorder),,1991-08-28,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2002-10-30,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2002-11-22,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,J32.9,40055000,Chronic sinusitis (disorder),,2006-03-12,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2013-01-02,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2013-01-02,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2016-01-20,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2024-01-03,active
+39289b11-274b-0ac6-2894-c2a7d260f0ba,T14.8,125605004,Fracture of bone (disorder),,2026-04-08,active
+395c723c-45f4-4cb6-ec81-92b053138c55,J32.9,40055000,Chronic sinusitis (disorder),,1937-07-23,active
+395c723c-45f4-4cb6-ec81-92b053138c55,E66.9,162864005,Body mass index 30+ - obesity (finding),,1970-10-10,active
+395c723c-45f4-4cb6-ec81-92b053138c55,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1992-12-19,active
+395c723c-45f4-4cb6-ec81-92b053138c55,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1993-01-01,active
+395c723c-45f4-4cb6-ec81-92b053138c55,I10,59621000,Essential hypertension (disorder),Cardiology,1993-12-25,active
+395c723c-45f4-4cb6-ec81-92b053138c55,I21.3,401303003,Acute ST segment elevation myocardial infarction (disorder),Cardiology,1996-09-02,active
+395c723c-45f4-4cb6-ec81-92b053138c55,I25.2,399211009,History of myocardial infarction (situation),,1996-09-02,active
+395c723c-45f4-4cb6-ec81-92b053138c55,H66.90,65363002,Otitis media (disorder),,2025-07-12,active
+3aa925ce-8e8b-195b-9814-dfad638a10f6,J32.9,40055000,Chronic sinusitis (disorder),,1942-08-04,active
+3aa925ce-8e8b-195b-9814-dfad638a10f6,E66.9,162864005,Body mass index 30+ - obesity (finding),,1977-09-12,active
+3aa925ce-8e8b-195b-9814-dfad638a10f6,E78.5,55822004,Hyperlipidemia (disorder),,1991-10-28,active
+3aa925ce-8e8b-195b-9814-dfad638a10f6,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2008-01-28,active
+3aa925ce-8e8b-195b-9814-dfad638a10f6,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2008-02-08,active
+3b67e17b-7bb4-f3b7-1bc0-06c7ef493930,E66.9,162864005,Body mass index 30+ - obesity (finding),,1980-12-14,active
+3b67e17b-7bb4-f3b7-1bc0-06c7ef493930,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2004-10-31,active
+3b67e17b-7bb4-f3b7-1bc0-06c7ef493930,D64.9,271737000,Anemia (disorder),Hematology,2004-10-31,active
+3b67e17b-7bb4-f3b7-1bc0-06c7ef493930,E78.5,55822004,Hyperlipidemia (disorder),,2010-12-05,active
+3b67e17b-7bb4-f3b7-1bc0-06c7ef493930,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2011-12-11,active
+3b67e17b-7bb4-f3b7-1bc0-06c7ef493930,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2011-12-23,active
+3fb7a14a-a550-167f-d46e-974abc60300b,E66.9,162864005,Body mass index 30+ - obesity (finding),,1980-06-04,active
+3fb7a14a-a550-167f-d46e-974abc60300b,E78.5,55822004,Hyperlipidemia (disorder),,2002-03-27,active
+3fb7a14a-a550-167f-d46e-974abc60300b,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2020-07-08,active
+3fb7a14a-a550-167f-d46e-974abc60300b,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2020-07-20,active
+3fb7a14a-a550-167f-d46e-974abc60300b,J01.90,444814009,Viral sinusitis (disorder),,2026-05-13,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,R73.03,714628002,Prediabetes (finding),Endocrinology,1955-05-04,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,D64.9,271737000,Anemia (disorder),Hematology,1955-05-04,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,E66.9,162864005,Body mass index 30+ - obesity (finding),,1967-05-17,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1975-03-12,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1977-03-16,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,Z94.0,161665007,History of renal transplant (situation),,1987-08-19,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1995-06-28,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1995-07-10,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1995-08-06,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,E78.5,55822004,Hyperlipidemia (disorder),,1998-07-15,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2023-11-29,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2025-09-24,active
+3fec64b8-d54b-9ce6-7481-7d3d259c0eea,J20.9,10509002,Acute bronchitis (disorder),,2026-05-15,active
+403b3187-16a0-205e-2783-f162efd0c4c6,J32.9,40055000,Chronic sinusitis (disorder),,1937-01-01,active
+403b3187-16a0-205e-2783-f162efd0c4c6,E66.9,162864005,Body mass index 30+ - obesity (finding),,1974-01-05,active
+403b3187-16a0-205e-2783-f162efd0c4c6,M19.049,201834006,Localized  primary osteoarthritis of the hand (disorder),Rheumatology,1979-12-18,active
+403b3187-16a0-205e-2783-f162efd0c4c6,R73.03,714628002,Prediabetes (finding),Endocrinology,1980-11-01,active
+403b3187-16a0-205e-2783-f162efd0c4c6,D64.9,271737000,Anemia (disorder),Hematology,1982-11-06,active
+403b3187-16a0-205e-2783-f162efd0c4c6,G89.29,82423001,Chronic pain (finding),,1990-11-03,active
+403b3187-16a0-205e-2783-f162efd0c4c6,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1991-09-29,active
+403b3187-16a0-205e-2783-f162efd0c4c6,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1992-11-21,active
+403b3187-16a0-205e-2783-f162efd0c4c6,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1999-01-02,active
+403b3187-16a0-205e-2783-f162efd0c4c6,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1999-01-13,active
+403b3187-16a0-205e-2783-f162efd0c4c6,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1999-01-31,active
+403b3187-16a0-205e-2783-f162efd0c4c6,E11.40,368581000119106,Neuropathy due to type 2 diabetes mellitus (disorder),Endocrinology,2002-01-19,active
+403b3187-16a0-205e-2783-f162efd0c4c6,E78.5,55822004,Hyperlipidemia (disorder),,2008-03-29,active
+404de424-2ecc-108f-251f-2f475358ba39,I10,59621000,Essential hypertension (disorder),Cardiology,1970-11-15,active
+404de424-2ecc-108f-251f-2f475358ba39,E66.9,162864005,Body mass index 30+ - obesity (finding),,1970-11-15,active
+404de424-2ecc-108f-251f-2f475358ba39,D64.9,271737000,Anemia (disorder),Hematology,1988-09-07,active
+404de424-2ecc-108f-251f-2f475358ba39,G89.29,82423001,Chronic pain (finding),,1991-01-27,active
+404de424-2ecc-108f-251f-2f475358ba39,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1991-03-17,active
+404de424-2ecc-108f-251f-2f475358ba39,E78.5,55822004,Hyperlipidemia (disorder),,2004-05-23,active
+404de424-2ecc-108f-251f-2f475358ba39,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2007-06-10,active
+404de424-2ecc-108f-251f-2f475358ba39,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2007-06-22,active
+404de424-2ecc-108f-251f-2f475358ba39,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2007-07-16,active
+404de424-2ecc-108f-251f-2f475358ba39,J32.9,40055000,Chronic sinusitis (disorder),,2015-01-19,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,E66.9,162864005,Body mass index 30+ - obesity (finding),,1968-04-04,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,I10,59621000,Essential hypertension (disorder),Cardiology,1988-09-15,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-04-23,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,G89.29,82423001,Chronic pain (finding),,1990-06-20,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,R73.03,714628002,Prediabetes (finding),Endocrinology,1995-10-26,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1999-11-18,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1999-11-30,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1999-12-10,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2005-11-10,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,Z94.0,161665007,History of renal transplant (situation),,2015-03-26,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2015-10-15,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,E78.5,55822004,Hyperlipidemia (disorder),,2018-03-08,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2021-03-25,active
+4259a4ac-dd4a-893d-1d73-b6cc85a250af,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2026-02-19,active
+4301fbdd-73ab-f53a-8715-7e08d1ddb73c,J32.9,40055000,Chronic sinusitis (disorder),,1962-08-15,active
+4301fbdd-73ab-f53a-8715-7e08d1ddb73c,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2000-02-12,active
+4301fbdd-73ab-f53a-8715-7e08d1ddb73c,E66.9,162864005,Body mass index 30+ - obesity (finding),,2000-02-12,active
+4301fbdd-73ab-f53a-8715-7e08d1ddb73c,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2000-02-28,active
+4301fbdd-73ab-f53a-8715-7e08d1ddb73c,I10,59621000,Essential hypertension (disorder),Cardiology,2006-02-25,active
+4301fbdd-73ab-f53a-8715-7e08d1ddb73c,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2006-02-25,active
+4301fbdd-73ab-f53a-8715-7e08d1ddb73c,D64.9,271737000,Anemia (disorder),Hematology,2006-02-25,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,E66.9,162864005,Body mass index 30+ - obesity (finding),,1985-02-24,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,R73.03,714628002,Prediabetes (finding),Endocrinology,1993-12-26,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,D64.9,271737000,Anemia (disorder),Hematology,1995-12-31,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,I10,59621000,Essential hypertension (disorder),Cardiology,1997-12-07,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,J32.9,40055000,Chronic sinusitis (disorder),,1998-03-10,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,M19.049,201834006,Localized  primary osteoarthritis of the hand (disorder),Rheumatology,1999-01-26,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2003-01-05,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2003-01-05,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,E78.5,55822004,Hyperlipidemia (disorder),,2006-01-22,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2007-01-28,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2007-02-25,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2013-08-11,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,I48.91,49436004,Atrial fibrillation (disorder),Cardiology,2022-11-03,active
+43574d4e-4bdc-80e4-fa18-deca1efed16d,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2024-01-21,active
+436104e3-b166-fb92-9714-1948cab57379,R73.03,714628002,Prediabetes (finding),Endocrinology,1976-04-08,active
+436104e3-b166-fb92-9714-1948cab57379,D64.9,271737000,Anemia (disorder),Hematology,1976-04-08,active
+436104e3-b166-fb92-9714-1948cab57379,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,1977-01-11,active
+436104e3-b166-fb92-9714-1948cab57379,J32.9,40055000,Chronic sinusitis (disorder),,1982-03-28,active
+436104e3-b166-fb92-9714-1948cab57379,E66.9,162864005,Body mass index 30+ - obesity (finding),,1982-04-08,active
+436104e3-b166-fb92-9714-1948cab57379,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,1996-07-16,active
+436104e3-b166-fb92-9714-1948cab57379,I25.2,399211009,History of myocardial infarction (situation),,1996-07-18,active
+436104e3-b166-fb92-9714-1948cab57379,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1997-06-05,active
+436104e3-b166-fb92-9714-1948cab57379,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1997-06-13,active
+436104e3-b166-fb92-9714-1948cab57379,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1997-06-15,active
+4510cb05-92c3-b5c7-e312-038d8804101b,J44.9,185086009,Chronic obstructive bronchitis (disorder),Pulmonology,1983-08-16,active
+4510cb05-92c3-b5c7-e312-038d8804101b,E66.9,162864005,Body mass index 30+ - obesity (finding),,1983-08-16,active
+4510cb05-92c3-b5c7-e312-038d8804101b,M06.9,69896004,Rheumatoid arthritis (disorder),Rheumatology,1988-11-24,active
+4510cb05-92c3-b5c7-e312-038d8804101b,E78.5,55822004,Hyperlipidemia (disorder),,1996-10-29,active
+4528f833-00f8-fb0a-d74d-f364e0595a28,E66.9,162864005,Body mass index 30+ - obesity (finding),,1983-05-09,active
+4528f833-00f8-fb0a-d74d-f364e0595a28,E78.5,55822004,Hyperlipidemia (disorder),,1989-05-22,active
+4528f833-00f8-fb0a-d74d-f364e0595a28,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2002-06-24,active
+4528f833-00f8-fb0a-d74d-f364e0595a28,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2002-07-03,active
+4528f833-00f8-fb0a-d74d-f364e0595a28,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2002-07-07,active
+45a6dd1a-2ce8-2b43-3cdc-a24aa087b593,R73.03,714628002,Prediabetes (finding),Endocrinology,1956-03-21,active
+45a6dd1a-2ce8-2b43-3cdc-a24aa087b593,D64.9,271737000,Anemia (disorder),Hematology,1956-03-21,active
+45a6dd1a-2ce8-2b43-3cdc-a24aa087b593,I10,59621000,Essential hypertension (disorder),Cardiology,1974-01-23,active
+45a6dd1a-2ce8-2b43-3cdc-a24aa087b593,E66.9,162864005,Body mass index 30+ - obesity (finding),,1976-02-04,active
+45a6dd1a-2ce8-2b43-3cdc-a24aa087b593,J43.9,87433001,Pulmonary emphysema (disorder),Pulmonology,1987-01-21,active
+45a6dd1a-2ce8-2b43-3cdc-a24aa087b593,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1991-05-01,active
+45a6dd1a-2ce8-2b43-3cdc-a24aa087b593,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1991-05-12,active
+45a6dd1a-2ce8-2b43-3cdc-a24aa087b593,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1991-05-17,active
+4ba2cfa8-3c72-5b88-8052-ba1e3e0886a7,R73.03,714628002,Prediabetes (finding),Endocrinology,1986-04-11,active
+4ba2cfa8-3c72-5b88-8052-ba1e3e0886a7,D64.9,271737000,Anemia (disorder),Hematology,1998-02-13,active
+4ba2cfa8-3c72-5b88-8052-ba1e3e0886a7,E66.9,162864005,Body mass index 30+ - obesity (finding),,2000-02-18,active
+4ba2cfa8-3c72-5b88-8052-ba1e3e0886a7,I21.3,401303003,Acute ST segment elevation myocardial infarction (disorder),Cardiology,2007-10-03,active
+4ba2cfa8-3c72-5b88-8052-ba1e3e0886a7,I25.2,399211009,History of myocardial infarction (situation),,2007-10-03,active
+4ba2cfa8-3c72-5b88-8052-ba1e3e0886a7,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2010-03-12,active
+4ba2cfa8-3c72-5b88-8052-ba1e3e0886a7,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2010-03-22,active
+4ba2cfa8-3c72-5b88-8052-ba1e3e0886a7,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2010-04-09,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,R73.03,714628002,Prediabetes (finding),Endocrinology,1988-04-09,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-05-02,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,G89.29,82423001,Chronic pain (finding),,1990-09-09,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,D64.9,271737000,Anemia (disorder),Hematology,1991-04-13,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,I10,59621000,Essential hypertension (disorder),Cardiology,1995-01-21,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,J32.9,40055000,Chronic sinusitis (disorder),,2005-01-14,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2006-04-08,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2006-04-21,active
+4bd64f6f-1c35-8e7d-01c1-a91deea1bd8c,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,2021-06-07,active
+4d515b99-ff27-65cd-e038-3051f7f727c9,R73.03,714628002,Prediabetes (finding),Endocrinology,1986-12-27,active
+4d515b99-ff27-65cd-e038-3051f7f727c9,D64.9,271737000,Anemia (disorder),Hematology,1989-10-14,active
+4d515b99-ff27-65cd-e038-3051f7f727c9,E66.9,162864005,Body mass index 30+ - obesity (finding),,1991-10-19,active
+4d515b99-ff27-65cd-e038-3051f7f727c9,I10,59621000,Essential hypertension (disorder),Cardiology,1997-11-01,active
+4d515b99-ff27-65cd-e038-3051f7f727c9,G89.29,82423001,Chronic pain (finding),,2014-02-03,active
+4d515b99-ff27-65cd-e038-3051f7f727c9,M54.50,278860009,Chronic low back pain (finding),,2014-02-03,active
+4d515b99-ff27-65cd-e038-3051f7f727c9,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2024-03-30,active
+4d515b99-ff27-65cd-e038-3051f7f727c9,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2024-04-11,active
+4da109d0-15fe-03b7-57d3-8aaf54fcbaf1,E66.9,162864005,Body mass index 30+ - obesity (finding),,1970-08-26,active
+4da109d0-15fe-03b7-57d3-8aaf54fcbaf1,R73.03,714628002,Prediabetes (finding),Endocrinology,1982-09-08,active
+4da109d0-15fe-03b7-57d3-8aaf54fcbaf1,M19.049,201834006,Localized  primary osteoarthritis of the hand (disorder),Rheumatology,1993-08-10,active
+4da109d0-15fe-03b7-57d3-8aaf54fcbaf1,G89.29,82423001,Chronic pain (finding),,2014-01-31,active
+4da109d0-15fe-03b7-57d3-8aaf54fcbaf1,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2025-11-26,active
+4da109d0-15fe-03b7-57d3-8aaf54fcbaf1,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2025-12-09,active
+4e7d93e5-5a2f-f0bb-98e8-113216bb4498,R73.03,714628002,Prediabetes (finding),Endocrinology,1980-07-19,active
+4e7d93e5-5a2f-f0bb-98e8-113216bb4498,D64.9,271737000,Anemia (disorder),Hematology,1980-07-19,active
+4e7d93e5-5a2f-f0bb-98e8-113216bb4498,E66.9,162864005,Body mass index 30+ - obesity (finding),,1998-05-30,active
+4e7d93e5-5a2f-f0bb-98e8-113216bb4498,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2007-06-09,active
+4e7d93e5-5a2f-f0bb-98e8-113216bb4498,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2024-09-14,active
+4e7d93e5-5a2f-f0bb-98e8-113216bb4498,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2024-10-11,active
+4e7d93e5-5a2f-f0bb-98e8-113216bb4498,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2024-10-18,active
+4e813575-518c-d8ca-164f-59646b5f6abe,E66.9,162864005,Body mass index 30+ - obesity (finding),,1985-09-12,active
+4e813575-518c-d8ca-164f-59646b5f6abe,G43.719,124171000119105,Chronic intractable migraine without aura (disorder),Neurology,1990-05-09,active
+4e813575-518c-d8ca-164f-59646b5f6abe,R73.03,714628002,Prediabetes (finding),Endocrinology,1991-09-19,active
+4e813575-518c-d8ca-164f-59646b5f6abe,D64.9,271737000,Anemia (disorder),Hematology,1991-09-19,active
+4e813575-518c-d8ca-164f-59646b5f6abe,I10,59621000,Essential hypertension (disorder),Cardiology,1996-09-26,active
+4e813575-518c-d8ca-164f-59646b5f6abe,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2011-01-20,active
+4e813575-518c-d8ca-164f-59646b5f6abe,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2011-01-20,active
+4e813575-518c-d8ca-164f-59646b5f6abe,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2014-11-06,active
+4e813575-518c-d8ca-164f-59646b5f6abe,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2016-09-22,active
+4e813575-518c-d8ca-164f-59646b5f6abe,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2016-10-04,active
+4e813575-518c-d8ca-164f-59646b5f6abe,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2022-05-26,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,E66.9,162864005,Body mass index 30+ - obesity (finding),,1978-07-22,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,M19.049,201834006,Localized  primary osteoarthritis of the hand (disorder),Rheumatology,1982-05-26,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2006-03-31,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2006-04-12,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,G89.29,82423001,Chronic pain (finding),,2014-02-02,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,M54.50,278860009,Chronic low back pain (finding),,2014-02-02,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2015-05-23,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,I10,59621000,Essential hypertension (disorder),Cardiology,2016-05-28,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,E11.40,368581000119106,Neuropathy due to type 2 diabetes mellitus (disorder),Endocrinology,2017-06-03,active
+5068e0a3-aefc-1109-827e-f5cace7cc403,E11.319,1551000119108,Nonproliferative diabetic retinopathy due to type II diabetes mellitus,,2026-02-26,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,J45.909,195967001,Asthma (disorder),Pulmonology,1952-01-08,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,R73.03,714628002,Prediabetes (finding),Endocrinology,1960-10-04,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,D64.9,271737000,Anemia (disorder),Hematology,1960-10-04,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1976-05-25,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,E66.9,162864005,Body mass index 30+ - obesity (finding),,1976-05-25,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1976-06-03,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1976-06-04,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,E78.5,55822004,Hyperlipidemia (disorder),,1980-06-17,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,J32.9,40055000,Chronic sinusitis (disorder),,1985-01-21,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2011-06-17,active
+514cbb82-7962-8223-4976-d2dd7c894eb3,I25.2,399211009,History of myocardial infarction (situation),,2011-06-19,active
+52871360-3d7c-39c0-1e8a-1063ff409432,E66.9,162864005,Body mass index 30+ - obesity (finding),,1961-08-08,active
+52871360-3d7c-39c0-1e8a-1063ff409432,M17.9,239873007,Osteoarthritis of knee (disorder),Rheumatology,1989-04-16,active
+52871360-3d7c-39c0-1e8a-1063ff409432,I10,59621000,Essential hypertension (disorder),Cardiology,2007-10-16,active
+52871360-3d7c-39c0-1e8a-1063ff409432,I21.3,401303003,Acute ST segment elevation myocardial infarction (disorder),Cardiology,2013-02-20,active
+52871360-3d7c-39c0-1e8a-1063ff409432,I25.2,399211009,History of myocardial infarction (situation),,2013-02-20,active
+52871360-3d7c-39c0-1e8a-1063ff409432,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2014-12-01,active
+52871360-3d7c-39c0-1e8a-1063ff409432,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2014-12-12,active
+530c51b0-53db-a854-1c63-e6c7343e157f,E66.9,162864005,Body mass index 30+ - obesity (finding),,1967-07-05,active
+530c51b0-53db-a854-1c63-e6c7343e157f,R73.03,714628002,Prediabetes (finding),Endocrinology,1970-07-08,active
+530c51b0-53db-a854-1c63-e6c7343e157f,D64.9,271737000,Anemia (disorder),Hematology,1970-07-08,active
+530c51b0-53db-a854-1c63-e6c7343e157f,I10,59621000,Essential hypertension (disorder),Cardiology,1975-04-30,active
+530c51b0-53db-a854-1c63-e6c7343e157f,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,1983-02-26,active
+530c51b0-53db-a854-1c63-e6c7343e157f,I25.2,399211009,History of myocardial infarction (situation),,1983-02-27,active
+530c51b0-53db-a854-1c63-e6c7343e157f,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1988-07-13,active
+530c51b0-53db-a854-1c63-e6c7343e157f,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,1995-08-23,active
+530c51b0-53db-a854-1c63-e6c7343e157f,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,1995-09-03,active
+530c51b0-53db-a854-1c63-e6c7343e157f,Z95.1,399261000,History of coronary artery bypass grafting (situation),,1995-09-16,active
+530c51b0-53db-a854-1c63-e6c7343e157f,E11.40,368581000119106,Neuropathy due to type 2 diabetes mellitus (disorder),Endocrinology,1996-08-28,active
+530c51b0-53db-a854-1c63-e6c7343e157f,E78.5,55822004,Hyperlipidemia (disorder),,1999-09-15,active
+530c51b0-53db-a854-1c63-e6c7343e157f,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2006-04-12,active
+530c51b0-53db-a854-1c63-e6c7343e157f,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2006-04-12,active
+530c51b0-53db-a854-1c63-e6c7343e157f,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,2009-09-02,active
+530c51b0-53db-a854-1c63-e6c7343e157f,E11.319,1551000119108,Nonproliferative diabetic retinopathy due to type II diabetes mellitus,,2011-04-06,active
+530c51b0-53db-a854-1c63-e6c7343e157f,J32.9,40055000,Chronic sinusitis (disorder),,2012-09-05,active
+530c51b0-53db-a854-1c63-e6c7343e157f,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2013-08-28,active
+530c51b0-53db-a854-1c63-e6c7343e157f,N18.4,431857002,Chronic kidney disease stage 4 (disorder),Nephrology,2025-07-02,active
+530c51b0-53db-a854-1c63-e6c7343e157f,Z76.82,698306007,Awaiting transplantation of kidney (situation),Nephrology,2025-09-23,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,E66.9,162864005,Body mass index 30+ - obesity (finding),,1970-05-13,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,J32.9,40055000,Chronic sinusitis (disorder),,1991-07-31,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,I10,59621000,Essential hypertension (disorder),Cardiology,1998-03-04,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2011-07-01,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,I25.2,399211009,History of myocardial infarction (situation),,2011-07-02,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,G89.29,82423001,Chronic pain (finding),,2014-01-31,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,M54.50,278860009,Chronic low back pain (finding),,2014-01-31,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2023-07-26,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2023-08-05,active
+5381650b-fef3-01b3-d86a-e66ea198e4f2,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2023-08-11,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,R73.03,714628002,Prediabetes (finding),Endocrinology,1968-09-07,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,D64.9,271737000,Anemia (disorder),Hematology,1968-09-07,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,I10,59621000,Essential hypertension (disorder),Cardiology,1981-09-26,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,E66.9,162864005,Body mass index 30+ - obesity (finding),,1987-10-31,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,1989-07-22,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,1989-07-22,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,J32.9,40055000,Chronic sinusitis (disorder),,1991-04-27,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,N18.2,431856006,Chronic kidney disease stage 2 (disorder),Nephrology,1996-07-06,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,N18.30,433144002,Chronic kidney disease stage 3 (disorder),Nephrology,2004-10-23,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2009-10-31,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2009-11-14,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2009-12-06,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,M19.049,201834006,Localized  primary osteoarthritis of the hand (disorder),Rheumatology,2011-02-12,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2014-08-08,active
+53bed13e-3f85-459b-8673-f4a4e34d3223,I25.2,399211009,History of myocardial infarction (situation),,2014-08-10,active
+544d824b-41d5-4d29-9be0-826e1abf35f3,E66.9,162864005,Body mass index 30+ - obesity (finding),,1995-03-15,active
+544d824b-41d5-4d29-9be0-826e1abf35f3,E78.5,55822004,Hyperlipidemia (disorder),,1997-03-19,active
+544d824b-41d5-4d29-9be0-826e1abf35f3,I10,59621000,Essential hypertension (disorder),Cardiology,2025-07-02,active
+553d94d5-6a78-35aa-31dd-6e306ea0e1f9,R73.03,714628002,Prediabetes (finding),Endocrinology,1981-05-10,active
+553d94d5-6a78-35aa-31dd-6e306ea0e1f9,D64.9,271737000,Anemia (disorder),Hematology,1992-03-08,active
+553d94d5-6a78-35aa-31dd-6e306ea0e1f9,E66.9,162864005,Body mass index 30+ - obesity (finding),,1994-03-13,active
+553d94d5-6a78-35aa-31dd-6e306ea0e1f9,E78.5,55822004,Hyperlipidemia (disorder),,2003-03-16,active
+553d94d5-6a78-35aa-31dd-6e306ea0e1f9,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2026-03-19,active
+553d94d5-6a78-35aa-31dd-6e306ea0e1f9,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2026-03-20,active
+553d94d5-6a78-35aa-31dd-6e306ea0e1f9,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2026-03-21,active
+553d94d5-6a78-35aa-31dd-6e306ea0e1f9,I25.2,399211009,History of myocardial infarction (situation),,2026-03-23,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,E66.9,162864005,Body mass index 30+ - obesity (finding),,1971-09-16,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,I10,59621000,Essential hypertension (disorder),Cardiology,1982-07-15,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2000-10-26,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2000-11-03,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,E11.21,127013003,Disorder of kidney due to diabetes mellitus (disorder),Nephrology,2005-11-24,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,Z94.0,161665007,History of renal transplant (situation),,2015-04-09,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,I21.4,401314000,Acute non-ST segment elevation myocardial infarction (disorder),Cardiology,2019-08-09,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,I25.2,399211009,History of myocardial infarction (situation),,2019-08-11,active
+55b3350f-4ea3-4149-0752-b889ed0250cf,N18.1,431855005,Chronic kidney disease stage 1 (disorder),Nephrology,2021-07-15,active
+564ef4f5-3a26-8612-f96e-070df694a6ce,J45.909,195967001,Asthma (disorder),Pulmonology,1972-08-18,active
+57c63643-03af-1f29-8913-242d9afc854c,R73.03,714628002,Prediabetes (finding),Endocrinology,1969-09-03,active
+57c63643-03af-1f29-8913-242d9afc854c,D64.9,271737000,Anemia (disorder),Hematology,1969-09-03,active
+57c63643-03af-1f29-8913-242d9afc854c,E66.9,162864005,Body mass index 30+ - obesity (finding),,1978-09-13,active
+57c63643-03af-1f29-8913-242d9afc854c,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2013-10-09,active
+57c63643-03af-1f29-8913-242d9afc854c,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2013-10-21,active
+57c63643-03af-1f29-8913-242d9afc854c,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2013-12-28,active
+57f3dcfb-a800-0fab-8ccb-feba83c33e7c,E66.9,162864005,Body mass index 30+ - obesity (finding),,2000-01-08,active
+57f3dcfb-a800-0fab-8ccb-feba83c33e7c,E78.5,55822004,Hyperlipidemia (disorder),,2004-01-17,active
+57f3dcfb-a800-0fab-8ccb-feba83c33e7c,R73.03,714628002,Prediabetes (finding),Endocrinology,2009-01-03,active
+592d815b-7502-b156-3d73-f1f42dcc1649,R73.03,714628002,Prediabetes (finding),Endocrinology,1981-03-11,active
+592d815b-7502-b156-3d73-f1f42dcc1649,D64.9,271737000,Anemia (disorder),Hematology,1984-03-14,active
+592d815b-7502-b156-3d73-f1f42dcc1649,E66.9,162864005,Body mass index 30+ - obesity (finding),,1987-03-18,active
+592d815b-7502-b156-3d73-f1f42dcc1649,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,1994-07-27,active
+592d815b-7502-b156-3d73-f1f42dcc1649,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2002-09-11,active
+592d815b-7502-b156-3d73-f1f42dcc1649,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2002-09-20,active
+592d815b-7502-b156-3d73-f1f42dcc1649,Z95.1,399261000,History of coronary artery bypass grafting (situation),,2002-10-03,active
+592d815b-7502-b156-3d73-f1f42dcc1649,E78.5,55822004,Hyperlipidemia (disorder),,2009-10-21,active
+592d815b-7502-b156-3d73-f1f42dcc1649,G89.29,82423001,Chronic pain (finding),,2014-01-31,active
+592d815b-7502-b156-3d73-f1f42dcc1649,M54.50,278860009,Chronic low back pain (finding),,2014-01-31,active
+592d815b-7502-b156-3d73-f1f42dcc1649,M54.2,1121000119107,Chronic neck pain (finding),,2014-01-31,active
+5a4b580b-34e2-4ed6-00ca-a5b84ae810b1,E66.9,162864005,Body mass index 30+ - obesity (finding),,1974-10-20,active
+5a4b580b-34e2-4ed6-00ca-a5b84ae810b1,I10,59621000,Essential hypertension (disorder),Cardiology,1993-08-22,active
+5a4b580b-34e2-4ed6-00ca-a5b84ae810b1,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2004-10-24,active
+5a4b580b-34e2-4ed6-00ca-a5b84ae810b1,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2004-10-31,active
+5a4b580b-34e2-4ed6-00ca-a5b84ae810b1,G89.29,82423001,Chronic pain (finding),,2014-02-04,active
+5a4b580b-34e2-4ed6-00ca-a5b84ae810b1,M54.50,278860009,Chronic low back pain (finding),,2014-02-04,active
+5a4b580b-34e2-4ed6-00ca-a5b84ae810b1,T14.8,125605004,Fracture of bone (disorder),,2026-05-22,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,R73.03,714628002,Prediabetes (finding),Endocrinology,1973-09-21,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,D64.9,271737000,Anemia (disorder),Hematology,1979-09-28,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,E66.9,162864005,Body mass index 30+ - obesity (finding),,1987-07-24,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,I25.9,414545008,Ischemic heart disease (disorder),Cardiology,2009-10-02,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,R94.39,274531002,Abnormal findings diagnostic imaging heart+coronary circulat (finding),,2009-10-16,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,G89.29,82423001,Chronic pain (finding),,2014-02-02,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,M54.50,278860009,Chronic low back pain (finding),,2014-02-02,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,E11.9,44054006,Diabetes mellitus type 2 (disorder),Endocrinology,2014-10-31,active
+5b2a7414-6f2c-6a97-8c3f-7099bfec88f8,E11.40,368581000119106,Neuropathy due to type 2 diabetes mellitus (disorder),Endocrinology,2015-11-06,active
+MINT-0001,N18.30,433144002,"Chronic kidney disease, stage 3",Nephrology,2025-11-27,active
+MINT-0002,J44.9,185086009,Chronic obstructive pulmonary disease,Pulmonology,2025-11-27,active
+MINT-0003,G40.909,84757009,Epilepsy,Neurology,2025-11-27,active
+MINT-0004,E11.9,44054006,Type 2 diabetes mellitus,Endocrinology,2025-11-27,active
+MINT-0005,D50.9,87522002,Iron deficiency anemia,Hematology,2025-11-27,active
+MINT-0006,I10,59621000,Essential hypertension,Cardiology,2025-11-27,active
+MINT-0007,I10,59621000,Essential hypertension,Cardiology,2025-11-27,active
+MINT-0008,G40.909,84757009,Epilepsy,Neurology,2025-11-27,active
+MINT-0009,E11.9,44054006,Type 2 diabetes mellitus,Endocrinology,2025-11-27,active

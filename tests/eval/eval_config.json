@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "rubric_based_final_response_quality_v1": {
+      "threshold": 0.7,
+      "judgeModelOptions": {
+        "judgeModel": "gemini-flash-latest",
+        "numSamples": 1
+      },
+      "rubrics": [
+        {
+          "rubricId": "care_path",
+          "rubricContent": { "textProperty": "The response recommends one care path (eConsult, Virtual, or In-person) with a clear routing rationale consistent with the referral and the patient's specialist relationship." }
+        },
+        {
+          "rubricId": "specialist_match",
+          "rubricContent": { "textProperty": "When a new specialist is recommended (eConsult or Virtual), it includes a named specialist with a quality tier and a distance, and any alternatives are ordered sensibly. For In-person continuity with an existing specialist, recommending no new specialist is the correct behavior and satisfies this rubric." }
+        },
+        {
+          "rubricId": "brief_grounded",
+          "rubricContent": { "textProperty": "The Specialist Brief is grounded in the patient's actual data, includes pertinent labs with their trend, and invents no findings or treatment orders." }
+        },
+        {
+          "rubricId": "questions_specific",
+          "rubricContent": { "textProperty": "The clinical questions are specific to this patient and decision-focused (e.g., next-line therapy, need for workup), not generic textbook questions." }
+        },
+        {
+          "rubricId": "explainability",
+          "rubricContent": { "textProperty": "The recommendation includes a confidence level and a concise plain-language explanation a PCP could act on." }
+        }
+      ]
+    }
+  }
+}

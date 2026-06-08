@@ -1,0 +1,52 @@
+{
+  "generated": "2026-06-02 19:37:46.998089",
+  "reference_date": "2026-05-28",
+  "seed": 20260528,
+  "notes_provider": "gemini",
+  "counts": {
+    "patients": 109,
+    "providers": 106,
+    "clinics": 106,
+    "specialists": 99,
+    "claims": 1852,
+    "visits": 3030,
+    "encounters": 3023,
+    "notes": 24,
+    "orders_total": 7182,
+    "referral_orders": 24,
+    "prior_referrals": 4,
+    "history_orders": 7154,
+    "problem_list": 868,
+    "observations": 6547
+  },
+  "golden_coverage": {
+    "tags": {
+      "Established Patient": 12,
+      "Unengaged Patient": 3,
+      "New Patient - Needs first visit": 1,
+      "New Patient": 5,
+      "Existing Specialist Relationship": 3
+    },
+    "routes": {
+      "eConsult": 18,
+      "Virtual": 3,
+      "In-person": 3
+    },
+    "specialties": {
+      "Endocrinology": 6,
+      "Hematology": 3,
+      "Rheumatology": 2,
+      "Nephrology": 3,
+      "Pulmonology": 3,
+      "Neurology": 3,
+      "Cardiology": 4
+    },
+    "tag_mismatches": []
+  },
+  "tier_distribution": {
+    "1": 29,
+    "3": 21,
+    "4": 14,
+    "2": 35
+  }
+}

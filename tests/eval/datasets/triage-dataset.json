@@ -1,0 +1,37 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "t2dm_econsult",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Triage the referral for patient 00fa1d1d-d444-7652-9b80-04c230e3df21"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "cardio_virtual",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Triage the referral for patient 0659dab1-c5cc-5440-96cc-8bf415e01dc1"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "existing_inperson",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Triage the referral for patient 09c66092-4e58-9ee0-a0fa-1672d42a1538"
+          }
+        ]
+      }
+    }
+  ]
+}

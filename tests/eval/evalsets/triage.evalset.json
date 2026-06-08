@@ -1,0 +1,40 @@
+{
+  "eval_set_id": "triage_core",
+  "name": "Smart Care Triage core cases",
+  "description": "One case per care path: eConsult, Virtual, In-person.",
+  "eval_cases": [
+    {
+      "eval_id": "t2dm_econsult",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "Triage the referral for patient 00fa1d1d-d444-7652-9b80-04c230e3df21"}]
+          }
+        }
+      ],
+      "session_input": { "app_name": "app", "user_id": "eval_user", "state": {} }
+    },
+    {
+      "eval_id": "cardio_virtual",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "Triage the referral for patient 0659dab1-c5cc-5440-96cc-8bf415e01dc1"}]
+          }
+        }
+      ],
+      "session_input": { "app_name": "app", "user_id": "eval_user", "state": {} }
+    },
+    {
+      "eval_id": "existing_inperson",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "Triage the referral for patient 09c66092-4e58-9ee0-a0fa-1672d42a1538"}]
+          }
+        }
+      ],
+      "session_input": { "app_name": "app", "user_id": "eval_user", "state": {} }
+    }
+  ]
+}

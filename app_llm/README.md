@@ -56,8 +56,6 @@ the policy version, and whether the critic loop had to correct the router.
 | Orchestration | fixed graph (reproducible) | LLM-chosen (flexible, non-reproducible) |
 | Latency / cost | lower (4 LLM calls) | higher (manager + 4 workers + retries) |
 | Audit story | decision = rule + policy version | decision = verified-against rule + policy version |
-| Customer fit | meets the "LLM plays no part in routing" requirement directly | meets it indirectly — only because the critic gate is mandatory |
 
 `app/` remains the production PoC. This variant exists to demonstrate the
-manager/worker pattern end-to-end and to show *why* the deterministic critic
-is needed the moment an LLM touches routing.
+manager/worker pattern 

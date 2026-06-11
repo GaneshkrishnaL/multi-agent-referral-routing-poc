@@ -2,23 +2,24 @@
 # Licensed under the Apache License, Version 2.0
 """Patient Context Extraction Agent.
 
-This module is responsible for loading the patient's longitudinal record 
-into the triage session state. It deterministicly parses the patient's unique ID 
-from the incoming prompt using regular expressions, loads their clinical chart bundle, 
-validates the target referral specialty, and configures the context structure 
+This module is responsible for loading the patient's longitudinal record
+into the triage session state. It deterministicly parses the patient's unique ID
+from the incoming prompt using regular expressions, loads their clinical chart bundle,
+validates the target referral specialty, and configures the context structure
 for downstream processing.
 
-This removes the need for a non-deterministic LLM step to "extract" the ID, saving 
+This removes the need for a non-deterministic LLM step to "extract" the ID, saving
 both inference cost and ensuring 100% extraction accuracy.
 
 Data Flow:
 - Input: Reads user prompt text from context.
-- Output: Writes `patient_context`, `patient_summary`, `referral_specialty`, 
+- Output: Writes `patient_context`, `patient_summary`, `referral_specialty`,
   `referral_condition`, and `patient_id` back to the session state.
 """
 
 from __future__ import annotations
 
+import logging
 import re
 from collections.abc import AsyncGenerator
 
@@ -28,7 +29,27 @@ from google.adk.events import Event, EventActions
 from google.genai import types
 
 from . import clinical_data as cd
+from . import mcp_clients
 from .tools import build_summary
+
+logger = logging.getLogger("smart_care_triage")
+
+
+async def _load_bundle(pid: str) -> dict | None:
+    """Assembles the patient context from the two MCP data domains:
+    chart (patient_chart MCP / Athena equivalent) + claims and referral
+    outcomes (claims MCP / data lake). Falls back to the direct local read if
+    the MCP layer is disabled or unavailable — same data, same shape."""
+    if mcp_clients.USE_MCP:
+        try:
+            chart = await mcp_clients.fetch_chart_bundle(pid)
+            if chart is None:
+                return None
+            claims = await mcp_clients.fetch_claims_bundle(pid)
+            return {**chart, **claims}
+        except Exception as e:
+            logger.warning("MCP chart/claims fetch failed (%s); falling back to local read", e)
+    return cd.get_bundle(pid)
 
 # Help message returned to users when a patient ID is not detected
 _HELP = (
@@ -44,15 +65,16 @@ _RESET_KEYS = (
     "patient_context",
     "patient_summary",
     "referral_specialty",
+    "referral_condition",
     "patient_id",
     "claims_signal",
     "routing",
     "specialist_matches",
     "assessment",
-    "evidence",
     "specialist_brief",
     "clinical_questions",
     "triage_decision",
+    "review",
     "extraction_error",
 )
 
@@ -61,29 +83,54 @@ _ID = re.compile(
     r"(MINT-\d+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})"
 )
 
-# The specialties routed by this engine. The target specialty is determined from 
-# the referral order or user request, and is never inferred from the diagnosis.
-_ROUTABLE = cd.ECONSULT_SPECIALTIES | {cd.VIRTUAL_SPECIALTY}
+def _routable() -> frozenset[str]:
+    """The specialties routed by this engine, read from the business-owned
+    policy at call time (so a policy reload is honored without restart).
+    The target specialty is determined from the referral order or user
+    request, and is never inferred from the diagnosis."""
+    from .policy import policy
+
+    return policy().routable_specialties
+
+
+# Specialty-shaped words (Dermatology, Psychiatry, Orthopedics, Surgery, ...).
+# Used to catch a REQUESTED specialty that is outside the routing policy —
+# without this, an unsupported request would silently fall back to the
+# patient's stored referral order and triage the wrong specialty.
+_SPECIALTY_LIKE = re.compile(
+    r"\b([A-Za-z]+(?:ology|iatry|edics|urgery|iatrics))\b", re.IGNORECASE
+)
 
 
 def _parse_specialty(text: str) -> str | None:
     """Detects a routable specialty mentioned in the prompt text.
-    
-    Sorts by length descending so multi-word names (e.g., 'Interventional Cardiology') 
+
+    Sorts by length descending so multi-word names (e.g., 'Interventional Cardiology')
     are evaluated before shorter substrings (e.g., 'Cardiology').
     """
     low = text.lower()
-    for s in sorted(_ROUTABLE, key=len, reverse=True):
+    for s in sorted(_routable(), key=len, reverse=True):
         if s.lower() in low:
             return s
     return None
 
 
+def _unsupported_specialty_mention(text: str) -> str | None:
+    """Returns a specialty-shaped word from the prompt that is NOT in the
+    routing policy (e.g. 'Dermatology'), or None."""
+    routable_low = {s.lower() for s in _routable()}
+    for m in _SPECIALTY_LIKE.finditer(text):
+        word = m.group(1)
+        if word.lower() not in routable_low:
+            return word.capitalize()
+    return None
+
+
 def _primary_condition(b: dict, specialty: str) -> str:
     """Identifies the primary diagnosis driving this specialty referral.
-    
-    Inspects the patient problems list to find a diagnosis matching the ICD-10 code 
-    declared on the referral order, or falls back to the first problem listed under 
+
+    Inspects the patient problems list to find a diagnosis matching the ICD-10 code
+    declared on the referral order, or falls back to the first problem listed under
     the requested specialty.
     """
     ref = b.get("referral_order") or {}
@@ -100,8 +147,8 @@ def _primary_condition(b: dict, specialty: str) -> str:
 
 def _synthesize_referral(b: dict, specialty: str) -> dict:
     """Synthesizes a referral order in state when triggered manually by prompt text.
-    
-    This ensures that referrals initialized via manual user queries (e.g., 'Triage patient X to Endocrinology') 
+
+    This ensures that referrals initialized via manual user queries (e.g., 'Triage patient X to Endocrinology')
     are processed identically to pre-existing electronic health record (EHR) referral orders.
     """
     stored = b.get("referral_order") or {}
@@ -135,8 +182,8 @@ class ExtractionEngine(BaseAgent):
 
     def _halt(self, ctx: InvocationContext, message: str, **extra) -> Event:
         """Stops execution cleanly and returns an elegant help or error prompt to the user.
-        
-        This also clears the global working state memory to prevent leaks of clinical data 
+
+        This also clears the global working state memory to prevent leaks of clinical data
         across separate conversations.
         """
         ctx.end_invocation = True
@@ -162,10 +209,12 @@ class ExtractionEngine(BaseAgent):
                 extraction_error="No patient id found in the referral request.",
             )
             return
-        
-        # 2. Retrieve patient chart bundle from clinical data system
+
+        # 2. Retrieve patient chart bundle through the MCP data plane
+        # (patient_chart MCP for the chart domain + claims MCP for the data
+        # lake domain), with a local-read fallback.
         pid = m.group(1)
-        b = cd.get_bundle(pid)
+        b = await _load_bundle(pid)
         if not b:
             yield self._halt(
                 ctx,
@@ -174,13 +223,37 @@ class ExtractionEngine(BaseAgent):
                 extraction_error=f"No patient found for id {pid}.",
             )
             return
-            
+
         # 3. Determine the target specialty: prefer explicit request, else EHR referral order.
         asked = _parse_specialty(text)
         stored = (b.get("referral_order") or {}).get("OrderTypeName", "")
+        # A REQUESTED specialty outside the policy must halt — never silently
+        # fall back to the stored order and triage the wrong specialty.
+        if not asked:
+            mentioned = _unsupported_specialty_mention(text)
+            if mentioned:
+                opts = ", ".join(sorted(_routable()))
+                yield self._halt(
+                    ctx,
+                    f"`{mentioned}` is not a specialty covered by the routing "
+                    f"policy. Supported specialties: {opts}.",
+                    extraction_error=f"Unsupported specialty {mentioned} for {pid}.",
+                )
+                return
         specialty = asked or stored
+        # A stored order outside the routing policy must halt explicitly, not
+        # silently default into the eConsult program.
+        if specialty and specialty not in _routable():
+            opts = ", ".join(sorted(_routable()))
+            yield self._halt(
+                ctx,
+                f"`{specialty}` is not a specialty covered by the routing "
+                f"policy. Supported specialties: {opts}.",
+                extraction_error=f"Unsupported specialty {specialty} for {pid}.",
+            )
+            return
         if not specialty:
-            opts = ", ".join(sorted(_ROUTABLE))
+            opts = ", ".join(sorted(_routable()))
             yield self._halt(
                 ctx,
                 f"Patient `{pid}` has no pending referral on file. Tell me which "
@@ -190,7 +263,7 @@ class ExtractionEngine(BaseAgent):
                 extraction_error=f"No specialty supplied and none on file for {pid}.",
             )
             return
-            
+
         # 4. Handle urgent flag overrides if requested via prompt text
         is_urgent_text = "urgent" in text.lower()
         if is_urgent_text or (asked and asked != stored):
@@ -203,7 +276,7 @@ class ExtractionEngine(BaseAgent):
                     "StatUrgent": is_urgent_text or bool(ref.get("StatUrgent", False)),
                 }
             }
-            
+
         # 5. Populate and yield state updates for the rest of the workflow
         yield Event(
             author=self.name,

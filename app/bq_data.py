@@ -54,37 +54,74 @@ def get_bundle(patient_id: str) -> dict | None:
     return None
 
 
-def rank_specialists(
-    specialty: str, lat: float, lon: float, in_network_only: bool = True, top: int = 3
-) -> list[dict]:
-    """Specialist Directory MCP equivalent: filter by specialty/network, then
-    rank by tier ascending, distance ascending (computed from geography)."""
+def find_specialist_by_npi(npi: str) -> dict | None:
+    """Specialist Directory MCP equivalent: resolve a claim's rendering provider
+    NPI to a directory row (continuity lookup for the In-person path)."""
     from google.cloud import bigquery
 
     sql = (
-        f"SELECT SpecialistId, FirstName, LastName, Specialty, Tier, "
-        f"PerformanceScore, Network, ClinicName, Lat, Lon "
+        f"SELECT * FROM `{PROJECT}.{DATASET}.specialists` "
+        "WHERE CAST(Npi AS STRING)=@npi LIMIT 1"
+    )
+    job = _client().query(
+        sql,
+        job_config=bigquery.QueryJobConfig(
+            query_parameters=[bigquery.ScalarQueryParameter("npi", "STRING", str(npi))]
+        ),
+    )
+    for row in job:
+        return dict(row)
+    return None
+
+
+def rank_specialists(
+    specialty: str,
+    lat: float,
+    lon: float,
+    in_network_only: bool = True,
+    top: int = 3,
+    internal_only: bool = False,
+) -> list[dict]:
+    """Specialist Directory MCP equivalent: filter by specialty/network (and
+    the internal specialist pool for Virtual visits), then rank by tier
+    ascending, distance ascending (computed from geography)."""
+    from google.cloud import bigquery
+
+    sql = (
+        f"SELECT SpecialistId, FirstName, LastName, Specialty, Npi, Tier, "
+        f"PerformanceScore, Network, ClinicName, Internal, Lat, Lon "
         f"FROM `{PROJECT}.{DATASET}.specialists` WHERE Specialty=@sp"
     )
     if in_network_only:
         sql += " AND Network='In-Network'"
+    if internal_only:
+        sql += " AND Internal='Yes'"
     job = _client().query(
         sql,
         job_config=bigquery.QueryJobConfig(
             query_parameters=[bigquery.ScalarQueryParameter("sp", "STRING", specialty)]
         ),
     )
+    # Tier comes from the business-owned score thresholds (same as the local
+    # path) so a policy edit applies to both backends identically.
+    from .policy import policy
+
     out = []
     for s in job:
+        score = s["PerformanceScore"]
         out.append(
             {
                 "SpecialistId": s["SpecialistId"],
                 "Name": f"{s['FirstName']} {s['LastName']}",
                 "Specialty": s["Specialty"],
-                "Tier": int(s["Tier"]),
-                "PerformanceScore": int(s["PerformanceScore"]),
+                "Npi": str(s["Npi"]) if s["Npi"] is not None else "",
+                "Tier": policy().score_to_tier(float(score))
+                if score is not None
+                else int(s["Tier"]),
+                "PerformanceScore": int(score),
                 "DistanceMi": _haversine(lat, lon, float(s["Lat"]), float(s["Lon"])),
                 "ClinicName": s["ClinicName"],
+                "Internal": s["Internal"] == "Yes",
             }
         )
     out.sort(key=lambda s: (s["Tier"], s["DistanceMi"]))

@@ -32,6 +32,28 @@
           }
         ]
       }
+    },
+    {
+      "eval_case_id": "new_patient_econsult",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Triage the referral for patient MINT-0002 to Pulmonology"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "urgent_review_gate",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Triage the urgent referral for patient 2057220a-4365-d8c7-d3c1-7a2b4f1f1941 to Pulmonology"
+          }
+        ]
+      }
     }
   ]
 }

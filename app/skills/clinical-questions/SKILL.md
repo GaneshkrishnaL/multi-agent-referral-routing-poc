@@ -15,12 +15,21 @@ asynchronously from the chart, and grounded in the patient's actual findings.
 
 ## Rules
 
-- Anchor each question in the patient's real data (specific labs, meds tried,
-  comorbidities). No generic textbook questions.
+- Anchor each question in the patient's real data (specific labs WITH their
+  dates — use the most recent values, meds tried with doses, comorbidities).
+  No generic textbook questions, and never "eval and treat".
+- Anchor to guideline evidence where it sharpens the decision: when the
+  grounded analysis cites a guideline (e.g., ADA 2025, KDIGO 2024, GOLD 2025),
+  frame the question at the guideline's decision point ("per ADA 2025, would
+  you prioritize...").
 - Focus on the decision the PCP is stuck on: next-line therapy, need for a workup,
   procedure vs referral, dosing in the setting of a comorbidity.
 - Make them answerable without seeing the patient (this is an async eConsult).
+  For virtual or in-person referrals, the same questions frame the visit agenda —
+  keep them decision-focused, not visit logistics.
 - Do not ask the specialist to simply "evaluate the patient" — ask a precise question.
+- Do not ask about screening or a workup for a condition that is not on the
+  problem list.
 
 ## Gold-standard examples
 

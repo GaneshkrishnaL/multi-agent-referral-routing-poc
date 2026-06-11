@@ -20,7 +20,16 @@ WORKDIR /code
 
 COPY ./pyproject.toml ./README.md ./uv.lock* ./
 
+# The runtime needs all five of these: app/ (the ADK workflow), mcp_servers/
+# (spawned over stdio by the clinical-knowledge agent), frontend/ (mounted at
+# /dashboard), data/ (local synthetic bundles + specialist directory), and
+# config/ (the business-owned routing policy).
 COPY ./app ./app
+COPY ./app_llm ./app_llm
+COPY ./mcp_servers ./mcp_servers
+COPY ./frontend ./frontend
+COPY ./data ./data
+COPY ./config ./config
 
 RUN uv sync --frozen
 

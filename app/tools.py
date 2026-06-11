@@ -21,7 +21,7 @@ from . import clinical_data as cd
 
 def _lab_trend(labs: dict) -> str:
     """Creates a concise, chronologically ordered trend line for each key laboratory test.
-    
+
     Example output:
     'HbA1c: 8.4 -> 8.1 -> 7.8 %; Creatinine: 1.1 -> 1.2 mg/dL'
     """
@@ -36,32 +36,68 @@ def _lab_trend(labs: dict) -> str:
     return "; ".join(lines)
 
 
+def _lab_series(labs: dict) -> str:
+    """Renders the FULL dated 24-month series for every lab, one line per test.
+
+    The Specialist Brief commitment is the complete longitudinal record in a
+    single prompt (no chunking, no silent truncation) — Gemini's context easily
+    accommodates the largest bundle, so nothing is dropped here.
+
+    Example line:
+    'HbA1c (%): 2025-11-27: 7.2, 2026-02-26: 7.9, 2026-05-21: 8.7'
+    """
+    lines = []
+    for name, series in labs.items():
+        if not series:
+            continue
+        units = series[-1].get("units", "")
+        pts = ", ".join(f"{s.get('date', '?')}: {s.get('value', '?')}" for s in series)
+        label = f"{name} ({units})" if units else name
+        lines.append(f"- {label}: {pts}")
+    return "\n".join(lines)
+
+
 def build_summary(b: dict) -> str:
     """Assembles a highly structured, unified clinical narrative summary from raw bundle data.
-    
-    This text is injected directly into LLM sub-agent instructions to guarantee strict 
-    grounding in facts.
+
+    This text is injected directly into LLM sub-agent instructions to guarantee strict
+    grounding in facts. It carries the COMPLETE problem list and the complete
+    dated lab series for the 24-month window — condensation is left to the
+    summarizer model, not done silently in code.
     """
     p = b.get("patient", {})
     referral = b.get("referral_order") or {}
-    
-    # 1. Active Problems: Extract up to 8 active ICD-10 coded problems
+
+    # 1. Active Problems: the complete ICD-10 coded problem list
     problems = ", ".join(
-        f"{x['Description']} ({x['Icd10']})" for x in b.get("problems", [])[:8]
+        f"{x['Description']} ({x['Icd10']})" for x in b.get("problems", [])
     )
-    
-    # 2. Medications & Labs Trend
+
+    # 2. Medications & Labs (quick trend line + full dated series)
     meds = ", ".join(b.get("medications", [])) or "none"
-    labs = _lab_trend(b.get("labs", {})) or "none recorded"
-    
+    labs = b.get("labs", {})
+    trend = _lab_trend(labs) or "none recorded"
+    series = _lab_series(labs) or "none recorded"
+
     # 3. Prior Specialist Referrals history
     prior = b.get("prior_referrals", []) or []
     prior_s = (
         "; ".join(f"{x['Specialty']} {x['Status']} ({x['Date']})" for x in prior)
         or "none"
     )
-    
-    # 4. Encounter History & Historical Chart Notes
+
+    # 4. Specialist claims in the look-back window (care-continuity context)
+    claims = b.get("claims_12mo", []) or []
+    claims_s = (
+        "; ".join(
+            f"{c.get('Specialty', '?')} visit {c.get('ServiceDateFrom', '?')} "
+            f"({c.get('RenderingProviderName', 'unknown provider')})"
+            for c in claims
+        )
+        or "none"
+    )
+
+    # 5. Encounter History & Historical Chart Notes
     encs_list = []
     for e in b.get("encounter_history", []):
         date = e.get("Date", "Unknown Date")
@@ -71,14 +107,16 @@ def build_summary(b: dict) -> str:
             encs_list.append(f"[{date} - {cls}]: {notes}")
     history_notes = "\n\n".join(encs_list) if encs_list else "none recorded"
 
-    # 5. Compile the comprehensive, multi-line diagnostic text block
+    # 6. Compile the comprehensive, multi-line diagnostic text block
     return (
         f"Patient: {p.get('Age')}yo {p.get('Gender')}, {p.get('City')} {p.get('Zip')}\n"
         f"Referral specialty: {referral.get('OrderTypeName', '?')}\n"
         f"Active problems: {problems or 'none coded'}\n"
-        f"Recent labs (trend): {labs}\n"
+        f"Recent labs (trend): {trend}\n"
+        f"Full lab history (24-month, dated):\n{series}\n"
         f"Medications: {meds}\n"
         f"Prior referrals: {prior_s}\n"
+        f"Specialist claims (last 12mo): {claims_s}\n"
         f"Recent encounters (24-36mo): {b.get('recent_encounters', 0)}\n"
         f"PCP progress note:\n{b.get('pcp_progress_note', '') or 'none'}\n\n"
         f"Historical Chart Notes:\n{history_notes}"

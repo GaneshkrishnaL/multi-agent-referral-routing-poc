@@ -32,13 +32,16 @@ Analyze laboratory trends and metabolic markers over time. Present them in an in
 A summary of prior interventions, lifestyle modification trials, clinical trials, or self-management counseling. Explicitly account for prior referral status, care compliance, and any missed appointments or no-shows.
 
 ### PERTINENT NEGATIVES
-A clear section ruling out specific symptoms, red-flag indicators, complications, or absolute contraindications relevant to the referral and specialty (e.g., absence of diabetic retinopathy symptoms, no overt bleeding, or lack of cardiovascular symptoms).
+A clear section ruling out specific symptoms, red-flag indicators, complications, or absolute contraindications relevant to the referral and specialty (e.g., absence of diabetic retinopathy symptoms, no overt bleeding, or lack of cardiovascular symptoms). Only state a negative that the record actually documents (a note explicitly denying it, or a normal result ruling it out). If the record is silent, write "not documented" — never present absence of data as a negative finding.
 
 ## Rules
 
+- Tailor the entire brief to the RECEIVING specialty and the referral diagnosis: lead with what that specialist needs to act (an endocrinologist needs the glycemic story and renal function; a pulmonologist needs spirometry and exacerbation history). Omit chart noise irrelevant to the consult.
 - Ground statement details strictly in the provided context; if a fact is not present in the patient record, do not invent or assume it.
 - Use standard Markdown (`###` headers, bullet lists, bold numbers) and ensure there is clear double-newline spacing (`\n\n`) between all sections and list items.
-- Surface longitudinal trends with precise dates and values.
+- Surface longitudinal trends with precise dates and values, always using the MOST RECENT dated values as the current state.
+- Where the grounded analysis cites guideline evidence (e.g., ADA 2025, KDIGO 2024), weave it in where it frames the clinical question — name the guideline, and never present guideline text as a patient finding.
+- Account explicitly for care continuity: prior referral status, no-shows, and engagement gaps belong in WHAT HAS BEEN TRIED.
 - Do not make final treatment recommendations or issue dosing orders; that remains the specialist's role.
 - Be comprehensive and thorough. Present a complete clinical picture.
 

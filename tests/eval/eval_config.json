@@ -13,7 +13,7 @@
         },
         {
           "rubricId": "specialist_match",
-          "rubricContent": { "textProperty": "When a new specialist is recommended (eConsult or Virtual), it includes a named specialist with a quality tier and a distance, and any alternatives are ordered sensibly. For In-person continuity with an existing specialist, recommending no new specialist is the correct behavior and satisfies this rubric." }
+          "rubricContent": { "textProperty": "When a new specialist is recommended (eConsult or Virtual), it includes a named specialist with a quality tier and a distance, and any alternatives are ordered sensibly. For In-person routes, the correct behavior is recommending the patient's EXISTING specialist (resolved from claims history) as the continuity provider; recommending an unrelated new specialist does not satisfy this rubric." }
         },
         {
           "rubricId": "brief_grounded",

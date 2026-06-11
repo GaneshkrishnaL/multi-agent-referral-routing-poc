@@ -1,0 +1,63 @@
+# =====================================================================
+# PCP Assist Referral Routing Policy  (business-owned configuration)
+# =====================================================================
+# This file is the single source of truth for the deterministic routing
+# rules. Business owners edit THIS file (no code change / redeploy of
+# agent logic) to change which specialties are eConsult-eligible, which
+# route to a virtual visit, the claim look-back window, and the patient
+# engagement tag taxonomy strings.
+#
+# Every triage decision records `policy_version`, so any decision in the
+# audit log can be reproduced against the exact rules in force.
+#
+# Load order: ROUTING_POLICY_PATH env var (if set) -> repo config/ file.
+# In production this file is replaced by a versioned policy table
+# (BigQuery) read through the Data Lake MCP server; the schema is
+# identical.
+
+policy_version: "2026-06-10.1"
+
+care_paths:
+  # Specialties delivered as a synchronous virtual visit with an
+  # internal specialist when no existing relationship exists.
+  virtual_specialties:
+    - Cardiology
+  # The six eConsult-eligible specialties (asynchronous, chart-based
+  # PCP-to-specialist consult).
+  econsult_specialties:
+    - Endocrinology
+    - Nephrology
+    - Rheumatology
+    - Neurology
+    - Hematology
+    - Pulmonology
+
+windows:
+  # An existing specialist relationship = any claim to the TARGET
+  # specialty within this look-back window. ("Procedure code" in the
+  # original rules was corrected on the customer call to "specialty".)
+  # ENFORCED at runtime by the Claims Engine (claim ServiceDateFrom is
+  # date-checked against this window on every triage).
+  specialty_claim_months: 12
+  # "Appointment scheduled in the next 1 month" horizon for tagging.
+  # NOTE: applied at data preparation (the bundle's precomputed
+  # appt_scheduled_next_month flag); the synthetic bundles carry no raw
+  # appointment dates to re-derive it from at runtime.
+  scheduled_appt_horizon_days: 30
+
+# Patient engagement tag taxonomy (customer's exact strings).
+# Precedence is fixed by the routing engine: existing_relationship >
+# established > new_patient > new_needs_first_visit > unengaged.
+tags:
+  existing_relationship: "Existing Specialist Relationship"
+  established: "Established Patient"
+  new_patient: "New Patient"
+  new_needs_first_visit: "New Patient - Needs first visit"
+  unengaged: "Unengaged Patient - Needs first visit"
+
+# Specialist quality tiering thresholds (customer feedback):
+# Tier 1 > 75% score, Tier 2 > 50%, Tier 3 > 25%, Tier 4 otherwise.
+tiers:
+  tier_1_min_score: 75
+  tier_2_min_score: 50
+  tier_3_min_score: 25

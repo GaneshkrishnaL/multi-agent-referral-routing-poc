@@ -1,19 +1,51 @@
+# Evaluation configuration for the smart-care-triage agent.
+#
+# Three kinds of signal, mirroring the architecture's split:
+#   1. triage_clinical_quality  (LLM judge)  - quality of the GENERATIVE tier:
+#      Specialist Brief grounding, question specificity (anti "eval and treat"),
+#      explainability for the PCP.
+#   2. routing_matches_policy   (code)       - the DETERMINISTIC tier: the care
+#      path in the final report must equal the spec-derived expectation for the
+#      patient. Deterministic logic gets a deterministic grade, not a judge.
+#   3. review_gate_behavior     (code)       - HITL contract: urgent referrals
+#      must PAUSE at the clinical review gate (no report released); routine
+#      referrals must release a full report.
+#
+# Run:  agents-cli eval generate --dataset tests/eval/datasets/triage-dataset.json
+#       agents-cli eval grade --config tests/eval/eval_config.yaml
+# Track over time: keep artifacts/grade_results/results_*.json and diff each
+# iteration with `agents-cli eval compare <prev>.json <new>.json`.
+
 metrics_to_run:
-  - custom_response_quality
+  - triage_clinical_quality
+  - routing_matches_policy
+  - review_gate_behavior
 
 custom_metrics:
-  - name: custom_response_quality
+  - name: triage_clinical_quality
     prompt_template: |
-      You are an expert quality assurance evaluator for an enterprise AI assistant. Your task is to evaluate the agent's final response given the user prompt and the full agent trace (for tool-call and reasoning context).
+      You are a senior clinical informaticist evaluating an AI referral-triage
+      report for a primary care physician. Grade the agent's final response on
+      a scale of 1 to 5 against these criteria:
 
-      Please grade the response quality on a scale of 1 to 5 according to the following criteria:
-      1 (Poor): The response fails to address the query, contains incorrect information, or is highly confusing.
-      2 (Below Average): The response partially addresses the query but has notable inaccuracies, gaps, or unclear structure.
-      3 (Acceptable): The response adequately answers the query but lacks depth, clear structure, or misses minor details.
-      4 (Good): The response is accurate, well-structured, and covers the query thoroughly with minor room for improvement.
-      5 (Excellent): The response is highly relevant, comprehensive, flawlessly accurate, and excellently structured.
+      A. SPECIALIST BRIEF GROUNDING: the brief cites real labs with dates and
+         trends from the trace, invents no findings, and gives no treatment
+         orders.
+      B. QUESTION SPECIFICITY: the 2-3 clinical questions are patient-specific
+         and decision-focused, citing concrete values (lab results, med doses)
+         and guideline anchors where relevant. Generic asks like "evaluate and
+         treat" are an automatic failure of this criterion.
+      C. EXPLAINABILITY: the report states the care path, the patient
+         engagement tag, a rationale a PCP can act on, and a confidence level.
+      D. TAILORING: the content is tailored to the receiving specialty and the
+         referral diagnosis, not boilerplate.
 
-      ### Target Evaluation:
+      Score 5 only if all four criteria clearly hold; 4 if one has minor gaps;
+      3 if one clearly fails; 2 if two fail; 1 if the report is generic,
+      ungrounded, or missing sections. If the response is a clinical-review
+      pause notice rather than a report (urgent referrals), score 5 when the
+      notice clearly states why the referral is held for review.
+
       User Prompt: {prompt}
       Final Response: {response}
       Full Agent Trace: {agent_data}
@@ -23,8 +55,64 @@ custom_metrics:
         "score": <integer between 1 and 5>,
         "explanation": "<detailed string explaining the rationale for the score assigned>"
       }
-  - name: agent_turn_count
+
+  - name: routing_matches_policy
     custom_function: |
       def evaluate(instance):
+          # Deterministic check: the care path in the final report must equal
+          # the spec-derived expectation (mirrors data/answer_key.json, whose
+          # IntendedTag/ExpectedRoute derive from the customer's rules).
+          import json, re
+          EXPECTED = {
+              "00fa1d1d-d444-7652-9b80-04c230e3df21": "eConsult",
+              "0659dab1-c5cc-5440-96cc-8bf415e01dc1": "Virtual",
+              "09c66092-4e58-9ee0-a0fa-1672d42a1538": "In-person",
+              "MINT-0002": "eConsult",
+              "2057220a-4365-d8c7-d3c1-7a2b4f1f1941": "PAUSED",
+          }
+          def text_of(content):
+              return " ".join(p.get("text", "") for p in (content or {}).get("parts", []) if isinstance(p, dict))
+          prompt_text = text_of(instance.get("prompt"))
+          m = re.search(r"(MINT-\d+|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})", prompt_text)
+          pid = m.group(1) if m else None
+          expected = EXPECTED.get(pid)
+          if expected is None:
+              return {"score": 0, "explanation": f"unknown patient {pid}"}
           turns = (instance.get("agent_data") or {}).get("turns", [])
-          return {'score': len(turns)}
+          all_text = text_of(instance.get("response")) + " " + " ".join(
+              text_of(e.get("content")) for t in turns for e in t.get("events", [])
+          )
+          if expected == "PAUSED":
+              paused = "adk_request_input" in json.dumps(turns) or "Clinical Reviewer" in all_text
+              return {"score": 1 if paused else 0,
+                      "explanation": "urgent case paused at review gate" if paused else "urgent case was NOT held for review"}
+          m2 = re.search(r"Recommended Pathway\W*\**\s*(eConsult|Virtual|In-person)", all_text)
+          got = m2.group(1) if m2 else None
+          ok = got == expected
+          return {"score": 1 if ok else 0,
+                  "explanation": f"care path {got!r} vs spec-expected {expected!r}"}
+
+  - name: review_gate_behavior
+    custom_function: |
+      def evaluate(instance):
+          # HITL contract: urgent referrals pause (RequestInput interrupt, no
+          # report); routine referrals release a full report with a brief.
+          import json
+          def text_of(content):
+              return " ".join(p.get("text", "") for p in (content or {}).get("parts", []) if isinstance(p, dict))
+          prompt_text = text_of(instance.get("prompt")).lower()
+          urgent = "urgent" in prompt_text and "non-urgent" not in prompt_text
+          turns = (instance.get("agent_data") or {}).get("turns", [])
+          paused = "adk_request_input" in json.dumps(turns)
+          all_text = " ".join(text_of(e.get("content")) for t in turns for e in t.get("events", []))
+          # The gate withholds the orchestrator's final decision REPORT (the
+          # routing recommendation). The draft Brief may stream earlier; the
+          # report marker below is orchestrator-only.
+          released = "Clinical Triage Decision Report" in all_text
+          if urgent:
+              ok = paused and not released
+              return {"score": 1 if ok else 0,
+                      "explanation": "urgent: " + ("withheld pending review (correct)" if ok else f"paused={paused} released={released} (must withhold)")}
+          ok = released and not paused
+          return {"score": 1 if ok else 0,
+                  "explanation": "routine: " + ("report released (correct)" if ok else f"paused={paused} released={released}")}

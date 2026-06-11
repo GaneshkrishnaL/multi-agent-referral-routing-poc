@@ -2,15 +2,15 @@
 # Licensed under the Apache License, Version 2.0
 """Cross-Cutting Observability & Telemetry Plugin.
 
-This module provides standard, non-invasive telemetry tracing across the entire 
-triage workflow. By leveraging the ADK plugin lifecycle hooks (before/after agent, 
+This module provides standard, non-invasive telemetry tracing across the entire
+triage workflow. By leveraging the ADK plugin lifecycle hooks (before/after agent,
 model, and tool callbacks), we achieve:
 1. Step-by-step agent tracking (e.g. logging when an agent node starts/stops).
 2. End-to-end execution latency measurement (using monotonic timers).
 3. Real-time token consumption accounting (cumulative input and output tokens).
 4. Detailed tool execution audits (tracking tool parameters and return statuses).
 
-This design allows developers to track and audit the entire system's behavior without 
+This design allows developers to track and audit the entire system's behavior without
 scattering logging boilerplate across individual agents or routing engines.
 """
 
@@ -22,6 +22,7 @@ from typing import Any
 
 from google.adk.agents import BaseAgent
 from google.adk.agents.callback_context import CallbackContext
+from google.adk.agents.invocation_context import InvocationContext
 from google.adk.models.llm_response import LlmResponse
 from google.adk.plugins.base_plugin import BasePlugin
 from google.adk.tools import BaseTool
@@ -29,9 +30,6 @@ from google.adk.tools.tool_context import ToolContext
 from google.genai import types
 
 logger = logging.getLogger("smart_care_triage")
-
-# Name of the parent Workflow graph orchestrator to anchor root timing
-ROOT_NAME = "smart_care_triage"
 
 
 class ObservabilityPlugin(BasePlugin):
@@ -41,6 +39,36 @@ class ObservabilityPlugin(BasePlugin):
         super().__init__(name="observability")
 
     # =====================================================================
+    # Run Callbacks (end-to-end latency anchor)
+    # =====================================================================
+    # The ADK 2.x Workflow root is not a BaseAgent, so agent callbacks never
+    # fire for it — the run-level hooks are the reliable anchor. On a paused
+    # (HITL) run the timer restarts on resume, so latency measures the active
+    # segment, not reviewer wait time.
+
+    async def before_run_callback(
+        self, *, invocation_context: InvocationContext
+    ) -> types.Content | None:
+        state = invocation_context.session.state
+        state["temp:t0"] = time.monotonic()
+        state.setdefault("total_tokens", 0)
+        return None
+
+    async def after_run_callback(
+        self, *, invocation_context: InvocationContext
+    ) -> None:
+        state = invocation_context.session.state
+        t0 = state.get("temp:t0")
+        if t0 is not None:
+            state["latency_ms"] = round((time.monotonic() - t0) * 1000)
+        logger.info(
+            "[done] latency=%sms tokens=%s",
+            state.get("latency_ms"),
+            state.get("total_tokens"),
+        )
+        return None
+
+    # =====================================================================
     # Agent Step Callbacks (Workflow and Sub-node execution tracing)
     # =====================================================================
 
@@ -48,30 +76,7 @@ class ObservabilityPlugin(BasePlugin):
         self, *, agent: BaseAgent, callback_context: CallbackContext
     ) -> types.Content | None:
         """Lifecycle hook triggered right before any agent node is executed."""
-        # Anchor timer when the parent graph starts execution
-        if agent.name == ROOT_NAME:
-            callback_context.state["temp:t0"] = time.monotonic()
-            callback_context.state.setdefault("total_tokens", 0)
         logger.info("[step] -> %s", agent.name)
-        return None
-
-    async def after_agent_callback(
-        self, *, agent: BaseAgent, callback_context: CallbackContext
-    ) -> types.Content | None:
-        """Lifecycle hook triggered right after any agent node finishes execution."""
-        # Calculate overall elapsed duration when the parent graph terminates
-        if agent.name == ROOT_NAME:
-            t0 = callback_context.state.get("temp:t0")
-            if t0 is not None:
-                callback_context.state["latency_ms"] = round(
-                    (time.monotonic() - t0) * 1000
-                )
-            logger.info(
-                "[done] %s | latency=%sms tokens=%s",
-                agent.name,
-                callback_context.state.get("latency_ms"),
-                callback_context.state.get("total_tokens"),
-            )
         return None
 
     # =====================================================================

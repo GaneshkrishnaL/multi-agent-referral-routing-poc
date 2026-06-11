@@ -1,0 +1,23 @@
+custom_metrics:
+- name: triage_clinical_quality
+  prompt_template: "You are a senior clinical informaticist evaluating an AI referral-triage\n\
+    report for a primary care physician. Grade the agent's final response on\na scale\
+    \ of 1 to 5 against these criteria:\n\nA. SPECIALIST BRIEF GROUNDING: the brief\
+    \ cites real labs with dates and\n   trends from the trace, invents no findings,\
+    \ and gives no treatment\n   orders.\nB. QUESTION SPECIFICITY: the 2-3 clinical\
+    \ questions are patient-specific\n   and decision-focused, citing concrete values\
+    \ (lab results, med doses)\n   and guideline anchors where relevant. Generic asks\
+    \ like \"evaluate and\n   treat\" are an automatic failure of this criterion.\n\
+    C. EXPLAINABILITY: the report states the care path, the patient\n   engagement\
+    \ tag, a rationale a PCP can act on, and a confidence level.\nD. TAILORING: the\
+    \ content is tailored to the receiving specialty and the\n   referral diagnosis,\
+    \ not boilerplate.\n\nScore 5 only if all four criteria clearly hold; 4 if one\
+    \ has minor gaps;\n3 if one clearly fails; 2 if two fail; 1 if the report is generic,\n\
+    ungrounded, or missing sections. If the response is a clinical-review\npause notice\
+    \ rather than a report (urgent referrals), score 5 when the\nnotice clearly states\
+    \ why the referral is held for review.\n\nUser Prompt: {prompt}\nFinal Response:\
+    \ {response}\n\nReturn your evaluation as a valid JSON object matching this structure:\n\
+    {\n  \"score\": <integer between 1 and 5>,\n  \"explanation\": \"<detailed string\
+    \ explaining the rationale for the score assigned>\"\n}"
+metrics_to_run:
+- triage_clinical_quality

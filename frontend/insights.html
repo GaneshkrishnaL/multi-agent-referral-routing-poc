@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PCP Assist — Learning Loop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { background:#16161e; color:#c0caf5; font-family:-apple-system,'Segoe UI',Roboto,sans-serif; margin:0; padding:28px; }
+  h1 { font-size:20px; font-weight:600; margin:0 0 4px; }
+  .sub { color:#787c99; font-size:13px; margin-bottom:24px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin-bottom:24px; }
+  .card { background:#1a1b26; border:1px solid #2a2e3f; border-radius:10px; padding:16px 18px; }
+  .kpi { font-size:26px; font-weight:700; color:#7aa2f7; }
+  .kpi.green { color:#9ece6a; }
+  .label { font-size:12px; color:#787c99; margin-top:4px; }
+  h2 { font-size:14px; font-weight:600; color:#bb9af7; margin:24px 0 10px; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th, td { text-align:left; padding:7px 10px; border-bottom:1px solid #232636; }
+  th { color:#787c99; font-weight:500; }
+  .bar { height:8px; background:#232636; border-radius:4px; overflow:hidden; }
+  .bar > div { height:100%; background:#9ece6a; }
+  .loop { background:#1a1b26; border:1px solid #2a2e3f; border-left:3px solid #e0af68; border-radius:0 10px 10px 0; padding:14px 16px; font-size:12.5px; line-height:1.6; color:#a9b1d6; }
+  .muted { color:#565a6e; font-size:12px; }
+  a { color:#7aa2f7; }
+</style>
+</head>
+<body>
+  <h1>Learning loop — agent improvement over time</h1>
+  <div class="sub">Machine decisions joined to PCP outcomes via session id · policy version stamped on every decision · <a href="/dashboard/">back to dashboard</a></div>
+
+  <div class="grid">
+    <div class="card"><div class="kpi" id="kDecisions">–</div><div class="label">machine triage decisions</div></div>
+    <div class="card"><div class="kpi" id="kActions">–</div><div class="label">PCP actions recorded</div></div>
+    <div class="card"><div class="kpi" id="kJoined">–</div><div class="label">decision → outcome pairs joined</div></div>
+    <div class="card"><div class="kpi green" id="kAccept">–</div><div class="label">overall PCP acceptance rate</div></div>
+  </div>
+
+  <h2>Acceptance by policy version <span class="muted">(does each rules/prompt iteration beat the last?)</span></h2>
+  <table id="tVersion"><thead><tr><th>policy version</th><th>n</th><th>acceptance</th><th style="width:40%"></th></tr></thead><tbody></tbody></table>
+
+  <h2>Acceptance by day</h2>
+  <table id="tDay"><thead><tr><th>day</th><th>n</th><th>acceptance</th><th style="width:40%"></th></tr></thead><tbody></tbody></table>
+
+  <h2>Acceptance by care path</h2>
+  <table id="tPath"><thead><tr><th>care path</th><th>n</th><th>acceptance</th><th style="width:40%"></th></tr></thead><tbody></tbody></table>
+
+  <h2>Recent override reasons <span class="muted">(the raw material for the next iteration)</span></h2>
+  <table id="tOverride"><thead><tr><th>time</th><th>specialty</th><th>path</th><th>reason</th></tr></thead><tbody></tbody></table>
+
+  <h2>How the loop closes</h2>
+  <div class="loop" id="loopText"></div>
+
+<script>
+function pct(v) { return v == null ? '—' : (v * 100).toFixed(0) + '%'; }
+function fillRateTable(id, obj) {
+  const tb = document.querySelector(id + ' tbody');
+  tb.innerHTML = '';
+  for (const [k, v] of Object.entries(obj || {})) {
+    const tr = document.createElement('tr');
+    const w = v.acceptance == null ? 0 : v.acceptance * 100;
+    tr.innerHTML = '<td></td><td></td><td></td><td><div class="bar"><div style="width:' + w + '%"></div></div></td>';
+    tr.children[0].textContent = k;
+    tr.children[1].textContent = v.n;
+    tr.children[2].textContent = pct(v.acceptance);
+    tb.appendChild(tr);
+  }
+  if (!tb.children.length) tb.innerHTML = '<tr><td colspan="4" class="muted">no joined data yet — run triages and sign/override in the dashboard</td></tr>';
+}
+async function load() {
+  const r = await fetch('/feedback_stats');
+  const d = await r.json();
+  document.getElementById('kDecisions').textContent = d.total_machine_decisions;
+  document.getElementById('kActions').textContent = d.total_pcp_actions;
+  document.getElementById('kJoined').textContent = d.joined_pairs;
+  document.getElementById('kAccept').textContent = pct(d.overall_acceptance_rate);
+  fillRateTable('#tVersion', d.acceptance_by_policy_version);
+  fillRateTable('#tDay', d.acceptance_by_day);
+  fillRateTable('#tPath', d.acceptance_by_care_path);
+  const tb = document.querySelector('#tOverride tbody');
+  tb.innerHTML = '';
+  for (const o of (d.recent_override_reasons || [])) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td></td><td></td><td></td><td></td>';
+    tr.children[0].textContent = o.timestamp || '';
+    tr.children[1].textContent = o.specialty || '';
+    tr.children[2].textContent = o.care_path || '';
+    tr.children[3].textContent = o.reason || '';
+    tb.appendChild(tr);
+  }
+  if (!tb.children.length) tb.innerHTML = '<tr><td colspan="4" class="muted">no overrides recorded yet</td></tr>';
+  document.getElementById('loopText').textContent = d.loop;
+}
+load();
+setInterval(load, 15000);
+</script>
+</body>
+</html>

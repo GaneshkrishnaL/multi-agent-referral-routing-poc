@@ -5,15 +5,21 @@
 Validates the load-bearing decisions (care path, patient tag, specialist match,
 confidence) without running the LLMs, so it is fast and exact:
 
+  - SPEC CROSS-CHECK: every golden case's tag and route are recomputed from an
+    INDEPENDENT transcription of the customer's rules (tests/spec_rules.py) and
+    diffed against the application engines. The app is graded against the spec,
+    never against its own output.
   - GOLDEN: every answer_key case is recomputed and diffed against the expected
-    route/tag/specialist/confidence/top3.
+    route/tag/specialist/confidence/top3. ALL fields count toward failure —
+    a tag or confidence divergence fails the run.
   - INVARIANTS: a sweep of patient x specialty combinations checks structural
     rules that must always hold (route matches the specialty class, the matched
     specialist is in-network and of the right specialty, ranked by tier then
-    distance, in-person recommends no new specialist).
+    distance, In-person recommends the patient's EXISTING specialist from
+    claims, Virtual recommends only internal CenterWell specialists).
 
 Usage:
-  python tests/validate_routing.py                 # golden + invariant sweep
+  python tests/validate_routing.py                 # spec + golden + invariants
   python tests/validate_routing.py <patient_id> [specialty]   # one ad-hoc case
 """
 
@@ -25,12 +31,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "tests"))
+
+from spec_rules import spec_route, spec_signals, spec_tag  # noqa: E402
 
 from app import clinical_data as cd  # noqa: E402
 from app.routing import decide_route  # noqa: E402
 
 DATA = ROOT / "data"
-ROUTABLE = cd.ECONSULT_SPECIALTIES | {cd.VIRTUAL_SPECIALTY}
+ROUTABLE = cd.ROUTABLE_SPECIALTIES
 
 
 def decide(patient_id: str, specialty: str | None = None) -> dict:
@@ -44,31 +53,55 @@ def decide(patient_id: str, specialty: str | None = None) -> dict:
     if not specialty:
         return {"error": "no specialty (stored or supplied)"}
 
+    from app.claims_engine import claim_window_start
+
     claims = b.get("claims_12mo", []) or []
     recent = b.get("recent_encounters", 0) or 0
-    has_claim = any(c.get("Specialty") == specialty for c in claims)  # claims_engine
-    has_any_claim = bool(claims)
+    cutoff = claim_window_start()  # claims_engine windowing
+    matched = [
+        c
+        for c in claims
+        if c.get("Specialty") == specialty
+        and (c.get("ServiceDateFrom") or "9999") >= cutoff
+    ]
+    has_claim = bool(matched)
+    latest = max(matched, key=lambda c: c.get("ServiceDateFrom", ""), default=None) or {}
     has_checked_out = bool(b.get("has_checked_out_appt"))
     scheduled_next_month = bool(b.get("appt_scheduled_next_month"))
-    care_path, tag = decide_route(
-        specialty,
-        has_claim,
-        recent,  # routing
-        has_checked_out,
-        scheduled_next_month,
-        has_any_claim,
-    )
+    try:
+        care_path, tag = decide_route(  # routing
+            specialty,
+            has_claim,
+            recent,
+            has_checked_out,
+            scheduled_next_month,
+        )
+    except ValueError as exc:
+        return {"error": str(exc)}
 
     pat = b.get("patient", {})
-    # SpecialistMatcher ranks in-network specialists for every route: a new
-    # specialist for eConsult/Virtual, the continuity specialist for In-person.
-    matches = cd.rank_specialists(
-        specialty,
-        float(pat.get("Lat", 0)),  # specialist_matcher
-        float(pat.get("Lon", 0)),
-    )
+    lat, lon = float(pat.get("Lat", 0)), float(pat.get("Lon", 0))
+    # SpecialistMatcher: continuity for In-person, internal pool for Virtual,
+    # tier-then-distance directory ranking for eConsult.
+    continuity_unresolved = False
+    if care_path == "In-person":
+        existing = cd.find_specialist_by_npi(
+            latest.get("RenderingProviderNpi") or "", lat, lon
+        )
+        if existing:
+            matches = [{**existing, "Continuity": True}]
+        else:
+            continuity_unresolved = True
+            matches = cd.rank_specialists(specialty, lat, lon)
+    elif care_path == "Virtual":
+        matches = cd.rank_specialists(specialty, lat, lon, internal_only=True)
+    else:
+        matches = cd.rank_specialists(specialty, lat, lon)
+
     urgent = bool(ref.get("StatUrgent"))
     if urgent:
+        conf = "REVIEW"
+    elif continuity_unresolved:
         conf = "REVIEW"
     elif care_path in ("eConsult", "Virtual") and not matches:
         conf = "LOW"
@@ -82,6 +115,7 @@ def decide(patient_id: str, specialty: str | None = None) -> dict:
         "top3": [m["SpecialistId"] for m in matches[:3]],
         "confidence": conf,
         "matches": matches,
+        "existing_npi": latest.get("RenderingProviderNpi"),
     }
 
 
@@ -100,10 +134,34 @@ def _ids(top3_strs) -> list[str]:
     return out
 
 
-def validate_golden() -> int:
-    """Report per-field match rates against the answer key, and list divergences."""
+def validate_spec_crosscheck() -> int:
+    """Grade the app engines against the INDEPENDENT spec transcription."""
     ak = json.loads((DATA / "answer_key.json").read_text())
-    fields = ("route", "specialist", "top3", "confidence", "tag")
+    fails = 0
+    for r in ak:
+        b = cd.get_bundle(r["PatientId"])
+        specialty = (b.get("referral_order") or {}).get("OrderTypeName", "")
+        sig = spec_signals(b, specialty)
+        want_tag = spec_tag(**sig)
+        want_route = spec_route(specialty, sig["has_specialty_claim"])
+        g = decide(r["PatientId"])
+        if g.get("tag") != want_tag:
+            fails += 1
+            print(f"  SPEC-TAG {r['Key']}: app={g.get('tag')} spec={want_tag}")
+        if g.get("care_path") != want_route:
+            fails += 1
+            print(
+                f"  SPEC-ROUTE {r['Key']}: app={g.get('care_path')} spec={want_route}"
+            )
+    n = len(ak)
+    print(f"SPEC CROSS-CHECK ({n} cases): {n * 2 - fails}/{n * 2} assertions clean")
+    return fails
+
+
+def validate_golden() -> int:
+    """Diff every field against the answer key. ALL divergences are failures."""
+    ak = json.loads((DATA / "answer_key.json").read_text())
+    fields = ("route", "tag", "specialist", "top3", "confidence")
     hits = dict.fromkeys(fields, 0)
     diffs = {f: [] for f in fields}
     for r in ak:
@@ -113,6 +171,7 @@ def validate_golden() -> int:
             "specialist": g.get("specialist"),
             "top3": g.get("top3"),
             "confidence": _conf_word(g.get("confidence")),
+            # Graded against the spec-derived IntendedTag — never ComputedTag.
             "tag": g.get("tag"),
         }
         exp = {
@@ -120,7 +179,7 @@ def validate_golden() -> int:
             "specialist": r.get("ExpectedSpecialistId") or None,
             "top3": _ids(r.get("ExpectedTop3")),
             "confidence": _conf_word(r.get("ExpectedConfidence")),
-            "tag": r.get("ComputedTag"),
+            "tag": r.get("IntendedTag"),
         }
         for f in fields:
             if got[f] == exp[f]:
@@ -131,11 +190,11 @@ def validate_golden() -> int:
     print(f"GOLDEN ({n} cases) per-field match vs answer key:")
     for f in fields:
         print(f"  {f:11} {hits[f]}/{n}")
-    core_fail = sum(len(diffs[f]) for f in ("route", "specialist", "top3"))
+    fail = sum(len(diffs[f]) for f in fields)
     for f in fields:
         for key, got, exp in diffs[f]:
             print(f"    [{f}] {key}: got={got} exp={exp}")
-    return core_fail
+    return fail
 
 
 def validate_invariants(per_specialty: int = 8) -> int:
@@ -149,21 +208,39 @@ def validate_invariants(per_specialty: int = 8) -> int:
             if "error" in g:
                 continue
             n += 1
-            # route class: in-person only with an existing relationship; Cardiology
-            # without a relationship is Virtual; the eConsult six are eConsult.
+            ms = g["matches"]
+            # route class: In-person only with an existing relationship;
+            # virtual-designated specialties are Virtual; the rest eConsult.
             if g["care_path"] == "In-person":
-                pass  # existing relationship; fine
-            elif sp == cd.VIRTUAL_SPECIALTY and g["care_path"] != "Virtual":
-                violations.append((pid, sp, f"expected Virtual, got {g['care_path']}"))
+                # Continuity: the recommendation must be the claim's provider
+                # whenever the directory can resolve it.
+                if ms and ms[0].get("Continuity"):
+                    if str(ms[0].get("Npi", "")) != str(g.get("existing_npi", "")):
+                        violations.append(
+                            (pid, sp, "continuity pick is not the claim provider")
+                        )
+                elif g["confidence"] != "REVIEW" and not bool(
+                    (cd.get_bundle(pid).get("referral_order") or {}).get("StatUrgent")
+                ):
+                    violations.append(
+                        (pid, sp, "unresolved continuity must flag REVIEW")
+                    )
+            elif sp in cd.VIRTUAL_SPECIALTIES:
+                if g["care_path"] != "Virtual":
+                    violations.append((pid, sp, f"expected Virtual, got {g['care_path']}"))
+                if any(not m.get("Internal") for m in ms):
+                    violations.append((pid, sp, "virtual match is not internal"))
             elif sp in cd.ECONSULT_SPECIALTIES and g["care_path"] != "eConsult":
                 violations.append((pid, sp, f"expected eConsult, got {g['care_path']}"))
-            # specialist sanity: right specialty, in-network, tier-then-distance order
-            ms = g["matches"]
+            # specialist sanity: right specialty, tier-then-distance order
             if any(m["Specialty"] != sp for m in ms):
                 violations.append((pid, sp, "matched wrong specialty"))
-            keys = [(m["Tier"], m["DistanceMi"]) for m in ms]
-            if keys != sorted(keys):
-                violations.append((pid, sp, "matches not sorted by tier then distance"))
+            if not (ms and ms[0].get("Continuity")):
+                keys = [(m["Tier"], m["DistanceMi"]) for m in ms]
+                if keys != sorted(keys):
+                    violations.append(
+                        (pid, sp, "matches not sorted by tier then distance")
+                    )
     print(f"INVARIANTS: {n - len(violations)}/{n} combos clean")
     for pid, sp, msg in violations[:20]:
         print(f"  VIOLATION {pid} [{sp}]: {msg}")
@@ -180,12 +257,13 @@ if __name__ == "__main__":
             )
         )
     else:
+        f0 = validate_spec_crosscheck()
         f1 = validate_golden()
         f2 = validate_invariants()
         print(
             "\nRESULT:",
             "ALL PASS"
-            if f1 == 0 and f2 == 0
-            else f"{f1} golden + {f2} invariant failures",
+            if f0 == f1 == f2 == 0
+            else f"{f0} spec + {f1} golden + {f2} invariant failures",
         )
-        sys.exit(1 if (f1 or f2) else 0)
+        sys.exit(1 if (f0 or f1 or f2) else 0)

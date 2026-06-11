@@ -46,13 +46,25 @@ def _haversine(lat1, lon1, lat2, lon2):
 
 
 def _rows(specialty: str, in_network_only: bool):
-    """Queries specialists from BigQuery matching the specified medical specialty."""
+    """Queries specialists matching the specified medical specialty.
+
+    USE_BIGQUERY=1 -> BigQuery (production); otherwise the local synthetic
+    directory — same shape either way."""
+    from local_data import USE_BIGQUERY, local_specialists
+
+    if not USE_BIGQUERY:
+        return [
+            s
+            for s in local_specialists()
+            if s["Specialty"] == specialty
+            and (not in_network_only or s["Network"] == "In-Network")
+        ]
     from google.cloud import bigquery
 
     sql = (
-        f"SELECT SpecialistId, FirstName, LastName, Tier, PerformanceScore, "
-        f"Network, ClinicName, Lat, Lon FROM `{PROJECT}.{DATASET}.specialists` "
-        f"WHERE Specialty=@sp"
+        f"SELECT SpecialistId, FirstName, LastName, Specialty, Npi, Tier, "
+        f"PerformanceScore, Network, ClinicName, Internal, Lat, Lon "
+        f"FROM `{PROJECT}.{DATASET}.specialists` WHERE Specialty=@sp"
     )
     if in_network_only:
         sql += " AND Network='In-Network'"
@@ -62,12 +74,68 @@ def _rows(specialty: str, in_network_only: bool):
             query_parameters=[bigquery.ScalarQueryParameter("sp", "STRING", specialty)]
         ),
     )
-    return list(job)
+    return [dict(r) for r in job]
 
 
 # =====================================================================
 # MCP Server Tool Registrations
 # =====================================================================
+
+@mcp.tool(annotations={"title": "List specialists (raw directory rows)", "readOnlyHint": True})
+def list_specialists(
+    specialty: str, in_network_only: bool = True, internal_only: bool = False
+) -> str:
+    """Returns raw directory rows for a specialty: id, name, NPI, performance
+    score, stored tier, network status, internal (CenterWell virtual pool)
+    flag, clinic, and coordinates.
+
+    This is the DATA-plane tool: ranking, tier thresholds, and distance policy
+    are applied by the deterministic decision layer, not by this server.
+
+    Args:
+        specialty: The specialty medical field, e.g., Endocrinology.
+        in_network_only: Restrict to in-network specialists (default true).
+        internal_only: Restrict to the internal CenterWell pool (virtual visits).
+    """
+    rows = [
+        s
+        for s in _rows(specialty, in_network_only)
+        if not internal_only or s.get("Internal", "No") == "Yes"
+    ]
+    return json.dumps(rows)
+
+
+@mcp.tool(annotations={"title": "Find specialist by NPI", "readOnlyHint": True})
+def find_specialist_by_npi(npi: str) -> str:
+    """Resolves a claim's rendering provider NPI to a raw directory row — the
+    continuity lookup for the In-person path ('do I have a claim with THIS
+    specialist').
+
+    Args:
+        npi: The provider's National Provider Identifier from the claim.
+    """
+    from local_data import USE_BIGQUERY, local_specialists
+
+    if not USE_BIGQUERY:
+        for s in local_specialists():
+            if str(s.get("Npi", "")) == str(npi):
+                return json.dumps(s)
+        return json.dumps(None)
+    from google.cloud import bigquery
+
+    sql = (
+        f"SELECT * FROM `{PROJECT}.{DATASET}.specialists` "
+        "WHERE CAST(Npi AS STRING)=@npi LIMIT 1"
+    )
+    job = _bq().query(
+        sql,
+        job_config=bigquery.QueryJobConfig(
+            query_parameters=[bigquery.ScalarQueryParameter("npi", "STRING", str(npi))]
+        ),
+    )
+    for row in job:
+        return json.dumps(dict(row))
+    return json.dumps(None)
 
 @mcp.tool(annotations={"title": "Rank specialists", "readOnlyHint": True})
 def rank_specialists(specialty: str, lat: float, lon: float, top: int = 3) -> str:

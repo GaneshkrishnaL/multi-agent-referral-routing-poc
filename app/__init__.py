@@ -12,6 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .agent import app
-
+# Lazy export (PEP 562): `from app import app` still works for the ADK server,
+# but importing deterministic submodules (app.routing, app.clinical_data) no
+# longer drags in the full ADK graph or requires GCP credentials — keeping the
+# offline routing validator and unit tests genuinely offline.
 __all__ = ["app"]
+
+
+def __getattr__(name):
+    if name == "app":
+        from .agent import app
+
+        return app
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

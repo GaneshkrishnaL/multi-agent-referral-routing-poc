@@ -30,7 +30,11 @@ class TriageDecision(BaseModel):
     )
     specialist: SpecialistPick | None = Field(
         default=None,
-        description="Top recommended specialist (null for in-person continuity)",
+        description=(
+            "Top recommended specialist. For In-person routes this is the "
+            "patient's EXISTING specialist resolved from claims (continuity); "
+            "null only when no specialist could be matched."
+        ),
     )
     top_alternatives: list[str] = Field(
         default_factory=list,

@@ -1,0 +1,16 @@
+# Keep the image to exactly what the runtime reads.
+.git
+.venv
+.gitignore
+__pycache__
+**/__pycache__
+*.pyc
+tests/
+decisions.jsonl
+notebooks/
+locust_env/
+guidelines_corpus/
+
+# Legacy generation artifacts: stale pre-correction taxonomy and an obsolete
+# answer key live here. The live pipeline reads data/*.json + data/*.csv only.
+data/output/

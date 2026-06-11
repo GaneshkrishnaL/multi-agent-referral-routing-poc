@@ -35,7 +35,14 @@ def _bq():
 
 
 def _bundle(patient_id: str):
-    """Retrieves the full JSON-formatted EHR clinical data bundle for a patient from BigQuery."""
+    """Retrieves the full EHR clinical data bundle for a patient.
+
+    USE_BIGQUERY=1 -> BigQuery (production); otherwise the local synthetic
+    dataset — same shape either way."""
+    from local_data import USE_BIGQUERY, local_bundle
+
+    if not USE_BIGQUERY:
+        return local_bundle(patient_id)
     from google.cloud import bigquery
 
     sql = (
@@ -58,6 +65,27 @@ def _bundle(patient_id: str):
 # =====================================================================
 # MCP Server Tool Registrations
 # =====================================================================
+
+@mcp.tool(annotations={"title": "Get claims bundle (data lake domain)", "readOnlyHint": True})
+def get_claims_bundle(patient_id: str) -> str:
+    """Retrieves the patient's full-fidelity claims history and prior referral
+    outcomes — the Data Lake domain signals the deterministic routing engine
+    consumes (claim specialty, service dates, rendering provider NPI/name for
+    continuity resolution, and prior referral statuses incl. no-shows).
+
+    Args:
+        patient_id: Unique identifier for the patient (UUID or MINT-####).
+    """
+    b = _bundle(patient_id)
+    if not b:
+        return json.dumps({"error": f"patient {patient_id} not found"})
+    return json.dumps(
+        {
+            "claims_12mo": b.get("claims_12mo", []),
+            "prior_referrals": b.get("prior_referrals", []),
+        }
+    )
+
 
 @mcp.tool(annotations={"title": "Get claims history", "readOnlyHint": True})
 def get_claims_history(patient_id: str) -> str:

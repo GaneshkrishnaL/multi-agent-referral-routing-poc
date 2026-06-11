@@ -145,3 +145,19 @@ scratch/
 # Runtime DB and dynamic logs
 decisions.jsonl
 *.log
+
+# Agent-session / assistant files (never commit)
+CLAUDE.md
+.claude/
+.claude-*
+
+# Generated deployment + eval artifacts
+deployment_metadata.json
+app/app_utils/.requirements.txt
+artifacts/
+
+# Legacy data-generation output (superseded by data/*.json + data/*.csv)
+data/output/
+
+# Customer source documents (never publish)
+*.pdf

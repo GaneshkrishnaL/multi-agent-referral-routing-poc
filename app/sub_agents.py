@@ -2,15 +2,15 @@
 # Licensed under the Apache License, Version 2.0
 """Triage Sub-Agents Factory and Orchestrator.
 
-This module contains factory functions to configure and instantiate our AI-driven, 
-Gemini-powered sub-agents. These sub-agents handle the non-deterministic clinical parts 
-of our triage pipeline, such as clinical assessment, guidelines-grounded evidence 
+This module contains factory functions to configure and instantiate our AI-driven,
+Gemini-powered sub-agents. These sub-agents handle the non-deterministic clinical parts
+of our triage pipeline, such as clinical assessment, guidelines-grounded evidence
 summarization, question generation, and document summarization.
 
 Architecture & Performance Strategy:
-- Lightweight Tasks (Assessment, Evidence, Questions, Orchestration): Run on Gemini 2.5 Flash 
+- Lightweight Tasks (Assessment, Evidence, Questions, Orchestration): Run on Gemini 2.5 Flash
   to minimize latency, overhead, and API costs.
-- Heavy-Duty Synthesis Tasks (Specialist Brief): Upgrade to Gemini 2.5 Pro for premium, 
+- Heavy-Duty Synthesis Tasks (Specialist Brief): Upgrade to Gemini 2.5 Pro for premium,
   clinician-grade medical narrative synthesis.
 - Inter-process tools are integrated using the Model Context Protocol (MCP) to fetch live data.
 """
@@ -18,9 +18,12 @@ Architecture & Performance Strategy:
 from __future__ import annotations
 
 import sys
+from collections.abc import AsyncGenerator
 from pathlib import Path
 
-from google.adk.agents import Agent
+from google.adk.agents import Agent, BaseAgent
+from google.adk.agents.invocation_context import InvocationContext
+from google.adk.events import Event, EventActions
 from google.adk.models import Gemini
 from google.adk.skills import load_skill_from_dir
 from google.adk.tools import skill_toolset
@@ -28,11 +31,6 @@ from google.adk.tools.mcp_tool import McpToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
 from google.genai import types
 from mcp import StdioServerParameters
-
-from collections.abc import AsyncGenerator
-from google.adk.agents import BaseAgent
-from google.adk.agents.invocation_context import InvocationContext
-from google.adk.events import Event, EventActions
 
 from .schemas import TriageDecision
 
@@ -43,8 +41,8 @@ MCP_DIR = Path(__file__).resolve().parent.parent / "mcp_servers"
 
 def _clinical_knowledge_mcp() -> McpToolset:
     """Connects to the Clinical Knowledge MCP server over stdio.
-    
-    This acts as our local bridge to clinical guidelines, connecting to a sub-process 
+
+    This acts as our local bridge to clinical guidelines, connecting to a sub-process
     running the Clinical Knowledge FastMCP server.
     """
     return McpToolset(
@@ -77,57 +75,49 @@ def _llm(**kwargs) -> Agent:
 # Factory Functions for AI Agents
 # =====================================================================
 
-def create_reasoning() -> Agent:
-    """Creates the Clinical Reasoning Agent.
-    
-    This agent parses the patient's record to construct a cohesive clinical assessment.
-    It evaluates severity, comorbidities, and risk factors without adding external noise.
+def create_analyst() -> Agent:
+    """Creates the Clinical Analyst Agent (merged reasoning + guideline grounding).
+
+    One agent grounds and analyzes the case: it retrieves the relevant clinical
+    guidelines via the Clinical Knowledge MCP server, then produces a single
+    guideline-grounded clinical analysis. Both downstream generators (the
+    Specialist Brief and the clinical questions) consume this one shared
+    analysis, so they always tell the same clinical story.
     """
     return _llm(
-        name="clinical_reasoning",
+        name="clinical_analyst",
         model=_model(),
-        description="Interprets condition severity, comorbidity, and risk.",
+        description="Grounds the case in guidelines and assesses severity, comorbidity, and risk.",
         instruction=(
-            "Using only the patient context below, give a brief clinical assessment: "
-            "the primary problem and its severity/control, relevant comorbidities, and "
-            "risk factors. 4-6 sentences. Do not invent values. Do not call a value "
+            "You are the clinical analyst for a specialist referral. Produce ONE "
+            "grounded analysis in two short sections:\n\n"
+            "1. First call get_clinical_evidence with specialty "
+            "'{referral_specialty}' and condition '{referral_condition}'.\n\n"
+            "2. ASSESSMENT — using only the patient context below: the primary "
+            "problem and its severity/control, relevant comorbidities, and risk "
+            "factors, 4-6 sentences. Do not invent values. Do not call a value "
             "controlled or at goal unless it meets the guideline target for this "
-            "patient's risk category (e.g., post-MI LDL <55-70); a value that merely "
-            "improved is not necessarily at goal.\n\n"
+            "patient's risk category (e.g., post-MI LDL <55-70); a value that "
+            "merely improved is not necessarily at goal.\n\n"
+            "3. GUIDELINE EVIDENCE — 2-4 sentences summarizing the retrieved "
+            "guideline evidence most relevant to THIS patient, naming the "
+            "guideline source (e.g., ADA 2025, KDIGO 2024). Ground strictly in "
+            "the returned evidence; do not give treatment orders.\n\n"
+            "Label the two sections exactly 'ASSESSMENT:' and 'GUIDELINE "
+            "EVIDENCE:' so downstream agents can use them.\n\n"
             "PATIENT CONTEXT:\n{patient_summary}"
         ),
-        output_key="assessment",
-        generate_content_config=types.GenerateContentConfig(temperature=0.1),
-    )
-
-
-def create_knowledge() -> Agent:
-    """Creates the Clinical Knowledge Agent.
-    
-    This agent retrieves and distills the relevant clinical guidelines for the specific 
-    referral condition via the Clinical Knowledge MCP tool.
-    """
-    return _llm(
-        name="clinical_knowledge",
-        model=_model(),
-        description="Retrieves grounding evidence for the referral specialty.",
-        instruction=(
-            "Call get_clinical_evidence with specialty '{referral_specialty}' and "
-            "condition '{referral_condition}'. Then summarize, in 2-3 sentences, the "
-            "evidence most relevant to this patient, grounded strictly in the returned "
-            "evidence. Do not give treatment orders."
-        ),
         tools=[_clinical_knowledge_mcp()],
-        output_key="evidence",
+        output_key="assessment",
         generate_content_config=types.GenerateContentConfig(temperature=0.1),
     )
 
 
 def create_summarizer() -> Agent:
     """Creates the Clinical Summarizer Agent (Gemini Pro).
-    
-    This agent generates the Specialist Brief. It requires complex reasoning over 
-    longitudinal records, structured formatting, and professional phrasing, which 
+
+    This agent generates the Specialist Brief. It requires complex reasoning over
+    longitudinal records, structured formatting, and professional phrasing, which
     is why we upgrade this specific node to Gemini 2.5 Pro.
     """
     brief_skill = skill_toolset.SkillToolset(
@@ -160,8 +150,9 @@ def create_summarizer() -> Agent:
             "- Integrate longitudinal chart records, progress notes, and historical records to capture the complete story.\n"
             "- Be thorough and detailed. Explain the physiological implications of key findings (e.g., how renal function affects medication dosing).\n"
             "- Strictly stay grounded in the provided facts; never invent, assume, or bluff details.\n\n"
-            "PATIENT CONTEXT:\n{patient_summary}\n\nASSESSMENT:\n{assessment}\n\n"
-            "GUIDELINE EVIDENCE:\n{evidence}"
+            "PATIENT CONTEXT:\n{patient_summary}\n\n"
+            "GROUNDED CLINICAL ANALYSIS (assessment + guideline evidence):\n"
+            "{assessment}"
         ),
         tools=[brief_skill],
         output_key="specialist_brief",
@@ -171,8 +162,8 @@ def create_summarizer() -> Agent:
 
 def create_question_generator() -> Agent:
     """Creates the Question Generator Agent.
-    
-    This agent generates 2-3 clinical questions targeted at the specialist to frame 
+
+    This agent generates 2-3 clinical questions targeted at the specialist to frame
     the eConsult consultation, leveraging a pre-configured template skill.
     """
     q_skill = skill_toolset.SkillToolset(
@@ -188,9 +179,15 @@ def create_question_generator() -> Agent:
             "then tailor questions to THIS patient, grounded in the assessment and "
             "evidence below. Where a comorbidity changes the answer (e.g., eGFR, a prior "
             "no-show), build that in. Every question must be grounded in the patient's "
-            "documented problems and labs; do not ask about screening or a workup for a "
-            "condition that is not in the problem list. Return a numbered list, no "
-            "preamble.\n\nASSESSMENT:\n{assessment}\n\nEVIDENCE:\n{evidence}"
+            "documented problems and labs from the PATIENT CONTEXT below — cite concrete "
+            "values (lab results with dates, med doses) the way the gold examples do, "
+            "and anchor questions to the guideline evidence in the analysis where it "
+            "sharpens the decision (e.g., 'per ADA 2025...'). Do not ask about "
+            "screening or a workup for a condition that is not in the problem list. "
+            "Return a numbered list, no preamble.\n\n"
+            "PATIENT CONTEXT:\n{patient_summary}\n\n"
+            "GROUNDED CLINICAL ANALYSIS (assessment + guideline evidence):\n"
+            "{assessment}"
         ),
         tools=[q_skill],
         output_key="clinical_questions",
@@ -212,6 +209,7 @@ class TriageOrchestrationEngine(BaseAgent):
         self, ctx: InvocationContext
     ) -> AsyncGenerator[Event, None]:
         import json
+
         from google.genai import types
 
         # 1. Retrieve all structured and clinical details from downstream state variables
@@ -294,7 +292,7 @@ CLINICAL QUESTIONS:
             spec_dist = spec_dict.get("distance_mi", "N/A")
             spec_md = f"**{spec_name}** ({spec_id}) | Tier {spec_tier} | {spec_dist} mi"
         else:
-            spec_md = "*No specific specialist assigned (In-person care continuity).*"
+            spec_md = "*No matching specialist could be resolved — flagged for clinical review.*"
 
         alts = td_dict.get("top_alternatives", [])
         alts_md = "\n".join(f"- {alt}" for alt in alts) if alts else "*No alternative specialists.*"

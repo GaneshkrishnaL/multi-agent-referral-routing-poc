@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CenterWell | Next-Gen AI Clinical Referral Workspace</title>
+  <title>PCP Assist | Next-Gen AI Clinical Referral Workspace</title>
   
   <!-- Markdown parser for rich clinical brief formatting -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -1356,7 +1356,7 @@
 </head>
 <body>
 
-  <!-- CenterWell Top Bar Navigation Header -->
+  <!-- PCP Assist Top Bar Navigation Header -->
   <header class="athena-header">
     <div class="header-left">
       <div class="athena-logo">
@@ -1370,7 +1370,7 @@
             </linearGradient>
           </defs>
         </svg>
-        <span style="background: linear-gradient(to right, #ffffff, #a7f3d0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CenterWell</span>
+        <span style="background: linear-gradient(to right, #ffffff, #a7f3d0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PCP Assist</span>
       </div>
       <div class="athena-nav-tabs">
         <span class="nav-tab active">Calendar</span>
@@ -1402,7 +1402,7 @@
     </div>
   </header>
 
-  <!-- CenterWell Indigo Patient Info Banner -->
+  <!-- PCP Assist Indigo Patient Info Banner -->
   <div class="athena-patient-banner">
     <div class="patient-profile">
       <div class="patient-avatar" id="patientAvatar">BT</div>
@@ -1769,6 +1769,21 @@
   </main>
 
   <!-- Toast Alarm Dialog element -->
+  <!-- Clinical Reviewer gate panel: shown when the server pauses the workflow
+       on a RequestInput interrupt (urgent / LOW / REVIEW referrals). The
+       recommendation is withheld server-side until the reviewer responds. -->
+  <div id="reviewGatePanel" style="display:none; position:fixed; inset:0; z-index:300; background:rgba(10,12,20,0.72); align-items:center; justify-content:center;">
+    <div style="background:#1a1b26; border:1px solid #e0af68; border-radius:12px; max-width:520px; width:92%; padding:22px 24px; color:#c0caf5; box-shadow:0 18px 60px rgba(0,0,0,0.5);">
+      <div style="font-size:15px; font-weight:700; color:#e0af68; margin-bottom:8px;">&#9888; Clinical Reviewer Sign-off Required</div>
+      <div id="reviewGateMessage" style="font-size:13px; line-height:1.5; margin-bottom:14px;"></div>
+      <textarea id="reviewGateNotes" placeholder="Reviewer notes (optional)" style="width:100%; min-height:64px; background:#16161e; color:#c0caf5; border:1px solid #2a2e3f; border-radius:8px; padding:8px 10px; font-size:12.5px; resize:vertical; box-sizing:border-box;"></textarea>
+      <div style="display:flex; gap:10px; margin-top:14px; justify-content:flex-end;">
+        <button onclick="submitClinicalReview('reject')" style="background:transparent; border:1px solid #f7768e; color:#f7768e; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:12.5px;">Reject Referral</button>
+        <button onclick="submitClinicalReview('approve')" style="background:#9ece6a; border:none; color:#16161e; padding:8px 18px; border-radius:8px; cursor:pointer; font-weight:700; font-size:12.5px;">Approve &amp; Release</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast-popup" id="toast">
     <span class="toast-indicator success" id="toastIcon">✓</span>
     <div style="display: flex; flex-direction: column; gap: 2px;">
@@ -1783,6 +1798,9 @@
     let sessionState = {};
     let selectedSpecialistName = null;
     let selectedSpecialistId = null;
+    let currentTriageSessionId = null;
+    let currentTriageUserId = null;
+    let pendingReviewInterrupt = null; // set when the server pauses on the clinical review gate
 
     // Toast alert popups
     function showToast(title, desc, type = 'success') {
@@ -2045,6 +2063,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            session_id: currentTriageSessionId,
             patient_id: patientId,
             specialty: patient.specialty,
             action: 'override',
@@ -2096,6 +2115,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            session_id: currentTriageSessionId,
             patient_id: patientId,
             specialty: patient.specialty,
             action: isOverride ? 'override_signed' : 'accept',
@@ -2138,6 +2158,12 @@
         if (!sessionRes.ok) throw new Error("Session create failed");
         const sessionData = await sessionRes.json();
         const sessionId = sessionData.id;
+        // Remember the triage session so PCP actions can be joined back to
+        // this machine decision in the audit log (feedback loop), and so the
+        // clinical reviewer can resume a gated run.
+        currentTriageSessionId = sessionId;
+        currentTriageUserId = user_id;
+        pendingReviewInterrupt = null;
 
         // 2. Start SSE Stream
         document.getElementById('emrLoadingText').innerText = "Triage classification running...";
@@ -2163,48 +2189,17 @@
 
         if (!sseRes.ok) throw new Error("SSE Stream trigger failed");
 
-        const reader = sseRes.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-        let hasError = false;
-        let errorMessage = "";
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split('\n');
-          buffer = lines.pop(); // save leftovers
-
-          for (const line of lines) {
-            const cleanLine = line.trim();
-            if (cleanLine.startsWith('data: ')) {
-              try {
-                const event = JSON.parse(cleanLine.slice(6));
-                handleSseEvent(event);
-                
-                // Track errors
-                const actions = event.actions || event.Actions;
-                if (actions && (actions.state_delta || actions.stateDelta)) {
-                  const delta = actions.state_delta || actions.stateDelta;
-                  if (delta.extraction_error) {
-                    hasError = true;
-                    errorMessage = delta.extraction_error;
-                  } else if (delta.routing && delta.routing.error) {
-                    hasError = true;
-                    errorMessage = delta.routing.error;
-                  }
-                }
-              } catch (e) {
-                console.warn("SSE json parse failed", e);
-              }
-            }
-          }
-        }
+        const { hasError, errorMessage } = await readSseStream(sseRes);
 
         document.getElementById('emrLoadingOverlay').classList.remove('show');
-        if (hasError) {
+        if (pendingReviewInterrupt) {
+          // The server paused the workflow at the clinical review gate: the
+          // recommendation is withheld until a reviewer responds.
+          document.getElementById('reviewGateMessage').innerText =
+            pendingReviewInterrupt.message || 'This referral requires clinical reviewer sign-off before release.';
+          document.getElementById('reviewGatePanel').style.display = 'flex';
+          showToast("Pending Clinical Review", "Recommendation withheld until reviewer sign-off.", "warning");
+        } else if (hasError) {
           showToast("Triage Stopped", errorMessage || "Pipeline halted.", "warning");
         } else {
           showToast("Triage complete", `Guideline care path calculated for ${patient.name}.`, "success");
@@ -2217,10 +2212,126 @@
       }
     }
 
+    // Shared SSE reader: parses 'data:' lines, dispatches every event to
+    // handleSseEvent, and reports halting errors. Used by the initial triage
+    // run AND by the clinical reviewer's resume call.
+    async function readSseStream(sseRes) {
+      const reader = sseRes.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let hasError = false;
+      let errorMessage = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop(); // save leftovers
+
+        for (const line of lines) {
+          const cleanLine = line.trim();
+          if (cleanLine.startsWith('data: ')) {
+            try {
+              const event = JSON.parse(cleanLine.slice(6));
+              handleSseEvent(event);
+
+              // Track errors
+              const actions = event.actions || event.Actions;
+              if (actions && (actions.state_delta || actions.stateDelta)) {
+                const delta = actions.state_delta || actions.stateDelta;
+                if (delta.extraction_error) {
+                  hasError = true;
+                  errorMessage = delta.extraction_error;
+                } else if (delta.routing && delta.routing.error) {
+                  hasError = true;
+                  errorMessage = delta.routing.error;
+                }
+              }
+            } catch (e) {
+              console.warn("SSE json parse failed", e);
+            }
+          }
+        }
+      }
+      return { hasError, errorMessage };
+    }
+
+    // Clinical reviewer responds to the server-side review gate: resume the
+    // paused workflow with a function_response keyed to the interrupt id.
+    // On approve, the orchestrator then runs and the report streams in via
+    // the same handleSseEvent pipeline; on reject, the run ends with no
+    // recommendation released.
+    async function submitClinicalReview(action) {
+      if (!pendingReviewInterrupt) return;
+      const interrupt = pendingReviewInterrupt;
+      pendingReviewInterrupt = null;
+      document.getElementById('reviewGatePanel').style.display = 'none';
+      document.getElementById('emrLoadingOverlay').classList.add('show');
+      document.getElementById('emrLoadingText').innerText =
+        action === 'approve' ? "Releasing reviewed recommendation..." : "Recording reviewer rejection...";
+
+      try {
+        const sseRes = await fetch('/run_sse', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            app_name: 'app',
+            user_id: currentTriageUserId,
+            session_id: currentTriageSessionId,
+            new_message: {
+              role: 'user',
+              parts: [{
+                function_response: {
+                  id: interrupt.id,
+                  name: 'adk_request_input',
+                  response: {
+                    action: action,
+                    reviewer_id: 'reviewer-demo',
+                    notes: document.getElementById('reviewGateNotes').value.trim()
+                  }
+                }
+              }]
+            },
+            streaming: true
+          })
+        });
+        if (!sseRes.ok) throw new Error("Review resume failed");
+        await readSseStream(sseRes);
+        document.getElementById('emrLoadingOverlay').classList.remove('show');
+        if (action === 'approve') {
+          showToast("Review Approved", "Recommendation released to the PCP.", "success");
+        } else {
+          showToast("Referral Rejected", "No recommendation released. Decision logged for audit.", "warning");
+        }
+      } catch (err) {
+        console.error("Review resume failed", err);
+        document.getElementById('emrLoadingOverlay').classList.remove('show');
+        showToast("Review failed", "Could not deliver the reviewer response.", "warning");
+      }
+    }
+
     // Distribute SSE updates to EMR DOM components
     function handleSseEvent(event) {
       const author = event.author;
-      
+
+      // Server-side clinical review gate: the workflow pauses on an
+      // adk_request_input function-call event. Capture it so the UI can
+      // surface the reviewer panel once the stream ends.
+      const evContent = event.content || event.Content;
+      const evParts = (evContent && (evContent.parts || evContent.Parts)) || [];
+      for (const p of evParts) {
+        const fc = p.function_call || p.functionCall;
+        if (fc && fc.name === 'adk_request_input') {
+          const args = fc.args || {};
+          pendingReviewInterrupt = {
+            id: fc.id || args.interruptId || args.interrupt_id || 'clinical_review',
+            message: args.message || ''
+          };
+        }
+      }
+
       // Highlight graph nodes on message sources
       if (author) {
         if (author === 'extraction') {
@@ -2238,11 +2349,14 @@
         } else if (author === 'specialist_matcher') {
           setNodeStatus('matcher', 'completed');
           setNodeStatus('clinical', 'active');
-          document.getElementById('emrLoadingText').innerText = "Generating clinical guidelines reasoning...";
-        } else if (author === 'clinical_summarizer') {
+          document.getElementById('emrLoadingText').innerText = "Grounding case in clinical guidelines...";
+        } else if (author === 'clinical_analyst') {
           setNodeStatus('clinical', 'completed');
           setNodeStatus('summarizer', 'active');
-          document.getElementById('emrLoadingText').innerText = "Writing Specialist Brief document...";
+          document.getElementById('emrLoadingText').innerText = "Writing Specialist Brief and questions...";
+        } else if (author === 'clinical_summarizer') {
+          setNodeStatus('summarizer', 'completed');
+          document.getElementById('emrLoadingText').innerText = "Finalizing triage decision...";
         } else if (author === 'triage_orchestrator') {
           setNodeStatus('summarizer', 'completed');
           setNodeStatus('synthesis', 'completed');

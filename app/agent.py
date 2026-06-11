@@ -25,7 +25,7 @@ import os
 import google.auth
 from google.adk import Workflow
 from google.adk.agents.context_cache_config import ContextCacheConfig
-from google.adk.apps import App
+from google.adk.apps import App, ResumabilityConfig
 from google.adk.events import Event
 from google.adk.workflow import JoinNode
 
@@ -35,6 +35,7 @@ from .claims_engine import ClaimsEngine
 from .extraction import ExtractionEngine
 from .hitl import DecisionGatePlugin
 from .observability import ObservabilityPlugin
+from .review_gate import clinical_review_gate
 from .routing import RoutingEngine
 from .specialist_matcher import SpecialistMatcher
 
@@ -56,15 +57,15 @@ claims_engine = ClaimsEngine(name="claims_engine")
 routing_engine = RoutingEngine(name="routing_engine")
 specialist_matcher = SpecialistMatcher(name="specialist_matcher")
 
-# 2. AI-driven clinical reasoning and knowledge sub-agents (Gemini-backed)
-clinical_reasoning = sub_agents.create_reasoning()
-clinical_knowledge = sub_agents.create_knowledge()
+# 2. AI-driven clinical sub-agents (Gemini-backed) — three agents:
+#    one grounded analysis (Clinical Analyst, guidelines-MCP-backed), and two
+#    deliverable generators (Specialist Brief, clinical questions) that share it.
+clinical_analyst = sub_agents.create_analyst()
 clinical_summarizer = sub_agents.create_summarizer()
 question_generator = sub_agents.create_question_generator()
 triage_orchestrator = sub_agents.create_orchestrator()
 
-# 3. Synchronizing barriers (ADK JoinNodes) to coordinate parallel execution paths
-join_analyze = JoinNode(name="join_analyze")
+# 3. Synchronizing barrier (ADK JoinNode) for the parallel generation paths
 join_generate = JoinNode(name="join_generate")
 
 
@@ -123,26 +124,32 @@ root_agent = Workflow(
         # These are entirely rules-based, making the decision logic highly auditable.
         (claims_engine, routing_engine, specialist_matcher),
         
-        # Phase 4: Parallel clinical analysis (Reasoning & Knowledge retrieval)
-        # Once the specialist is matched, we run parallel nodes:
-        # - clinical_reasoning: Generates high-level clinical assessments.
-        # - clinical_knowledge: Fetches guidelines from the clinical knowledge MCP.
-        # Both paths merge at the `join_analyze` JoinNode once both are done.
-        (specialist_matcher, clinical_reasoning, join_analyze),
-        (specialist_matcher, clinical_knowledge, join_analyze),
-        
+        # Phase 4: Grounded clinical analysis (single shared spine)
+        # The Clinical Analyst retrieves guideline evidence via the clinical
+        # knowledge MCP server and produces ONE guideline-grounded assessment
+        # that both generators consume — so the Brief and the questions always
+        # tell the same clinical story.
+        (specialist_matcher, clinical_analyst),
+
         # Phase 5: Parallel document generation (Brief & Questions)
-        # From the analyzed context, we run parallel generation nodes:
+        # From the shared analysis, we run parallel generation nodes:
         # - clinical_summarizer: Synthesizes a high-fidelity clinician-grade Specialist Brief.
         # - question_generator: Tailors patient-specific clinical questions for the specialist.
         # Both paths synchronize at the `join_generate` JoinNode.
-        (join_analyze, clinical_summarizer, join_generate),
-        (join_analyze, question_generator, join_generate),
+        (clinical_analyst, clinical_summarizer, join_generate),
+        (clinical_analyst, question_generator, join_generate),
         
-        # Phase 6: Synthesize final output
-        # Once both the Brief and questions are ready, the orchestrator compiles them into 
-        # a structured Pydantic schema and a beautiful clinical report.
-        (join_generate, triage_orchestrator),
+        # Phase 6: Server-side clinical review gate (human-in-the-loop).
+        # The gate runs BEFORE the orchestrator emits anything user-facing:
+        # urgent / LOW / REVIEW referrals pause here on a RequestInput
+        # interrupt, so the recommendation report is genuinely withheld until
+        # a clinical reviewer responds. Clean referrals pass straight through.
+        (join_generate, clinical_review_gate),
+
+        # Phase 7: Synthesize final output (released only after the gate).
+        # The orchestrator compiles the Brief, questions, and routing into a
+        # structured Pydantic schema and the clinical report shown to the PCP.
+        (clinical_review_gate, triage_orchestrator),
     ],
 )
 
@@ -156,11 +163,16 @@ app = App(
     root_agent=root_agent,
     # Plug in cross-cutting concerns:
     # - ObservabilityPlugin handles end-to-end latency and token counting.
-    # - DecisionGatePlugin handles human-in-the-loop (HITL) gate evaluation and file logging.
+    # - DecisionGatePlugin writes the joinable audit row for every decision.
     plugins=[ObservabilityPlugin(), DecisionGatePlugin()],
-    
+
+    # Resumability checkpoints the workflow so the clinical_review_gate's
+    # RequestInput interrupt pauses the run and resumes at the gate when the
+    # clinical reviewer responds (ADK 2.0 HITL).
+    resumability_config=ResumabilityConfig(is_resumable=True),
+
     # Configure Gemini's Context Caching.
-    # Caches the system instructions, tools, and stable prompt templates to cut repeated 
+    # Caches the system instructions, tools, and stable prompt templates to cut repeated
     # token processing and lower latency & cost for warm-path requests.
     context_cache_config=ContextCacheConfig(
         min_tokens=2048, ttl_seconds=1800, cache_intervals=10
